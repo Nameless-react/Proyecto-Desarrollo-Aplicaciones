@@ -5,4 +5,4 @@ Profesor: Jonathan Brenes Blanco<br>
 Integrantes:
 - Joel García Rojas
 - Berlin Cordero Brenes
-- Alvarado Guzman Emanuel
+- Emanuel Alvarado Guzman 
