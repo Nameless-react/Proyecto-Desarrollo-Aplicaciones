@@ -4,10 +4,13 @@
  */
 package com.proyecto.domain;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDate;
 import lombok.Data;
 
 /**
@@ -15,13 +18,15 @@ import lombok.Data;
  * @author Emanuel
  */
 @Data
+@Entity
+@Table(name = "venta")
 public class Venta  implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String detail;
-    private long amount;
     private String description;
+    private long price;
+    private LocalDate date;
 }

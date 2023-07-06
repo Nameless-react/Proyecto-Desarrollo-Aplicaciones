@@ -4,7 +4,7 @@
  */
 package com.proyecto.service;
 
-import com.proyecto.domain.Empleado;
+import com.proyecto.domain.Construccion;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
  * @author joel
  */
 @Service
-public interface EmpleadoService {
-    public Empleado getEmpleado(long id);
-    public List<Empleado> getEmpleados(boolean active);
-    public void deleteEmpleado(long id);
-    public Empleado updateEmpleado(long id);
+public interface ConstruccionService {
+    public Construccion getConstruccion(long id);
+    public List<Construccion> getConstrucciones(boolean active);
+    public void deleteConstruccion(long id);
+    public Construccion updateConstruccion(long id);
 }

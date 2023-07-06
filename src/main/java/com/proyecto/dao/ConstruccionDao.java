@@ -4,10 +4,13 @@
  */
 package com.proyecto.dao;
 
+import com.proyecto.domain.Construccion;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  *
  * @author Emanuel
  */
-public interface ConstruccionDao {
+public interface ConstruccionDao extends JpaRepository<Construccion, Long> {
     
 }

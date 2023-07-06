@@ -4,10 +4,13 @@
  */
 package com.proyecto.dao;
 
+import com.proyecto.domain.Venta;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  *
  * @author Emanuel
  */
-public interface VentaDao {
+public interface VentaDao extends JpaRepository<Venta, Long> {
     
 }

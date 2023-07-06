@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Emanuel
  */
 @Controller
+@RequestMapping("/empleados")
 public class EmpleadoController {
     
-    @RequestMapping("/url")
+    @RequestMapping("/")
     public String page(Model model) {
         model.addAttribute("attribute", "value");
         return "view.name";

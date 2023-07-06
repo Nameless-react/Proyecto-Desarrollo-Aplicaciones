@@ -4,10 +4,13 @@
  */
 package com.proyecto.dao;
 
+import com.proyecto.domain.Cliente;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  *
  * @author Emanuel
  */
-public interface ClienteDao {
+public interface ClienteDao extends JpaRepository<Cliente, Long> {
     
 }

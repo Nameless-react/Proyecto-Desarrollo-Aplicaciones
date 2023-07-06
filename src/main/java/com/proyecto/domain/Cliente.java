@@ -4,10 +4,27 @@
  */
 package com.proyecto.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.io.Serializable;
+
 /**
  *
  * @author Emanuel
  */
-public class Cliente {
+@Entity
+@Table(name = "cliente")
+public class Cliente implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    private long identification;
+    private String name;
+    private String firstSurName;
+    private String secondSurName;
+    private String phone;
+    private String email;
+    private String password;
     
 }

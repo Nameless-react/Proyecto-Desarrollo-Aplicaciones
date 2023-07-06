@@ -4,10 +4,13 @@
  */
 package com.proyecto.dao;
 
+import com.proyecto.domain.Empleado;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  *
  * @author Emanuel
  */
-public interface EmpleadoDao {
+public interface EmpleadoDao extends JpaRepository<Empleado, Long> {
     
 }

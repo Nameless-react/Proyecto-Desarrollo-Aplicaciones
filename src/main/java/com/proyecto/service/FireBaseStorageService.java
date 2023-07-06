@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FireBaseStorageService {
     public String loadImage(MultipartFile localFile, String folder, Long id);
     
-    final String BUCKETNAME = "xxidProjectxx.appspot.com";
-    final String PATH = "techshop";
+    final String BUCKETNAME = "proyecto-724ee.appspot.com";
+    final String PATH = "proyecto";
     final String PATHJSONFILE = "firebase";
-    final String JSONFILE = "xxxNombre del archivo Json";
+    final String JSONFILE = "proyecto-724ee-firebase-adminsdk-d5vsr-ff337b7bad.json";
 }
