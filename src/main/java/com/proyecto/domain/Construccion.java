@@ -4,10 +4,16 @@
  */
 package com.proyecto.domain;
 
+import java.util.Date;
+import lombok.Data;
+
 /**
  *
  * @author Emanuel
  */
+@Data
 public class Construccion {
-    
+    private long initialInvestment;
+    private Empleado chief;
+    private Date expectedFinish; 
 }

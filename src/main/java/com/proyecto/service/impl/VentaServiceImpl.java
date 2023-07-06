@@ -8,6 +8,6 @@ package com.proyecto.service.impl;
  *
  * @author Emanuel
  */
-public class ConstruccionServiceImpl1 {
+public class VentaServiceImpl {
     
 }

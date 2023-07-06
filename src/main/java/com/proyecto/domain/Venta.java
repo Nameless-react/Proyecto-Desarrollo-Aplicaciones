@@ -4,10 +4,24 @@
  */
 package com.proyecto.domain;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import java.io.Serializable;
+import lombok.Data;
+
 /**
  *
  * @author Emanuel
  */
-public class Venta {
+@Data
+public class Venta  implements Serializable {
+    private static final long serialVersionUID = 1L;
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String detail;
+    private long amount;
+    private String description;
 }
