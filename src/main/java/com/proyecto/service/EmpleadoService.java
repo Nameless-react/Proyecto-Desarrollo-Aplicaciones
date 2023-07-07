@@ -17,5 +17,5 @@ public interface EmpleadoService {
     public Empleado getEmpleado(long id);
     public List<Empleado> getEmpleados(boolean active);
     public void deleteEmpleado(long id);
-    public Empleado updateEmpleado(long id);
+    public void saveEmpleado(Empleado empleado);
 }

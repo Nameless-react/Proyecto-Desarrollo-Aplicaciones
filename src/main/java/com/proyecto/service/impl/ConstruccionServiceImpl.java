@@ -4,10 +4,40 @@
  */
 package com.proyecto.service.impl;
 
+import com.proyecto.dao.ConstruccionDao;
+import com.proyecto.domain.Construccion;
+import com.proyecto.service.ConstruccionService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author Emanuel
  */
-public class ConstruccionServiceImpl {
+public class ConstruccionServiceImpl implements ConstruccionService {
+
+    
+    @Autowired
+    private ConstruccionDao construccionDao;
+    
+    @Override
+    public Construccion getConstruccion(long id) {
+        return construccionDao.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Construccion> getConstrucciones(boolean active) {
+        return construccionDao.findAll();
+    }
+
+    @Override
+    public void deleteConstruccion(long id) {
+        construccionDao.deleteById(id);
+    }
+
+    @Override
+    public void saveConstruccion(Construccion construccion) {
+        construccionDao.save(construccion);
+    }
     
 }

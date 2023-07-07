@@ -4,10 +4,39 @@
  */
 package com.proyecto.service.impl;
 
+import com.proyecto.dao.VentaDao;
+import com.proyecto.domain.Venta;
+import com.proyecto.service.VentaService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author Emanuel
  */
-public class VentaServiceImpl {
+public class VentaServiceImpl implements VentaService{
+
+    
+    @Autowired
+    private VentaDao ventaDao;
+    @Override
+    public Venta getVenta(long id) {
+        return ventaDao.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Venta> getVentas(long id) {
+        return ventaDao.findAll();
+    }
+
+    @Override
+    public void saveVenta(Venta venta) {
+        ventaDao.save(venta);
+    }
+
+    @Override
+    public void deleteVenta(long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

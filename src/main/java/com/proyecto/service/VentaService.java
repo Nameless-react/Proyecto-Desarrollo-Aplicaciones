@@ -4,16 +4,16 @@
  */
 package com.proyecto.service;
 
-import com.proyecto.domain.Cliente;
+import com.proyecto.domain.Venta;
 import java.util.List;
 
 /**
  *
  * @author joel
  */
-public interface ClienteService {
-    public Cliente getCliente(long id);
-    public List<Cliente> getClientes();
-    public void deleteCliente(long id);
-    public void saveCliente(Cliente cliente);
+public interface VentaService {
+    public Venta getVenta(long id);
+    public List<Venta> getVentas(long id);
+    public void saveVenta(Venta venta);
+    public void deleteVenta(long id);
 }

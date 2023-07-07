@@ -17,5 +17,5 @@ public interface ConstruccionService {
     public Construccion getConstruccion(long id);
     public List<Construccion> getConstrucciones(boolean active);
     public void deleteConstruccion(long id);
-    public Construccion updateConstruccion(long id);
+    public void saveConstruccion(Construccion construccion);
 }
