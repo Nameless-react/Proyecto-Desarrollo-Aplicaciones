@@ -8,11 +8,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author Emanuel
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "cliente")
 public class Cliente implements Serializable {
@@ -26,5 +32,6 @@ public class Cliente implements Serializable {
     private String phone;
     private String email;
     private String password;
+    private String photo;
     
 }

@@ -11,13 +11,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author Emanuel
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "venta")
 public class Venta  implements Serializable {
@@ -29,4 +33,5 @@ public class Venta  implements Serializable {
     private String description;
     private long price;
     private LocalDate date;
+    private Cliente client;
 }
