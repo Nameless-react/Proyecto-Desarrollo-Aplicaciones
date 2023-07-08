@@ -25,7 +25,7 @@ public class VentaServiceImpl implements VentaService{
     }
 
     @Override
-    public List<Venta> getVentas(long id) {
+    public List<Venta> getVentas() {
         return ventaDao.findAll();
     }
 
@@ -35,8 +35,8 @@ public class VentaServiceImpl implements VentaService{
     }
 
     @Override
-    public void deleteVenta(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteVenta(Venta venta) {
+        ventaDao.delete(venta);
     }
     
 }

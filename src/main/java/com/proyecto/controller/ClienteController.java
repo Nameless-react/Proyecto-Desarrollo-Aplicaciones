@@ -6,6 +6,7 @@ package com.proyecto.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/clientes")
 public class ClienteController {
     
-    @RequestMapping("/")
+    @GetMapping("/")
     public String page(Model model) {
         model.addAttribute("attribute", "value");
         return "view.name";

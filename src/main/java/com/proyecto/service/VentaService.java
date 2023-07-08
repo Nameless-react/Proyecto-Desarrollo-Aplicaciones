@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface VentaService {
     public Venta getVenta(long id);
-    public List<Venta> getVentas(long id);
+    public List<Venta> getVentas();
     public void saveVenta(Venta venta);
-    public void deleteVenta(long id);
+    public void deleteVenta(Venta venta);
 }

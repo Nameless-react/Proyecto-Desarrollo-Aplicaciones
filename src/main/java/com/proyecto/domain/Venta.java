@@ -34,4 +34,5 @@ public class Venta  implements Serializable {
     private long price;
     private LocalDate date;
     private Cliente client;
+    private EstadoVenta state;
 }
