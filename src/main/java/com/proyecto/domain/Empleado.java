@@ -30,7 +30,10 @@ public class Empleado implements Serializable {
     private String name;
     private String firstSurName;
     private String secondSurName;
+    private String email;
+    private String phone;
     private String photo;
     private boolean active;
     private String profession;
+    private String password;
 }

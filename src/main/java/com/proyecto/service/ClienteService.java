@@ -6,11 +6,13 @@ package com.proyecto.service;
 
 import com.proyecto.domain.Cliente;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author joel
  */
+@Service
 public interface ClienteService {
     public Cliente getCliente(long id);
     public List<Cliente> getClientes();

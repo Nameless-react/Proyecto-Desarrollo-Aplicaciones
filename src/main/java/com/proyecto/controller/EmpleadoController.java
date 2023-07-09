@@ -39,7 +39,7 @@ public class EmpleadoController {
     }
     
     @PostMapping("/guardar")
-    public String save(Empleado empleado, @RequestParam("imagenFile") MultipartFile imageFile) {
+    public String save(Empleado empleado, @RequestParam("imagenFile") MultipartFile imageFile6) {
         if (!imageFile.isEmpty()) {
             empleado.setPhoto(firebaseStorageService.loadImage(imageFile, "empleados", empleado.getIdentification()));
         }
