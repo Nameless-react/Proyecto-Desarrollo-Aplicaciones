@@ -51,7 +51,7 @@ public class ConstruccionController {
 
     @GetMapping("/eliminar")
     public String delete(Construccion construccion, Model model) {
-        construccionService.deleteConstruccion(construccion);
+        construccionService.deleteConstruccion(construccion.getId());
         return "redirect:/construcciones/listar";
     }
     
