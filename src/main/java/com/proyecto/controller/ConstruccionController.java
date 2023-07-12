@@ -50,7 +50,7 @@ public class ConstruccionController {
     }
 
     @GetMapping("/eliminar")
-    public String delete(Venta construccion, Model model) {
+    public String delete(Construccion construccion, Model model) {
         construccionService.deleteConstruccion(construccion);
         return "redirect:/construcciones/listar";
     }
