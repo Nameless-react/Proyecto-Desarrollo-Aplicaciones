@@ -8,7 +8,7 @@ package com.proyecto.domain;
  *
  * @author joel
  */
-public enum EstadoVenta {
+public enum State {
     TERMINADO,
     PAGADO,
     EN_PROGRESO
