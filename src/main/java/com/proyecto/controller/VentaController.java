@@ -42,14 +42,14 @@ public class VentaController {
         return "redirect:/ventas/listar";
     }
     
-    @GetMapping("/actualizar")
+    @GetMapping("/actualizar/{id}")
     public String update(Venta venta, Model model) {
         Venta sale = ventaService.getVenta(venta.getId());
         model.addAttribute("sale", sale);
         return "/ventas/actualizar";
     }
 
-    @GetMapping("/eliminar")
+    @GetMapping("/eliminar{id}")
     public String delete(Venta venta, Model model) {
         ventaService.deleteVenta(venta);
         return "redirect:/ventas/listar";

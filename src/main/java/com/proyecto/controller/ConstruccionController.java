@@ -42,14 +42,14 @@ public class ConstruccionController {
         return "redirect:/construccion/listar";
     }
     
-    @GetMapping("/actualizar")
+    @GetMapping("/actualizar/{id}")
     public String update(Construccion construccion, Model model) {
         Construccion construction = construccionService.getConstruccion(construccion.getId());
         model.addAttribute("construction", construction);
         return "/construcciones/actualizar";
     }
 
-    @GetMapping("/eliminar")
+    @GetMapping("/eliminar/{id}")
     public String delete(Construccion construccion, Model model) {
         construccionService.deleteConstruccion(construccion.getId());
         return "redirect:/construcciones/listar";

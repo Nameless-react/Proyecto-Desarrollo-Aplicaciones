@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,7 +22,6 @@ import lombok.NoArgsConstructor;
  * @author Emanuel
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "construccion")
@@ -32,9 +33,22 @@ public class Construccion implements Serializable {
     private long initialInvestment;
     private String location;
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "chief_identification")
     private Empleado chief;
     private LocalDate expectedFinish; 
     private int amountWorkers;
     private Province province;
     private State state;
+
+    public Construccion(long initialInvestment, String location, String description, Empleado chief, LocalDate expectedFinish, int amountWorkers, Province province, State state) {
+        this.initialInvestment = initialInvestment;
+        this.location = location;
+        this.description = description;
+        this.chief = chief;
+        this.expectedFinish = expectedFinish;
+        this.amountWorkers = amountWorkers;
+        this.province = province;
+        this.state = state;
+    }
 }

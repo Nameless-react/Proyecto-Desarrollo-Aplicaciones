@@ -4,9 +4,15 @@
  */
 package com.proyecto.controller;
 
+import com.proyecto.domain.Cliente;
+import com.proyecto.service.ClienteService;
+import com.proyecto.service.impl.FireBaseStorageServiceImpl;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -17,10 +23,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/clientes")
 public class ClienteController {
     
-    @GetMapping("/")
-    public String page(Model model) {
-        model.addAttribute("attribute", "value");
-        return "view.name";
+      
+   @Autowired
+    private ClienteService clienteService;
+    
+    @Autowired
+    private FireBaseStorageServiceImpl firebaseStorageService;
+    
+    @GetMapping("/listar")
+    public String list(Model model) {
+        List<Cliente> clients = clienteService.getClientes();
+        model.addAttribute("clientes", clients);
+        return "/clientes/listar";
+    }
+    
+    @PostMapping("/guardar")
+    public String save(Cliente cliente) {
+        clienteService.saveCliente(cliente);
+        return "redirect:/construccion/listar";
+    }
+    
+    @GetMapping("/actualizar/{identification}")
+    public String update(Cliente cliente, Model model) {
+        Cliente client = clienteService.getCliente(cliente.getIdentification());
+        model.addAttribute("cliente", client);
+        return "/cliente/actualizar";
+    }
+
+    @GetMapping("/eliminar/{identification}")
+    public String delete(Cliente cliente, Model model) {
+        clienteService.deleteCliente(cliente.getIdentification());
+        return "redirect:/construcciones/listar";
     }
     
 }

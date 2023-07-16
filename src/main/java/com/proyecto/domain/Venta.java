@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
  * @author Emanuel
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "venta")
@@ -35,4 +34,14 @@ public class Venta  implements Serializable {
     private LocalDate date;
     private Cliente client;
     private State state;
+
+    public Venta(String description, long price, LocalDate date, Cliente client, State state) {
+        this.description = description;
+        this.price = price;
+        this.date = date;
+        this.client = client;
+        this.state = state;
+    }
+    
+    
 }
