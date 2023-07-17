@@ -10,6 +10,54 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+
+        <div th:fragment="add-button" class="add-button-container">
+            <div class="add-button">
+                <a th:href="@{/empleados/actualizar/}">Agregar</a>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+        </div>
+
+        <div th:fragment="list" class="list">
+            <div class="employee">
+                <h3>Nombre:</h3>
+                <p>Identificación:</p>
+                <p>Correo:</p>
+                <p>Teléfono:</p>
+                <p>Activo:</p>
+                <p>Profesión:</p>
+            </div>
+            <hr>
+            <div th:each="employee : ${employees}" class="employee">
+                <div class="employee-basic-information-container">
+                    <img th:src="@{${employee.getPhoto().length() == 0 ? 'https://t4.ftcdn.net/jpg/04/10/43/77/360_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg' : employee.getPhoto()}}" alt="">
+                    <a th:href="@{/empleados/actualizar/} + ${employee.getIdentification()}">[[${employee.getName()}]] [[${employee.getFirstSurName()}]] [[${employee.getSecondSurName()}]]</a>
+                </div>
+                <p>[[${employee.getIdentification()}]]</p>
+                <a th:href="@{'mailto:' + ${employee.getEmail()}}">[[${employee.getEmail()}]]</a>
+                <p>[[${employee.getPhone()}]]</p>
+                <p th:text="${employee.isActive()} ? 'Si' : 'No'" />
+                <p>[[${employee.getProfession()}]]</p>
+            </div>
+
+        </div>
+
+
+        <form th:action="@{/empleado/guardar}" th:object="${empleado}" method="POST" class="was-validated" enctype="multipart/form-data">
+            <label for="">Identificación:</label>
+            <input type="text" required>
+            <label for="">Nombre:</label>
+            <input type="text">
+            <label for="">Primer Apellido</label>
+            <input type="text">
+            <label for="">Segundo Apellido</label>
+            <input type="text">
+            <label for="">Corre:</label>
+            <input type="email" required>
+            <label for="">Teléfono</label>
+            <input type="text">
+            <label for="">Contraseña</label>
+            <input type="password" required>
+          </form>
     </body>
 </html>

@@ -48,17 +48,16 @@ public class EmpleadoController {
         return "redirect:/empleados/listar";
     }
     
-    @GetMapping("/actualizar")
+    @GetMapping("/actualizar/{identification}")
     public String update(Empleado empleado, Model model) {
         Empleado employee = empleadoService.getEmpleado(empleado.getIdentification());
         model.addAttribute("employee", employee);
         return "/empleados/actualizar";
     }
 
-    @GetMapping("/eliminar")
+    @GetMapping("/eliminar/{identification}")
     public String delete(Empleado empleado, Model model) {
         empleadoService.deleteEmpleado(empleado.getIdentification());
         return "redirect:/empleados/listar";
-    }
-    
+    }    
 }

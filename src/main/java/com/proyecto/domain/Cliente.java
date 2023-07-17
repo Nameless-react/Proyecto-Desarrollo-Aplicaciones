@@ -33,5 +33,4 @@ public class Cliente implements Serializable {
     private String email;
     private String password;
     private String photo;
-    
 }
