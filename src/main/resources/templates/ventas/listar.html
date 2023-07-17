@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
-
-
-
-
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="~{layout/fragments :: head}"></head>
     <body>
         <header th:replace="~{layout/fragments :: header}"></header>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div th:replace="~{ventas/fragments :: Venta}"></div>
+        <div th:replace="~{ventas/fragments :: Actual}"></div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <footer th:replace="~{layout/fragments :: footer}"></footer>
     </body>
 </html>
+
+

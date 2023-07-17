@@ -33,7 +33,7 @@
                     <a class="nav-link" aria-current="page" th:href="@{/about}">About us</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" aria-current="page" th:href="@{/contact}">Contact</a>
+                    <a class="nav-link" aria-current="page" th:href="@{ventas/listar}">Catalogo</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" aria-current="page" th:href="@{/signin}">Sign in</a>
@@ -109,29 +109,35 @@
 
 
 
-          <section th:fragment="cards" class="cards">
+        <section th:fragment="cards" class="cards">
             <div class="card">
-              <i class="fa-solid fa-person-digging"></i>
-              <h2>Lorem, ipsum dolor.</h2>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
+                <i class="fa-solid fa-person-digging"></i>
+                <h2>Lorem, ipsum dolor.</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
             </div>
             <div class="card">
-              <i class="fa-solid fa-person-digging"></i>
-              <h2>Lorem, ipsum dolor.</h2>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
+                <i class="fa-solid fa-person-digging"></i>
+                <h2>Lorem, ipsum dolor.</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
             </div>
             <div class="card">
-              <i class="fa-solid fa-person-digging"></i>
-              <h2>Lorem, ipsum dolor.</h2>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
+                <i class="fa-solid fa-person-digging"></i>
+                <h2>Lorem, ipsum dolor.</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
             </div>
 
+            <div class="card">
+                <i class="fa-solid fa-person-digging"></i>
+                <h2>Busca Casa?</h2>
+                <p>Mire nuestro catalogo y con gusto le brindaremos detalles de la vivienda que desee.</p>
+            </div>
+            
         </section>
 
-          <footer  style="padding: 1rem;" th:fragment="footer" class="bg-dark text-center text-white">
-            <div class="container p-4 pb-0">
-            
-              <section class="mb-4">
+        <footer  style="padding: 1rem;" th:fragment="footer" class="bg-dark text-center text-white">
+              <div class="container p-4 pb-0">
+
+                  <section class="mb-4">
                 <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/grupodcicr?mibextid=ZbWKwL" role="button"
                   ><i class="fab fa-facebook-f"></i></a>
           

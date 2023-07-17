@@ -7,32 +7,35 @@ package com.proyecto.controller;
 import com.proyecto.domain.Venta;
 import com.proyecto.service.VentaService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- *
- * @author Emanuel
- */
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 @Controller
 @RequestMapping("/ventas")
 public class VentaController {
-    
+
     @Autowired
     private VentaService ventaService;
-    
+
     @Autowired
     private FireBaseStorageServiceImpl firebaseStorageService;
+
     
     @GetMapping("/listar")
-    public String list(Model model) {
-        List<Venta> sales = ventaService.getVentas();
-        model.addAttribute("sales", sales);
+    public String list(Model model, @RequestParam(defaultValue = "0") int page) {
+        int pageSize = 3; // Número de elementos por página
+        Page<Venta> salesPage = ventaService.getVentasPaginadas(PageRequest.of(page, pageSize));
+        model.addAttribute("salesPage", salesPage);
         return "/ventas/listar";
     }
     
@@ -41,10 +44,10 @@ public class VentaController {
         ventaService.saveVenta(venta);
         return "redirect:/ventas/listar";
     }
-    
+
     @GetMapping("/actualizar/{id}")
-    public String update(Venta venta, Model model) {
-        Venta sale = ventaService.getVenta(venta.getId());
+    public String update(@PathVariable("id") Long id, Model model) {
+        Venta sale = ventaService.getVenta(id);
         model.addAttribute("sale", sale);
         return "/ventas/actualizar";
     }
@@ -54,5 +57,4 @@ public class VentaController {
         ventaService.deleteVenta(venta);
         return "redirect:/ventas/listar";
     }
-    
 }
