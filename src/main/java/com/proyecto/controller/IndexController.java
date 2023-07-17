@@ -14,5 +14,9 @@ public class IndexController {
         model.addAttribute("attribute", "value");
         return "index";
     }
-    
+        @GetMapping("/archivos")
+    public String archivos(Model model) {
+        model.addAttribute("attribute", "value");
+        return "/Archivos/listar";
+    }
 }
