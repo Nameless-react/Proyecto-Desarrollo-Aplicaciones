@@ -11,11 +11,10 @@
     background-color: #fff;
     box-shadow: -5px -5px 9px #ffffff73, 5px 5px 9px #5e68794d;
     border-radius: 20px;
-    width: clamp(225px, 33%, 500px);
+    width: clamp(300px, 35%, 600px);
     border: 0.01px solid #0001;
 
-    min-width: 250px;
-    min-height: 20rem;
+    min-height: 28rem;
     padding: 2em 2.2em;
     transition: box-shadow, transform .5s ease;
     display: flex;
@@ -33,13 +32,17 @@
     font-size: 1.5rem;
 }
 
+.card h2 {
+    text-align: center;
+}
+
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0px 10px 20px 2px #0003;
 }
 
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1000px) {
     .cards {
       flex-direction: column;
     }

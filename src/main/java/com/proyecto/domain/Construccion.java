@@ -13,7 +13,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -36,6 +35,10 @@ public class Construccion implements Serializable {
     @ManyToOne
     @JoinColumn(name = "chief_identification")
     private Empleado chief;
+    
+    @ManyToOne
+    @JoinColumn(name = "client_identification")
+    private Cliente client;
     private LocalDate expectedFinish; 
     private int amountWorkers;
     private Province province;

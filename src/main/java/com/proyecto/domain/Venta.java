@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -34,21 +33,17 @@ public class Venta implements Serializable {
     private long price;
     private LocalDate date;
     private String state;
-    private String province;
-    private String photo;
+    private Province province;
+    private String photo;   
+    private LocalDate publicationDate;
 
-    
-    
-    
-    public Venta(String description, long price, LocalDate date,String state, String province, String photo) {
+    public Venta(String description, long price, LocalDate date, String state, Province province, String photo, LocalDate publicationDate) {
         this.description = description;
         this.price = price;
         this.date = date;
         this.state = state;
         this.province = province;
         this.photo = photo;
+        this.publicationDate = publicationDate;
     }
-
-
-    
 }
