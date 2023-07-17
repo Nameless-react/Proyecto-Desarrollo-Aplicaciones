@@ -23,25 +23,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "venta")
-public class Venta  implements Serializable {
+public class Venta implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String description;
     private long price;
     private LocalDate date;
-    private Cliente client;
-    private State state;
+    private String state;
+    private String province;
+    private String photo;
 
-    public Venta(String description, long price, LocalDate date, Cliente client, State state) {
+    
+    
+    
+    public Venta(String description, long price, LocalDate date,String state, String province, String photo) {
         this.description = description;
         this.price = price;
         this.date = date;
-        this.client = client;
         this.state = state;
+        this.province = province;
+        this.photo = photo;
     }
-    
+
+
     
 }
