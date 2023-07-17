@@ -9,6 +9,8 @@ import com.proyecto.domain.Venta;
 import com.proyecto.service.VentaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,5 +49,11 @@ public class VentaServiceImpl implements VentaService{
     public void deleteVenta(Venta venta) {
         ventaDao.delete(venta);
     }
-    
+
+    // Implementación del método getVentasPaginadas
+    @Override
+    public Page<Venta> getVentasPaginadas(Pageable pageable) {
+        return ventaDao.findAll(pageable);
+    }
+
 }
