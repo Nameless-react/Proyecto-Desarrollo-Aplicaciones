@@ -35,4 +35,6 @@ public class Construccion implements Serializable {
     private Empleado chief;
     private LocalDate expectedFinish; 
     private int amountWorkers;
+    private Province province;
+    private State state;
 }
