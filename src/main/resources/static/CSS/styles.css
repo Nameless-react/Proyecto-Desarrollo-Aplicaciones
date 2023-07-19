@@ -42,11 +42,6 @@
 }
 
 
-@media only screen and (max-width: 1000px) {
-    .cards {
-      flex-direction: column;
-    }
-}
 
 .employee {
     display: grid;
@@ -55,6 +50,7 @@
     align-items: center;
     background: #eee;
     width: 80%;
+    min-width: 800px;
     padding: .8em 2em;
     gap: 2rem;
     cursor: pointer;
@@ -64,6 +60,10 @@
     font-size: 1rem;
     margin: auto;
     text-align: center;
+}
+
+.header h3, .header p {
+    font-weight: bold;
 }
 
 .employee-basic-information-container {
@@ -84,33 +84,41 @@
     color: #000;
 }
 
-.add-button-container {
-    display: flex;
-    justify-content: flex-start;
-    margin: 0 auto;
-    width: 80%;
-}
 
 .add-button {
     font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 8%;
+    /* width: 13%; */
+    min-width: 13%;
 }
 
 .add-button a {
     color: #fff;
     padding: .5em 1em;
+    font-size: 1.2rem;
     text-decoration: none;
     background-color: #dc5d44;
+    min-width: 0;
 }
 
 .add-button i {
     color: #fff;
     padding: .75em 1em;
     background-color: #D55034;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
+
+.employee-options {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 auto;
+}
+
 
 .list {
     display: flex;
@@ -126,6 +134,7 @@
     font-size: 3rem;
     color: #000;
     margin-top: 10rem;
+    margin-bottom: 4rem;
     text-align: center;
 }
 
@@ -156,4 +165,99 @@
 .chat i {
     font-size: 2rem;
     color: #000;
+}
+
+.form {
+    background-color: #fff;
+    box-shadow: 5px 5px 9px #5e68794d;
+    border: 0.01px solid #0001;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 4rem auto;
+    border-radius: 20px;
+    flex-direction: column;
+    padding: 6em 2em;
+    width: 50%;
+    min-height: 50vh;
+    gap: 2rem;
+}
+
+.form input {
+    border: none;
+    background-color: #f1f0f0;
+    border-radius: 20px;
+    padding: .5em 2em;
+    outline: none;
+    width: 70%;
+    font-size: 1.1rem;
+}
+
+.form h1 {
+    margin-bottom: 4rem;
+    font-weight: bold;
+}
+
+.form button {
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    padding: .3em 4em;
+    font-size: 2rem;
+    margin-top: .5rem;
+    font-weight: bold;
+    background-color: #C15E37;
+    color: #fff;
+    transition: transform .5s ease;
+}
+
+.form button:hover {
+    transform: scale(1.1);
+}
+
+.checkbox {
+    min-width: 180px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2%;
+}
+
+.checkbox label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.checkbox input {
+    width: 20px;
+}
+
+.atras {
+    margin-top: 9rem;
+    margin-left: 3rem;
+    text-decoration: none;
+    display: inline-block;
+    color: #000;
+}
+
+.atras i {
+    font-size: 3.5rem
+}
+
+.atras:hover {
+    color: #000;
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+    .cards {
+      flex-direction: column;
+    }
+
+    .form {
+        width: 80%;
+        min-width: 600px;
+    }
 }

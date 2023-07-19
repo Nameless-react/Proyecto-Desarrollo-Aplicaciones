@@ -36,6 +36,11 @@ public class ConstruccionController {
         return "/construcciones/listar";
     }
     
+    @GetMapping("/nuevo")
+    public String newElement(Construccion construction) {
+        return "/construccion/modifica";
+    }
+    
     @PostMapping("/guardar")
     public String save(Construccion construccion) {
         construccionService.saveConstruccion(construccion);

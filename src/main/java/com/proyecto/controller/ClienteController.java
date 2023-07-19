@@ -37,6 +37,11 @@ public class ClienteController {
         return "/clientes/listar";
     }
     
+    @GetMapping("/nuevo")
+    public String newElement(Cliente client) {
+        return "/empleados/actualizar";
+    }
+    
     @PostMapping("/guardar")
     public String save(Cliente cliente) {
         clienteService.saveCliente(cliente);

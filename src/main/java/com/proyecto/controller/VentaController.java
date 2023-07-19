@@ -39,6 +39,11 @@ public class VentaController {
         return "/ventas/listar";
     }
     
+    @GetMapping("/nuevo")
+    public String newElement(Venta venta) {
+        return "/venta/actualizar";
+    }
+    
     @PostMapping("/guardar")
     public String save(Venta venta) {
         ventaService.saveVenta(venta);

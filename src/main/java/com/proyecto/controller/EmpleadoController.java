@@ -8,6 +8,7 @@ import com.proyecto.domain.Empleado;
 import com.proyecto.service.EmpleadoService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 @RequestMapping("/empleados")
+@Slf4j
 public class EmpleadoController {
     
     @Autowired
@@ -38,8 +40,14 @@ public class EmpleadoController {
         return "/empleados/listar";
     }
     
+    @GetMapping("/nuevo")
+    public String newElement(Empleado employee) {
+        return "/empleados/actualizar";
+    }
+    
     @PostMapping("/guardar")
     public String save(Empleado empleado, @RequestParam("imagenFile") MultipartFile imageFile) {
+        log.info(String.valueOf(empleado.getIdentification()));
         if (!imageFile.isEmpty()) {
             empleado.setPhoto(firebaseStorageService.loadImage(imageFile, "empleados", empleado.getIdentification()));
         }
@@ -50,8 +58,8 @@ public class EmpleadoController {
     
     @GetMapping("/actualizar/{identification}")
     public String update(Empleado empleado, Model model) {
-        Empleado employee = empleadoService.getEmpleado(empleado.getIdentification());
-        model.addAttribute("employee", employee);
+        empleado = empleadoService.getEmpleado(empleado.getIdentification());
+        model.addAttribute("empleado", empleado);
         return "/empleados/actualizar";
     }
 

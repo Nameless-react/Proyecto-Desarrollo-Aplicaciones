@@ -3,7 +3,7 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
@@ -11,15 +11,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
 
-        <div th:fragment="add-button" class="add-button-container">
-            <div class="add-button">
-                <a th:href="@{/empleados/actualizar/}">Agregar</a>
-                <i class="fa-solid fa-plus"></i>
-            </div>
+        
+        <div th:fragment="add-button" class="add-button">
+            <a th:href="@{/empleados/nuevo}">Agregar</a>
+            <i class="fa-solid fa-plus"></i>
         </div>
+        
 
         <div th:fragment="list" class="list">
-            <div class="employee">
+            <div class="employee header">
                 <h3>Nombre:</h3>
                 <p>Identificación:</p>
                 <p>Correo:</p>
@@ -42,22 +42,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
         </div>
 
+        <div th:fragment="options" class="employee-options">
+            <div th:replace="~{empleados/fragments :: add-button}"></div>
+        </div>
 
-        <form th:action="@{/empleado/guardar}" th:object="${empleado}" method="POST" class="was-validated" enctype="multipart/form-data">
-            <label for="">Identificación:</label>
-            <input type="text" required>
-            <label for="">Nombre:</label>
-            <input type="text">
-            <label for="">Primer Apellido</label>
-            <input type="text">
-            <label for="">Segundo Apellido</label>
-            <input type="text">
-            <label for="">Corre:</label>
-            <input type="email" required>
-            <label for="">Teléfono</label>
-            <input type="text">
-            <label for="">Contraseña</label>
-            <input type="password" required>
+
+        <form th:fragment="form" th:action="@{/empleados/guardar}" th:object="${empleado}" method="POST" class="was-validated form" enctype="multipart/form-data">
+            <input type="hidden" name="photo" th:field="*{photo}"/>   
+            <h1 th:text="${empleado.identification} != 0  ? 'Modificar Empleado' : 'Agregar Empleado'"></h1>
+
+            <input th:if="${empleado.identification} == 0" type="number" min="10000000" required placeholder="Identificación" name="identification">
+            <input th:if="${empleado.identification} != 0" type="number" min="10000000" required placeholder="Identificación" th:field="*{identification}">
+            
+            <input type="text" placeholder="Nombre" th:field="*{name}">        
+            <input type="text" placeholder="Primer Apellido" th:field="${empleado.firstSurName}">            
+            <input type="text" placeholder="Segundo Apellido" th:field="${empleado.secondSurName}">            
+            <input type="email" required placeholder="Correo" th:field="*{email}">            
+            <input type="text" placeholder="Teléfono" th:field="*{phone}">
+            
+            <input th:if="${empleado.identification} == 0" type="password" required placeholder="Contraseña" th:field="*{password}">
+            <input type="text" placeholder="Profesión" th:field="*{profession}">
+            <div class="checkbox">
+                <label for="activo">Activo</label>
+                <input class="" type="checkbox" name="active" id="activo" th:field="*{active}">
+            </div>
+            <input type="file" onchange="readURL(this)" name="imagenFile">
+            <img id="blah" th:src="*{photo}" height="200">
+            <button type="submit" th:text="${empleado.identification} != 0 ? 'Modificar' : 'Agregar'"></button>
         </form>
     </body>
 </html>
