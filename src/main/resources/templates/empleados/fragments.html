@@ -49,6 +49,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
         <form th:fragment="form" th:action="@{/empleados/guardar}" th:object="${empleado}" method="POST" class="was-validated form" enctype="multipart/form-data">
             <input type="hidden" name="photo" th:field="*{photo}"/>   
+            <input type="hidden" required placeholder="Contraseña" th:field="*{password}">
             <h1 th:text="${empleado.identification} != 0  ? 'Modificar Empleado' : 'Agregar Empleado'"></h1>
 
             <input th:if="${empleado.identification} == 0" type="number" min="10000000" required placeholder="Identificación" name="identification">
