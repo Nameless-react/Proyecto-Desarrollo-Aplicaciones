@@ -65,7 +65,11 @@ public class EmpleadoController {
 
     @GetMapping("/eliminar/{identification}")
     public String delete(Empleado empleado, Model model) {
-        empleadoService.deleteEmpleado(empleado.getIdentification());
+        Empleado employee = empleadoService.getEmpleado(empleado.getIdentification());
+        firebaseStorageService.delete(employee.getPhoto().split("empleados/")[1].split("\\?")[0], "empleados");
+        
+        if (employee.getPhoto().length() != 0) empleadoService.deleteEmpleado(empleado.getIdentification());
+        
         return "redirect:/empleados/listar";
     }    
 }

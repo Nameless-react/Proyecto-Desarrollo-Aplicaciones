@@ -17,7 +17,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +32,9 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service
 public class FireBaseStorageServiceImpl implements FireBaseStorageService {
-
+    private final Path root = Paths.get("uploads");
+    
+    
     @Override
     public String loadImage(MultipartFile localFile, String folder, Long id) {
         try {
@@ -73,5 +79,22 @@ public class FireBaseStorageServiceImpl implements FireBaseStorageService {
      private String getNumber(long id) {
         return String.format("%019d", id);
     } 
+
+    @Override
+    public boolean delete(String fileName, String folder) {
+        ClassPathResource json = new ClassPathResource(PATHJSONFILE + File.separator + JSONFILE);
+        BlobId blobId = BlobId.of(BUCKETNAME, PATH + "/" + folder + "/" + fileName);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
+        
+        Credentials credentials;
+        try {
+            credentials = GoogleCredentials.fromStream(json.getInputStream());
+        } catch (IOException ex) {
+            return false;
+        }
+        Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+        storage.delete(blobId);
+        return true;
+    }
     
 }

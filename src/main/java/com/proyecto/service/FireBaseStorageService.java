@@ -4,6 +4,7 @@
  */
 package com.proyecto.service;
 
+import java.io.IOException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public interface FireBaseStorageService {
     public String loadImage(MultipartFile localFile, String folder, Long id);
+    public boolean delete(String fileName, String folder);
     
     final String BUCKETNAME = "proyecto-724ee.appspot.com";
     final String PATH = "proyecto";

@@ -16,6 +16,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <a th:href="@{/empleados/nuevo}">Agregar</a>
             <i class="fa-solid fa-plus"></i>
         </div>
+
+        <div th:fragment="delete-button" class="delete-button">
+            <a th:href="@{/empleados/eliminar/} + ${employee.getIdentification()}">Eliminar</a>
+            <i class="fa-solid fa-trash"></i>
+        </div>
         
 
         <div th:fragment="list" class="list">
@@ -38,6 +43,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <p>[[${employee.getPhone()}]]</p>
                 <p th:text="${employee.isActive()} ? 'Si' : 'No'" />
                 <p>[[${employee.getProfession()}]]</p>
+                <div th:replace="~{empleados/fragments :: delete-button}"></div>
             </div>
 
         </div>
