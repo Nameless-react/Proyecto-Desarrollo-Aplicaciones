@@ -33,35 +33,67 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </section>
 
         <section th:fragment="Venta" id="id" style="margin-left: 250px; margin-right: 250px;">
-            <div class="sale">
-                <table class="table" style="background-color: lightseagreen">
-                    <thead>
-                        <tr>
-                            <th style="border-bottom: 2px solid gray; color: white" scope="col">Imagen</th>
-                            <th style="border-bottom: 2px solid gray; color: white" scope="col">Descripcion</th>
-                            <th style="border-bottom: 2px solid gray; color: white" scope="col">Precio</th>
-                            <th style="border-bottom: 2px solid gray; color: white" scope="col">Fecha de publicacion</th>
-                            <th style="border-bottom: 2px solid gray; color: white" scope="col">Estado</th>
-                            <th style="border-bottom: 2px solid gray; color: white" scope="col">Provincia</th>
-                        </tr>
-                    </thead>           
-                    <tbody>
-                        <tr th:each="venta : ${salesPage.content}" style="background-color: lightgray">
-                            <td style="text-align: left;">
-                                <a th:href="${venta.photo}" target="_blank">
-                                    <img th:src="${venta.photo}" alt="Imagen de venta" style="max-width: 250px; max-height: 250px;">
-                                </a>
-                            </td>
-                            <br>
-                                <td style="text-align: center;" th:text="${venta.description}">#</td>
-                                <td style="text-align: center;" th:text="${venta.price}"></td>
-                                <td style="text-align: center;" th:text="${venta.date}"></td>
-                                <td style="text-align: center;" th:text="${venta.state}"></td>
-                                <td style="text-align: center;" th:text="${venta.province}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>    
+    <form th:action="@{/ventas/listar}" method="get">
+        <div class="form-group">
+            <label>Seleccione las provincias:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="provincia" value="CARTAGO" id="checkboxCartago">
+                <label class="form-check-label" for="checkboxCartago">CARTAGO</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="provincia" value="ALAJUELA" id="checkboxAlajuela">
+                <label class="form-check-label" for="checkboxAlajuela">ALAJUELA</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="provincia" value="SAN_JOSE" id="checkboxSanJose">
+                <label class="form-check-label" for="checkboxSanJose">SAN JOSE</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="provincia" value="LIMON" id="checkboxLimon">
+                <label class="form-check-label" for="checkboxLimon">LIMON</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="provincia" value="PUNTARENAS" id="checkboxPuntarenas">
+                    <label class="form-check-label" for="checkboxPuntarenas">PUNTARENAS</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="provincia" value="GUANACASTE" id="checkboxGuanacaste">
+                    <label class="form-check-label" for="checkboxGuanacaste">GUANACASTE</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </form>
+    <br>
+        <div class="sale">
+            <table class="table" style="background-color: lightseagreen">
+                <thead>
+                    <tr>
+                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Imagen</th>
+                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Descripcion</th>
+                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Precio</th>
+                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Fecha de publicacion</th>
+                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Estado</th>
+                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Provincia</th>
+                    </tr>
+                </thead>           
+                <tbody>
+                    <tr th:each="venta : ${salesPage.content}" style="background-color: lightgray">
+                        <td style="text-align: left;">
+                            <a th:href="@{/ventas/perfil/{id}(id=${venta.id})}">
+                                <img th:src="${venta.photo}" alt="Imagen de venta" style="max-width: 250px; max-height: 250px;">
+                            </a>
+                        </td>
+                        <td style="text-align: center;">
+                            <a th:href="@{/ventas/perfil/{id}(id=${venta.id})}" th:text="${venta.description}"></a>
+                        </td>
+                        <td style="text-align: center;" th:text="${venta.price}"></td>
+                        <td style="text-align: center;" th:text="${venta.date}"></td>
+                        <td style="text-align: center;" th:text="${venta.state}"></td>
+                        <td style="text-align: center;" th:text="${venta.province}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>    
         </section>
         <section th:fragment="Actual">
             <nav aria-label="Page navigation example">

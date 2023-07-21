@@ -7,6 +7,7 @@ package com.proyecto.controller;
 import com.proyecto.domain.Venta;
 import com.proyecto.service.VentaService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,16 +33,20 @@ public class VentaController {
 
     
     @GetMapping("/listar")
-    public String list(Model model, @RequestParam(defaultValue = "0") int page) {
+    public String list(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(name = "provincia", required = false) List<String> provincias) {
         int pageSize = 3; // Número de elementos por página
-        Page<Venta> salesPage = ventaService.getVentasPaginadas(PageRequest.of(page, pageSize));
-        model.addAttribute("salesPage", salesPage);
+
+        if (provincias == null || provincias.isEmpty()) {
+            // Si no se seleccionaron provincias, obtenemos todas las ventas paginadas sin filtrar
+            Page<Venta> salesPage = ventaService.getVentasPaginadas(PageRequest.of(page, pageSize));
+            model.addAttribute("salesPage", salesPage);
+        } else {
+            // Si se seleccionaron provincias, filtramos las ventas por esas provincias
+            Page<Venta> salesPage = ventaService.getVentasPaginadasByProvincias(provincias, PageRequest.of(page, pageSize));
+            model.addAttribute("salesPage", salesPage);
+        }
+
         return "/ventas/listar";
-    }
-    
-    @GetMapping("/nuevo")
-    public String newElement(Venta venta) {
-        return "/venta/actualizar";
     }
     
     @PostMapping("/guardar")
@@ -61,5 +66,12 @@ public class VentaController {
     public String delete(Venta venta, Model model) {
         ventaService.deleteVenta(venta);
         return "redirect:/ventas/listar";
+    }
+    
+    @GetMapping("/perfil/{id}")
+    public String perfil(@PathVariable("id") long id, Model model) {
+        Venta venta = ventaService.getVenta(id);
+        model.addAttribute("venta", venta);
+        return "/ventas/perfil";
     }
 }
