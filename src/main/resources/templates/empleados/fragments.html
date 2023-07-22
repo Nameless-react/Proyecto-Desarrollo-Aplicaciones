@@ -28,9 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <h3>Nombre:</h3>
                 <p>Identificación:</p>
                 <p>Correo:</p>
-                <p>Teléfono:</p>
                 <p>Activo:</p>
-                <p>Profesión:</p>
             </div>
             <hr>
             <div th:each="employee : ${employees}" class="employee">
@@ -40,9 +38,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
                 <p>[[${employee.getIdentification()}]]</p>
                 <a th:href="@{'mailto:' + ${employee.getEmail()}}">[[${employee.getEmail()}]]</a>
-                <p>[[${employee.getPhone()}]]</p>
                 <p th:text="${employee.isActive()} ? 'Si' : 'No'" />
-                <p>[[${employee.getProfession()}]]</p>
                 <div th:replace="~{empleados/fragments :: delete-button}"></div>
             </div>
 
