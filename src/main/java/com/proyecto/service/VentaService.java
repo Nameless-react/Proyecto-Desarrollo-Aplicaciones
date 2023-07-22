@@ -26,5 +26,7 @@ public interface VentaService {
     public void deleteVenta(Venta venta);
 
     Page<Venta> getVentasPaginadas(Pageable pageable);
+    
+     Page<Venta> getVentasPaginadasByProvincias(List<String> provincias, Pageable pageable);
 
 }
