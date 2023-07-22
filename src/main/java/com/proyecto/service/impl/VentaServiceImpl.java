@@ -55,5 +55,10 @@ public class VentaServiceImpl implements VentaService{
     public Page<Venta> getVentasPaginadas(Pageable pageable) {
         return ventaDao.findAll(pageable);
     }
+    
+    @Override
+    public Page<Venta> getVentasPaginadasByProvincias(List<String> provincias, Pageable pageable) {
+        return ventaDao.findAllByProvinceIn(provincias, pageable);
+    }
 
 }
