@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        
+        <div th:fragment="add-button" class="add-button">
+            <a th:href="@{/empleados/nuevo}">Agregar</a>
+            <i class="fa-solid fa-plus"></i>
+        </div>
+
+        <div th:fragment="delete-button" class="delete-button">
+            <a th:href="@{/empleados/eliminar/} + ${client.getIdentification()}">Eliminar</a>
+            <i class="fa-solid fa-trash"></i>
+        </div>
+        
+
+        <div th:fragment="list" class="list">
+            <div class="client header">
+                <h3>Nombre:</h3>
+                <p>Identificación:</p>
+                <p>Correo:</p>
+            </div>
+            <hr>
+            <div th:each="client : ${clients}" class="client">
+                <h2 th:if="${size == 0}">No existen clientes</h2>
+                <div class="client-basic-information-container">
+                    <img th:src="@{${client.getPhoto().length() == 0 ? 'https://t4.ftcdn.net/jpg/04/10/43/77/360_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg' : client.getPhoto()}}" alt="">
+                    <a th:href="@{/clientes/actualizar/} + ${client.getIdentification()}">[[${client.getName()}]] [[${client.getFirstSurName()}]] [[${client.getSecondSurName()}]]</a>
+                </div>
+                <p>[[${client.getIdentification()}]]</p>
+                <a th:href="@{'mailto:' + ${client.getEmail()}}">[[${client.getEmail()}]]</a>
+                <div th:replace="~{clientes/fragments :: delete-button}"></div>
+            </div>
+
+        </div>
+
+        <div th:fragment="options" class="employee-options">
+            <div th:replace="~{empleados/fragments :: add-button}"></div>
+        </div>
+
+
+        <form th:fragment="form" th:action="@{/clientes/guardar}" th:object="${cliente}" method="POST" class="was-validated form" enctype="multipart/form-data">
+            <input type="hidden" name="photo" th:field="*{photo}"/>   
+            <input type="hidden" required placeholder="Contraseña" th:field="*{password}">
+            <h1 th:text="${cliente.identification} != 0  ? 'Modificar Cliente' : 'Agregar Cliente'"></h1>
+
+            <input th:if="${cliente.identification} == 0" type="number" min="10000000" required placeholder="Identificación" name="identification">
+            <input th:if="${cliente.identification} != 0" type="number" min="10000000" required placeholder="Identificación" th:field="*{identification}">
+            
+            <input type="text" placeholder="Nombre" th:field="*{name}">        
+            <input type="text" placeholder="Primer Apellido" th:field="${cliente.firstSurName}">            
+            <input type="text" placeholder="Segundo Apellido" th:field="${cliente.secondSurName}">            
+            <input type="email" required placeholder="Correo" th:field="*{email}">            
+            <input type="text" placeholder="Teléfono" th:field="*{phone}">
+            
+            <input th:if="${cliente.identification} == 0" type="password" required placeholder="Contraseña" th:field="*{password}">            
+            <input type="file" onchange="readURL(this)" name="imagenFile">
+            <img id="blah" th:src="*{photo}" height="200">
+            <button type="submit" th:text="${cliente.identification} != 0 ? 'Modificar' : 'Agregar'"></button>
+        </form>
+    </body>
+</html>

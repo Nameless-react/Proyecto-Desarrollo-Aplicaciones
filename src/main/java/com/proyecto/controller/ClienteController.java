@@ -33,32 +33,33 @@ public class ClienteController {
     @GetMapping("/listar")
     public String list(Model model) {
         List<Cliente> clients = clienteService.getClientes();
-        model.addAttribute("clientes", clients);
+        model.addAttribute("clients", clients);
+        model.addAttribute("size", clients.size());
         return "/clientes/listar";
     }
     
     @GetMapping("/nuevo")
     public String newElement(Cliente client) {
-        return "/empleados/actualizar";
+        return "/clientes/actualizar";
     }
     
     @PostMapping("/guardar")
     public String save(Cliente cliente) {
         clienteService.saveCliente(cliente);
-        return "redirect:/construccion/listar";
+        return "redirect:/clientes/listar";
     }
     
     @GetMapping("/actualizar/{identification}")
     public String update(Cliente cliente, Model model) {
         Cliente client = clienteService.getCliente(cliente.getIdentification());
         model.addAttribute("cliente", client);
-        return "/cliente/actualizar";
+        return "/clientes/actualizar";
     }
 
     @GetMapping("/eliminar/{identification}")
     public String delete(Cliente cliente, Model model) {
         clienteService.deleteCliente(cliente.getIdentification());
-        return "redirect:/construcciones/listar";
+        return "redirect:/clientes/listar";
     }
     
 }

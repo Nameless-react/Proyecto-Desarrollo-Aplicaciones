@@ -6,8 +6,11 @@ package com.proyecto.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,4 +36,8 @@ public class Cliente implements Serializable {
     private String email;
     private String password;
     private String photo;
+    
+    @OneToMany
+    @JoinColumn(name = "id_usuario")
+    List<Rol> roles;
 }
