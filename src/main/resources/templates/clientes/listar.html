@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<html>
+    <head th:replace="~{layout/fragments :: head}"></head>
+    <body>
+        
+        <header th:replace="~{layout/fragments :: header}"></header>
+        <h1 class="title">Clientes</h1>
+        <div th:replace="~{clientes/fragments :: options}"></div>
+        <div th:replace="~{clientes/fragments :: list}"></div>
+        <footer th:replace="~{layout/fragments :: footer}"></footer>
+    </body>
+</html>

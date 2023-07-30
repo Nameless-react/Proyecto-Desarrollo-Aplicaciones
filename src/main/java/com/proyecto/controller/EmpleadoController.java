@@ -37,6 +37,7 @@ public class EmpleadoController {
     public String list(Model model) {
         List<Empleado> employees = empleadoService.getEmpleados(true);
         model.addAttribute("employees", employees);
+        model.addAttribute("size", employees.size());
         return "/empleados/listar";
     }
     

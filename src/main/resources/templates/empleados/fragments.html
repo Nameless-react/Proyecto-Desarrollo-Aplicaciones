@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>TODO supply a title</title>
@@ -28,21 +24,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <h3>Nombre:</h3>
                 <p>Identificación:</p>
                 <p>Correo:</p>
-                <p>Teléfono:</p>
                 <p>Activo:</p>
-                <p>Profesión:</p>
             </div>
             <hr>
             <div th:each="employee : ${employees}" class="employee">
+                <h2 th:if="${size} == 0">No existen clientes</h2>
                 <div class="employee-basic-information-container">
                     <img th:src="@{${employee.getPhoto().length() == 0 ? 'https://t4.ftcdn.net/jpg/04/10/43/77/360_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg' : employee.getPhoto()}}" alt="">
                     <a th:href="@{/empleados/actualizar/} + ${employee.getIdentification()}">[[${employee.getName()}]] [[${employee.getFirstSurName()}]] [[${employee.getSecondSurName()}]]</a>
                 </div>
                 <p>[[${employee.getIdentification()}]]</p>
                 <a th:href="@{'mailto:' + ${employee.getEmail()}}">[[${employee.getEmail()}]]</a>
-                <p>[[${employee.getPhone()}]]</p>
                 <p th:text="${employee.isActive()} ? 'Si' : 'No'" />
-                <p>[[${employee.getProfession()}]]</p>
                 <div th:replace="~{empleados/fragments :: delete-button}"></div>
             </div>
 

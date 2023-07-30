@@ -16,32 +16,33 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 /**
  *
- * @author Emanuel
+ * @author joel
  */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "empleado")
-public class Empleado implements Serializable {
+@Table(name = "usuario")
+public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    @Id
-    private long identification;
-    private String name;
-    private String firstSurName;
-    private String secondSurName;
-    private String email;
-    private String phone;
-    private String photo;
-    private boolean active;
-    private String profession;
-    private String password;
     
-    @OneToOne
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    @Id
+    private long id_user;
+    private Type type;
+    
+    @OneToMany
+    @JoinColumn(name = "usuario")
+    private List<Rol> roles;
+    
+    
+    @OneToOne(mappedBy = "usuario")
+    private Cliente cliente;
+    
+    @OneToOne(mappedBy = "usuario")
+    private Empleado empleado;
+    
 }

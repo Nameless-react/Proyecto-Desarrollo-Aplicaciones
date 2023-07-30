@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/fragments :: head}"></head>
+    <body>
+        <header th:replace="~{layout/fragments :: header}"></header>
+        <a class="atras" th:href="@{/clientes/listar}"><i class="fa-solid fa-left-long"></i></a>
+        <form th:replace="~{clientes/fragments :: form}"></form>
+        <footer th:replace="~{layout/fragments :: footer}"></footer>
+    </body>
+</html>
