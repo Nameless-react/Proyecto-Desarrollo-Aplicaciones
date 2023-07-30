@@ -5,12 +5,12 @@
 package com.proyecto.dao;
 
 import com.proyecto.domain.Construccion;
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-/**
- *
- * @author Emanuel
- */
+
 public interface ConstruccionDao extends JpaRepository<Construccion, Long> {
-    
+    Page<Construccion> findAllByProvinceIn(List<String> provincias, Pageable pageable);
 }
