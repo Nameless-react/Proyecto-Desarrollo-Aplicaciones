@@ -5,8 +5,11 @@
 package com.proyecto.controller;
 
 import com.proyecto.domain.Empleado;
+import com.proyecto.domain.Usuario;
 import com.proyecto.service.EmpleadoService;
+import com.proyecto.service.UsuarioService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,10 @@ public class EmpleadoController {
     @Autowired
     private EmpleadoService empleadoService;
     
+    
+    @Autowired
+    private UsuarioService usuarioService;
+    
     @Autowired
     private FireBaseStorageServiceImpl firebaseStorageService;
     
@@ -48,12 +55,12 @@ public class EmpleadoController {
     
     @PostMapping("/guardar")
     public String save(Empleado empleado, @RequestParam("imagenFile") MultipartFile imageFile) {
-        log.info(String.valueOf(empleado.getIdentification()));
         if (!imageFile.isEmpty()) {
             empleado.setPhoto(firebaseStorageService.loadImage(imageFile, "empleados", empleado.getIdentification()));
         }
         
         empleadoService.saveEmpleado(empleado);
+        usuarioService.save(new Usuario(empleado.getIdentification(), empleado.getUsername(), empleado.getEmail(), new ArrayList<>()), true);
         return "redirect:/empleados/listar";
     }
     

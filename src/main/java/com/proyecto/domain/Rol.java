@@ -9,8 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
@@ -33,8 +31,11 @@ public class Rol implements Serializable {
      private long id;
      @NotEmpty
      private String name;
+     @Column(name = "id_user")
+     private long idUser;
      
-     @OneToOne
-     @JoinColumn(name = "id_user")
-     private Usuario usuario;
+    public Rol(String name, long idUser) {
+        this.name = name;
+        this.idUser = idUser;
+    }
 }

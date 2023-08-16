@@ -9,6 +9,6 @@ package com.proyecto.domain;
  * @author joel
  */
 public enum Type {
-    EMPLEADO,
-    CLIENTE
+    cliente,
+    empleado
 }

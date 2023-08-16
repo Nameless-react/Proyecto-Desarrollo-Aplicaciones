@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -31,18 +30,12 @@ public class Usuario implements Serializable {
     
     
     @Id
-    private long id_user;
-    private Type type;
+    private long idUser;
+    private String username;
+    private String email;
+    
     
     @OneToMany
-    @JoinColumn(name = "usuario")
+    @JoinColumn(name = "id_user")
     private List<Rol> roles;
-    
-    
-    @OneToOne(mappedBy = "usuario")
-    private Cliente cliente;
-    
-    @OneToOne(mappedBy = "usuario")
-    private Empleado empleado;
-    
 }

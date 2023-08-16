@@ -6,6 +6,7 @@ package com.proyecto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
  *
  * @author joel
  */
+@Configuration
 public class ProjectConfig implements WebMvcConfigurer {
 
     @Autowired
@@ -33,25 +35,21 @@ public class ProjectConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
-        registry.addViewController("/signin").setViewName("login");
-        registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
+        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/perfil").setViewName("/perfil");
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/errores/**", "/reportes/**", "/js/**", "/webjars/**", "/CSS/**")
+                .requestMatchers("/", "/index", "/errores/**", "/about", "/js/**", "/webjars/**", "/CSS/**", "contact", "signup", "ventas/**", "perfil")
                 .permitAll()
-                .requestMatchers(
-                        "/producto/nuevo", "/producto/guardar",
-                        "/producto/modificar/**", "/producto/eliminar/**",
-                        "/categoria/nuevo", "/categoria/guardar",
-                        "/categoria/modificar/**", "/categoria/eliminar/**",
-                        "/usuario/nuevo", "/usuario/guardar",
-                        "/usuario/modificar/**", "/usuario/eliminar/**",
-                        "/reportes/**"
-                ).hasRole("ADMIN")
+//                .requestMatchers(
+//                        "/about", "",
+//                        "contact"
+//                ).hasRole("ADMIN")
                 .requestMatchers(
                         "/producto/listado",
                         "/categoria/listado",
@@ -61,7 +59,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .hasRole("USER")
                 )
                 .formLogin((form) -> form
-                .loginPage("/signin").permitAll())
+                .loginPage("/login").permitAll())
                 .logout((logout) -> logout.permitAll());
         return http.build();
     }

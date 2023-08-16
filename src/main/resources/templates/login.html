@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{layout/fragments :: head}"></head>
+
+<body>
+    <header th:replace="~{layout/fragments :: header}"></header>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">Iniciar sesión</h2>
+                <form method="POST" th:action="@{/login}">
+                    <div class="form-group row my-3">
+                        <label class="col-md-5 my-auto" for="username"><i class="fas fa-user-lock"></i>username</label>
+                        <div class="col-md-7 my-auto">
+                            <input class="form-control" type="text" name="username" id="username" />
+                        </div>
+                        <div class="form-group row my-3">
+                            <label class="col-md-5 my-auto" for="password"><i class="fas fa-key"></i>password</label>
+                            <div class="col-md-7 my-auto"><input class="form-control" type="password" name="password"
+                                    id="password" />
+                            </div>
+                        </div>
+                        <div class="card-footer col text-center">
+                            <button class="btn btn-primary">
+                                <a th:href="@{/registro/nuevo}" class="btn"><i class="fas fa-user-plus"></i>Registrar</a>
+                            </button>
+                            <button class="btn btn-info">
+                                <a th:href="@{/registro/recordar}" class="btn"><i class="fas fa-envelope"></i>Recordar contraseña</a>
+                            </button>
+                            <button class="btn btn-success" type="submit">
+                                <span class="btn"><i class="fas fa-sign-in-alt"></i>Acceder</span>
+                            </button>
+                        </div>
+                </form>
+                <div th:if="${param.error != null}">
+                    <h3>[[#{error.login}]]</h3>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-724ee.appspot.com/o/Logo.jpeg?alt=media&token=adfbd1ac-3046-41e2-bf7b-d000b4e26fa2"
+                    alt="Logo de la empresa" width="500">
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <footer th:replace="~{layout/fragments :: footer}"></footer>
+</body>
+
+</html>

@@ -12,6 +12,24 @@ public class IndexController {
         //model.addAttribute("attribute", "value");
         return "index";
     }
+    
+    @RequestMapping("/about")
+    public String about(Model model) {
+        //model.addAttribute("attribute", "value");
+        return "about";
+    }
+    
+    @RequestMapping("/signup")
+    public String signup(Model model) {
+        //model.addAttribute("attribute", "value");
+        return "signup";
+    }
+    
+    @RequestMapping("/contact")
+    public String contact(Model model) {
+        //model.addAttribute("attribute", "value");
+        return "contact";
+    }
 }
 
 

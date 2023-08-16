@@ -1,157 +1,241 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-    <head th:fragment="head">
-        <title>Grupo DCI</title>
-        <meta charset="UTF-8"/>
-        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
-        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-        <link rel="stylesheet" th:href="@{/CSS/styles.css}"></link>
-        <!-- <script th:src="@{/js/loadImage.js}"></script> -->
-    </head>
-    <body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:fragment="head">
+  <title>Grupo DCI</title>
+  <meta charset="UTF-8" />
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+  <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet" />
+  <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/CSS/styles.css}">
+  </link>
+  <!-- <script th:src="@{/js/loadImage.js}"></script> -->
+</head>
+
+<body>
 
 
-        <nav style="background-color: #fff; box-shadow: 5px 5px 10px 1px #0002;" th:fragment="header" class="navbar navbar-expand-lg fixed-top navbar-scroll">
-            <div class="container">
-              <a th:href="@{/}"><img src="https://firebasestorage.googleapis.com/v0/b/proyecto-724ee.appspot.com/o/Logo.jpeg?alt=media&token=adfbd1ac-3046-41e2-bf7b-d000b4e26fa2" height="100" alt="" loading="lazy" /></a>
-              <button class="navbar-toggler ps-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarExample01"
-                aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon d-flex justify-content-start align-items-center"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarExample01">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                  <li class="nav-item active">
-                    <a class="nav-link" aria-current="page" th:href="@{/}">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" th:href="@{/projects}">Projects</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" th:href="@{/about}">About us</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" th:href="@{ventas/listar}">Catalogo</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" th:href="@{/signin}">Sign in</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" th:href="@{/signup}">Sign up</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+  <nav style="background-color: #fff; box-shadow: 5px 5px 10px 1px #0002;" th:fragment="header"
+    class="navbar navbar-expand-lg fixed-top navbar-scroll">
+    <div class="container">
+      <a th:href="@{/}"><img
+          src="https://firebasestorage.googleapis.com/v0/b/proyecto-724ee.appspot.com/o/Logo.jpeg?alt=media&token=adfbd1ac-3046-41e2-bf7b-d000b4e26fa2"
+          height="100" alt="" loading="lazy" /></a>
+      <button class="navbar-toggler ps-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarExample01"
+        aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon d-flex justify-content-start align-items-center"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarExample01">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" aria-current="page" th:href="@{/}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" th:href="@{/projects}">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" th:href="@{/about}">About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" th:href="@{ventas/listar}">Catalogo</a>
+          </li>
+          <li sec:authorize="!isAuthenticated()" class="nav-item">
+            <a class="nav-link" aria-current="page" th:href="@{/login}">Sign in</a>
+          </li>
+          <li sec:authorize="!isAuthenticated()" class="nav-item">
+            <a class="nav-link" aria-current="page" th:href="@{/signup}">Sign up</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav user" sec:authorize="isAuthenticated()" style="margin-left: 2rem;">
+          <li class="nav-item my-auto" style="display: flex; align-items: center; justify-content: center;">
+            <a th:href="@{/perfil}" style="text-decoration: none;"><img th:src="${#authentication.principal.getPhoto}" style="width: 50px; border-radius: 50%; height: 50px; object-fit: cover; margin-right: 1rem;" alt="" />
+              <span style="color:#000; font-size: 1rem; font-weight: bold;" sec:authentication="name">Username:
+              </span>
+            </a>
+          </li>
+          <li class="nav-item text-white my-auto">
+            <form method="POST" th:action="@{/logout}">
+              <button
+                style="font-weight: bold; font-size: 1.2rem; background-color: transparent; outline: none; border: none; margin-left: .7rem;"><i
+                  class="fas fa-sign-out-alt"></i></button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 
-          <div th:fragment="chat" class="chat">
-            <i class="fa-solid fa-comments"></i>
+  <div th:fragment="chat" class="chat">
+    <i class="fa-solid fa-comments"></i>
+  </div>
+
+  <div th:fragment="carousel" id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+        aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+        aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/proyecto-724ee.appspot.com/o/297699440_597905048370147_1274343335336204594_n.jpg?alt=media&token=d129282d-12ea-4311-9d17-5d5656c3e41f"
+          class="d-block" alt="Wild Landscape" />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>First slide label</h5>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/proyecto-724ee.appspot.com/o/273316729_478875000273153_462247627120703261_n.jpg?alt=media&token=4bfd7937-5040-46a9-ad31-33da10c593b1"
+          class="d-block w-100" alt="Camera" />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Second slide label</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img style="object-fit: cover"
+          src="https://firebasestorage.googleapis.com/v0/b/proyecto-724ee.appspot.com/o/277679492_516743873152932_4997116417805685599_n.jpg?alt=media&token=4d82343e-2cfa-434e-ac40-e46b841293ea"
+          class="d-block w-100" alt="Exotic Fruits" />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Third slide label</h5>
+          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+
+  <section th:fragment="cards" class="cards">
+    <div class="card">
+      <i class="fa-solid fa-person-digging"></i>
+      <h2>Lorem, ipsum dolor.</h2>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-person-digging"></i>
+      <h2>Lorem, ipsum dolor.</h2>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-person-digging"></i>
+      <h2>Lorem, ipsum dolor.</h2>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-person-digging"></i>
+      <h2>Busca Casa?</h2>
+      <p>Mire nuestro catalogo y con gusto le brindaremos detalles de la vivienda que desee.</p>
+    </div>
+
+  </section>
+
+
+  <section th:fragment="aboutus" class="card-img-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div style="background-color: cadetblue; padding: 10px;">
+            <h3 style="color: white; margin: 0;">Sobre nosotros</h3>
           </div>
-
-          <div th:fragment="carousel" id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="0"
-                class="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="1"
-                aria-label="Slide 2"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="2"
-                aria-label="Slide 3"
-              ></button>
+          <br>
+          <br>
+          <br>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bullseye"
+              viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+              <path d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10zm0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+              <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+              <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+            </svg>
+            <div class="card-body">
+              <h5 class="card-title">Misión</h5>
+              <p class="card-text">Brindar un servicio de construcción respaldado bajo principios de responsabilidad,
+                profesionalismo, calidad, confianza y seguridad. Satisfaciendo las necesidades de los clientes con
+                proyectos integrales.</p>
             </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-724ee.appspot.com/o/297699440_597905048370147_1274343335336204594_n.jpg?alt=media&token=d129282d-12ea-4311-9d17-5d5656c3e41f" class="d-block" alt="Wild Landscape"/>
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>First slide label</h5>
-                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-724ee.appspot.com/o/273316729_478875000273153_462247627120703261_n.jpg?alt=media&token=4bfd7937-5040-46a9-ad31-33da10c593b1" class="d-block w-100" alt="Camera"/>
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>Second slide label</h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img style="object-fit: cover" src="https://firebasestorage.googleapis.com/v0/b/proyecto-724ee.appspot.com/o/277679492_516743873152932_4997116417805685599_n.jpg?alt=media&token=4d82343e-2cfa-434e-ac40-e46b841293ea" class="d-block w-100" alt="Exotic Fruits"/>
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>Third slide label</h5>
-                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                </div>
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
           </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eye-fill"
+              viewBox="0 0 16 16">
+              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+              <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+            </svg>
+            <div class="card-body">
+              <h5 class="card-title">Visión</h5>
+              <p class="card-text">Ser referentes nacionales en la industria de la construcción con el fin de garantizar
+                el bienestar y la satisfacción de los clientes, bajo la metodología de mejoramiento continuo y
+                manteniendo un alto grado de responsabilidad y profesionalismo en los proyectos.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-diamond"
+              viewBox="0 0 16 16">
+              <path
+                d="M7.987 16a1.526 1.526 0 0 1-1.07-.448L.45 9.082a1.531 1.531 0 0 1 0-2.165L6.917.45a1.531 1.531 0 0 1 2.166 0l6.469 6.468A1.526 1.526 0 0 1 16 8.013a1.526 1.526 0 0 1-.448 1.07l-6.47 6.469A1.526 1.526 0 0 1 7.988 16zM7.639 1.17 4.766 4.044 8 7.278l3.234-3.234L8.361 1.17a.51.51 0 0 0-.722 0zM8.722 8l3.234 3.234 2.873-2.873c.2-.2.2-.523 0-.722l-2.873-2.873L8.722 8zM8 8.722l-3.234 3.234 2.873 2.873c.2.2.523.2.722 0l2.873-2.873L8 8.722zM7.278 8 4.044 4.766 1.17 7.639a.511.511 0 0 0 0 .722l2.874 2.873L7.278 8z" />
+            </svg>
+            <div class="card-body">
+              <h5 class="card-title">Valores</h5>
+              <p class="card-text">En cada trabajo le entregamos, responsalibidad, confianza y seguridad con el cual le
+                garantizamos un servicio completo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="userInfo" th:fragment="userInfo">
+    <img th:src="${#authentication.principal.getPhoto()}" alt="">
+    <h1 th:text="${#authentication.principal.username}"></h1>
+  </div>
 
 
+  <footer style="padding: 1rem;" th:fragment="footer" class="bg-dark text-center text-white">
+    <div class="container p-4 pb-0">
 
-        <section th:fragment="cards" class="cards">
-            <div class="card">
-                <i class="fa-solid fa-person-digging"></i>
-                <h2>Lorem, ipsum dolor.</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-person-digging"></i>
-                <h2>Lorem, ipsum dolor.</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-person-digging"></i>
-                <h2>Lorem, ipsum dolor.</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
-            </div>
+      <section class="mb-4">
+        <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/grupodcicr?mibextid=ZbWKwL"
+          role="button"><i class="fab fa-facebook-f"></i></a>
 
-            <div class="card">
-                <i class="fa-solid fa-person-digging"></i>
-                <h2>Busca Casa?</h2>
-                <p>Mire nuestro catalogo y con gusto le brindaremos detalles de la vivienda que desee.</p>
-            </div>
-            
-        </section>
+        <a class="btn btn-outline-light btn-floating m-1"
+          href="https://api.whatsapp.com/send?phone=%2B50663003260&data=ARBRpYADgXYDu6YZBazSMl42siwMPCoxIOf-snJ1a_CDYNA7b47xH6fWNjpc9_0j_BXUr7ZFYRoQvvbcX6p5vE3KZ34EVoPLsLzXfDLFwOVTQ4t4PQOjMvTs1DEl0e8mwuBGaDI6wq3TxVb4JLAwi8h7dQ&source=FB_Page&app=facebook&entry_point=page_cta"
+          role="button"><i class="fa-brands fa-whatsapp"></i></a>
 
-        <footer  style="padding: 1rem;" th:fragment="footer" class="bg-dark text-center text-white">
-              <div class="container p-4 pb-0">
+        <a class="btn btn-outline-light btn-floating m-1" href="https://instagram.com/grupodci?igshid=Y2IzZGU1MTFhOQ=="
+          role="button"><i class="fab fa-instagram"></i></a>
+      </section>
+    </div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2023 Copyright:
+      <p>GrupoDCI.com</p>
+    </div>
+  </footer>
+</body>
 
-                  <section class="mb-4">
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/grupodcicr?mibextid=ZbWKwL" role="button"
-                  ><i class="fab fa-facebook-f"></i></a>
-          
-                <a class="btn btn-outline-light btn-floating m-1" href="https://api.whatsapp.com/send?phone=%2B50663003260&data=ARBRpYADgXYDu6YZBazSMl42siwMPCoxIOf-snJ1a_CDYNA7b47xH6fWNjpc9_0j_BXUr7ZFYRoQvvbcX6p5vE3KZ34EVoPLsLzXfDLFwOVTQ4t4PQOjMvTs1DEl0e8mwuBGaDI6wq3TxVb4JLAwi8h7dQ&source=FB_Page&app=facebook&entry_point=page_cta" role="button"
-                  ><i class="fa-brands fa-whatsapp"></i></a>
-          
-                <a class="btn btn-outline-light btn-floating m-1" href="https://instagram.com/grupodci?igshid=Y2IzZGU1MTFhOQ==" role="button"
-                  ><i class="fab fa-instagram"></i></a>     
-              </section>
-            </div>
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-              © 2023 Copyright:
-              <p>GrupoDCI.com</p>
-            </div>
-          </footer>
-    </body>
 </html>

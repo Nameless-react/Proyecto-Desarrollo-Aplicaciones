@@ -5,8 +5,11 @@
 package com.proyecto.controller;
 
 import com.proyecto.domain.Cliente;
+import com.proyecto.domain.Usuario;
 import com.proyecto.service.ClienteService;
+import com.proyecto.service.UsuarioService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -27,6 +32,10 @@ public class ClienteController {
    @Autowired
     private ClienteService clienteService;
     
+   @Autowired
+    private UsuarioService usuarioService;
+   
+   
     @Autowired
     private FireBaseStorageServiceImpl firebaseStorageService;
     
@@ -44,8 +53,13 @@ public class ClienteController {
     }
     
     @PostMapping("/guardar")
-    public String save(Cliente cliente) {
+    public String save(Cliente cliente, @RequestParam("imagenFile") MultipartFile imageFile) {
         clienteService.saveCliente(cliente);
+        if (!imageFile.isEmpty()) {
+            cliente.setPhoto(firebaseStorageService.loadImage(imageFile, "clientes", cliente.getIdentification()));
+        }
+        
+        usuarioService.save(new Usuario(cliente.getIdentification(), cliente.getUsername(), cliente.getEmail(), new ArrayList<>()), true);
         return "redirect:/clientes/listar";
     }
     

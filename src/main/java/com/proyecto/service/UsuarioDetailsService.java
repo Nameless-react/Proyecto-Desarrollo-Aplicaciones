@@ -4,8 +4,8 @@
  */
 package com.proyecto.service;
 
-import java.util.List;
-import com.proyecto.domain.Usuario;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,10 +13,6 @@ import org.springframework.stereotype.Service;
  * @author joel
  */
 @Service
-public interface UsuarioService {
-    public List<Usuario> getUsers();
-    public Usuario getUser(long id);
-    public void save(Usuario user, boolean newRol);
-    
-    public void delete(Usuario usuario);
+public interface UsuarioDetailsService {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }
