@@ -111,73 +111,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </nav>
         </section>
 
-        <section th:fragment="Perfil">
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <input type="hidden" name="id" th:field="*{id}"/>
-                    <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
-                    <section th:replace="~{construccion/fragmentos :: botonesEditar}"/>
-                    <div id=details>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4>Perfil</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="mb-3">
-                                                <label for="description">Descripcion</label>
-                                                <input type="text" class="form-control" 
-                                                       name="description" th:field="*{description}"
-                                                       required="true">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="activo">Precio</label>
-                                                <input class="form-check-input" 
-                                                       type="checkbox" 
-                                                       name="activo" 
-                                                       id="activo"
-                                                       th:field="*{activo}">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="imagen">[[#{categoria.rutaImagen}]]</label>
-                                                <input class="form-control" type="file" name="imagenFile"
-                                                       onchange="readURL(this);" />
-                                                <img id="blah" th:src="@{${categoria.rutaImagen}}" alt="your image" height="200"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </section>
+     
 
-        <section th:fragment="botonesEditar">
-            <div class="container py-4 mb-4 bg-light">
-                <div class="row">
-                    <div class="col-md-4 d-grid">
-                        <a th:href="@{/categoria/listado}" class="btn btn-primary">
-                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
-                        </a>
-                    </div>
-                    <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/categoria/eliminar/}+${categoria.idCategoria}"
-                           class="btn btn-danger">
-                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
-                        </a>
-                    </div>
-                    <div class="col-md-4 d-grid">
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
 
 
     </body>
