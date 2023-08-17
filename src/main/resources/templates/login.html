@@ -19,33 +19,34 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <h2 class="text-center">Iniciar sesión</h2>
+                <h2 class="text-center fw-bold mb-5">Inicio Sesión</h2>
                 <form method="POST" th:action="@{/login}">
                     <div class="form-group row my-3">
-                        <label class="col-md-5 my-auto" for="username"><i class="fas fa-user-lock"></i>username</label>
+                        <label class="col-md-5 my-auto fw-bold" for="username"><i class="fas fa-user-lock me-3"></i>Username</label>
                         <div class="col-md-7 my-auto">
                             <input class="form-control" type="text" name="username" id="username" />
                         </div>
-                        <div class="form-group row my-3">
-                            <label class="col-md-5 my-auto" for="password"><i class="fas fa-key"></i>password</label>
-                            <div class="col-md-7 my-auto"><input class="form-control" type="password" name="password"
-                                    id="password" />
-                            </div>
+                    </div>
+                    <div class="form-group row my-3">
+                        <label class="col-md-5 my-auto fw-bold" for="password"><i class="fas fa-key me-3"></i>Contraseña</label>
+                        <div class="col-md-7 my-auto">
+                            <input class="form-control w-100" type="password" name="password" id="password" />
                         </div>
-                        <div class="card-footer col text-center">
+                    </div>
+                        <div class="card-footer col text-center" style="margin-top: 3rem; margin-bottom: 19.9rem;">
                             <button class="btn btn-primary">
-                                <a th:href="@{/registro/nuevo}" class="btn"><i class="fas fa-user-plus"></i>Registrar</a>
+                                <a th:href="@{/registro/nuevo}" class="btn fw-bold"><i class="fas fa-user-plus me-3"></i>Registrar</a>
                             </button>
                             <button class="btn btn-info">
-                                <a th:href="@{/registro/recordar}" class="btn"><i class="fas fa-envelope"></i>Recordar contraseña</a>
+                                <a th:href="@{/registro/recordar}" class="btn fw-bold"><i class="fas fa-envelope me-3"></i>Recordar contraseña</a>
                             </button>
                             <button class="btn btn-success" type="submit">
-                                <span class="btn"><i class="fas fa-sign-in-alt"></i>Acceder</span>
+                                <span class="btn fw-bold"><i class="fas fa-sign-in-alt me-3"></i>Acceder</span>
                             </button>
                         </div>
                 </form>
                 <div th:if="${param.error != null}">
-                    <h3>[[#{error.login}]]</h3>
+                    <h3 class="error-login">Error al iniciar sesión</h3>
                 </div>
             </div>
             <div class="col-md-6 text-center">
