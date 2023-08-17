@@ -4,6 +4,7 @@
  */
 package com.proyecto.controller;
 
+import com.proyecto.domain.Cliente;
 import com.proyecto.domain.Empleado;
 import com.proyecto.domain.Usuario;
 import com.proyecto.service.EmpleadoService;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,12 +57,22 @@ public class EmpleadoController {
     
     @PostMapping("/guardar")
     public String save(Empleado empleado, @RequestParam("imagenFile") MultipartFile imageFile) {
-        if (!imageFile.isEmpty()) {
-            empleado.setPhoto(firebaseStorageService.loadImage(imageFile, "empleados", empleado.getIdentification()));
-        }
+        Usuario user = usuarioService.getUser(empleado.getIdentification());
+        if (user == null) user = new Usuario(empleado.getIdentification(), empleado.getUsername(), empleado.getEmail(), new ArrayList<>());
         
+        if (!imageFile.isEmpty()) empleado.setPhoto(firebaseStorageService.loadImage(imageFile, "empleados", empleado.getIdentification()));
+        
+        if (user.getRoles().size() == 0) usuarioService.save(user, true);
+        usuarioService.save(user, false);
+        
+        Empleado tempEmpleado = empleadoService.getEmpleado(empleado.getIdentification());
+         if (tempEmpleado != null) {
+            empleado.setPassword(tempEmpleado.getPassword());
+        } else  empleado.setPassword(new BCryptPasswordEncoder().encode(empleado.getPassword()));
+        
+        
+        empleado.setUsuario(user);
         empleadoService.saveEmpleado(empleado);
-        usuarioService.save(new Usuario(empleado.getIdentification(), empleado.getUsername(), empleado.getEmail(), new ArrayList<>()), true);
         return "redirect:/empleados/listar";
     }
     
@@ -74,9 +86,13 @@ public class EmpleadoController {
     @GetMapping("/eliminar/{identification}")
     public String delete(Empleado empleado, Model model) {
         Empleado employee = empleadoService.getEmpleado(empleado.getIdentification());
-        firebaseStorageService.delete(employee.getPhoto().split("empleados/")[1].split("\\?")[0], "empleados");
         
-        if (employee.getPhoto().length() != 0) empleadoService.deleteEmpleado(empleado.getIdentification());
+        Usuario user = usuarioService.getUser(empleado.getIdentification());
+        
+        empleadoService.deleteEmpleado(empleado.getIdentification());
+        usuarioService.delete(user);
+        
+        if (employee.getPhoto().length() != 0)  firebaseStorageService.delete(employee.getPhoto().split("empleados/")[1].split("\\?")[0], "empleados");
         
         return "redirect:/empleados/listar";
     }    

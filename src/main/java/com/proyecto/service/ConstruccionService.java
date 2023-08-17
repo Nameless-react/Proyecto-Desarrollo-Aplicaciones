@@ -21,8 +21,8 @@ public interface ConstruccionService {
     public List<Construccion> getConstrucciones(boolean active);
     public void deleteConstruccion(long id);
     public void saveConstruccion(Construccion construccion);
-      Page<Construccion> getConstruccionPaginadas(Pageable pageable);
+    Page<Construccion> getConstruccionPaginadas(Pageable pageable);
     
-     Page<Construccion> getConstruccionPaginadasByProvincias(List<String> provincias, Pageable pageable);
+    Page<Construccion> getConstruccionPaginadasByProvincias(List<String> provincias, Pageable pageable);
 
 }

@@ -36,13 +36,15 @@
                 <p>[[${employee.getIdentification()}]]</p>
                 <a th:href="@{'mailto:' + ${employee.getEmail()}}">[[${employee.getEmail()}]]</a>
                 <p th:text="${employee.isActive()} ? 'Si' : 'No'" />
-                <div th:replace="~{empleados/fragments :: delete-button}"></div>
+                <div   th:replace="~{empleados/fragments :: delete-button}"></div>
+                <!-- sec:authorize="hasRole('ROLE_ADMIN')" -->
             </div>
 
         </div>
 
         <div th:fragment="options" class="employee-options">
-            <div th:replace="~{empleados/fragments :: add-button}"></div>
+            <div  th:replace="~{empleados/fragments :: add-button}"></div>
+            <!-- sec:authorize="hasRole('ROLE_ADMIN')" -->
         </div>
 
 
@@ -50,17 +52,21 @@
             <input type="hidden" name="photo" th:field="*{photo}"/>   
             <input type="hidden" required placeholder="Contraseña" th:field="*{password}">
             <h1 th:text="${empleado.identification} != 0  ? 'Modificar Empleado' : 'Agregar Empleado'"></h1>
-
+            
             <input th:if="${empleado.identification} == 0" type="number" min="10000000" required placeholder="Identificación" name="identification">
             <input th:if="${empleado.identification} != 0" type="number" min="10000000" required placeholder="Identificación" th:field="*{identification}">
             
             <input type="text" placeholder="Nombre" th:field="*{name}">        
+            <input type="text" placeholder="Username" th:field="*{username}">        
             <input type="text" placeholder="Primer Apellido" th:field="${empleado.firstSurName}">            
             <input type="text" placeholder="Segundo Apellido" th:field="${empleado.secondSurName}">            
             <input type="email" required placeholder="Correo" th:field="*{email}">            
             <input type="text" placeholder="Teléfono" th:field="*{phone}">
             
-            <input th:if="${empleado.identification} == 0" type="password" required placeholder="Contraseña" th:field="*{password}">
+            <div th:if="${empleado.identification} == 0" class="container-password">
+                <input type="password" required placeholder="Contraseña" th:field="*{password}">
+                <i class="eye fa-sharp fa-solid fa-eye-slash" onclick="showEye()"></i>
+            </div>
             <input type="text" placeholder="Profesión" th:field="*{profession}">
             <div class="checkbox">
                 <label for="activo">Activo</label>

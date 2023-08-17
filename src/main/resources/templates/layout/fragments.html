@@ -11,8 +11,7 @@
   <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet" />
   <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
   <link rel="stylesheet" th:href="@{/CSS/styles.css}">
-  </link>
-  <!-- <script th:src="@{/js/loadImage.js}"></script> -->
+  <script defer th:src="@{/js/rutinas.js}"></script>
 </head>
 
 <body>
@@ -51,9 +50,9 @@
         </ul>
         <ul class="navbar-nav user" sec:authorize="isAuthenticated()" style="margin-left: 2rem;">
           <li class="nav-item my-auto" style="display: flex; align-items: center; justify-content: center;">
-            <a th:href="@{/perfil}" style="text-decoration: none;"><img th:src="${#authentication.principal.getPhoto}" style="width: 50px; border-radius: 50%; height: 50px; object-fit: cover; margin-right: 1rem;" alt="" />
-              <span style="color:#000; font-size: 1rem; font-weight: bold;" sec:authentication="name">Username:
-              </span>
+            <a th:href="@{/perfil}" style="text-decoration: none;">
+              <img style="width: 50px; border-radius: 50%; height: 50px; object-fit: cover; margin-right: 1rem;" th:src="${#authentication.principal.photo.length()} == 0 ? 'https://t4.ftcdn.net/jpg/04/10/43/77/360_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg' : ${#authentication.principal.photo}" alt="">
+              <span style="color:#000; font-size: 1rem; font-weight: bold;" sec:authentication="name">Username:</span>
             </a>
           </li>
           <li class="nav-item text-white my-auto">
@@ -142,7 +141,7 @@
 
     <div class="card">
       <i class="fa-solid fa-person-digging"></i>
-      <h2>Busca Casa?</h2>
+      <h2>¿Busca Casa?</h2>
       <p>Mire nuestro catalogo y con gusto le brindaremos detalles de la vivienda que desee.</p>
     </div>
 
@@ -161,7 +160,7 @@
           <br>
         </div>
         <div class="col-md-4">
-          <div class="card">
+          <div class="card w-100 h-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bullseye"
               viewBox="0 0 16 16">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -170,7 +169,7 @@
               <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
             </svg>
             <div class="card-body">
-              <h5 class="card-title">Misión</h5>
+              <h5 class="card-title text-center fs-2">Misión</h5>
               <p class="card-text">Brindar un servicio de construcción respaldado bajo principios de responsabilidad,
                 profesionalismo, calidad, confianza y seguridad. Satisfaciendo las necesidades de los clientes con
                 proyectos integrales.</p>
@@ -178,14 +177,14 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card">
+          <div class="card w-100 h-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eye-fill"
               viewBox="0 0 16 16">
               <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
               <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
             </svg>
             <div class="card-body">
-              <h5 class="card-title">Visión</h5>
+              <h5 class="card-title text-center fs-2">Visión</h5>
               <p class="card-text">Ser referentes nacionales en la industria de la construcción con el fin de garantizar
                 el bienestar y la satisfacción de los clientes, bajo la metodología de mejoramiento continuo y
                 manteniendo un alto grado de responsabilidad y profesionalismo en los proyectos.</p>
@@ -193,14 +192,14 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card">
+          <div class="card w-100 h-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-diamond"
               viewBox="0 0 16 16">
               <path
                 d="M7.987 16a1.526 1.526 0 0 1-1.07-.448L.45 9.082a1.531 1.531 0 0 1 0-2.165L6.917.45a1.531 1.531 0 0 1 2.166 0l6.469 6.468A1.526 1.526 0 0 1 16 8.013a1.526 1.526 0 0 1-.448 1.07l-6.47 6.469A1.526 1.526 0 0 1 7.988 16zM7.639 1.17 4.766 4.044 8 7.278l3.234-3.234L8.361 1.17a.51.51 0 0 0-.722 0zM8.722 8l3.234 3.234 2.873-2.873c.2-.2.2-.523 0-.722l-2.873-2.873L8.722 8zM8 8.722l-3.234 3.234 2.873 2.873c.2.2.523.2.722 0l2.873-2.873L8 8.722zM7.278 8 4.044 4.766 1.17 7.639a.511.511 0 0 0 0 .722l2.874 2.873L7.278 8z" />
             </svg>
             <div class="card-body">
-              <h5 class="card-title">Valores</h5>
+              <h5 class="card-title text-center fs-2">Valores</h5>
               <p class="card-text">En cada trabajo le entregamos, responsalibidad, confianza y seguridad con el cual le
                 garantizamos un servicio completo.</p>
             </div>
@@ -211,8 +210,12 @@
   </section>
 
   <div class="userInfo" th:fragment="userInfo">
-    <img th:src="${#authentication.principal.getPhoto()}" alt="">
+    <img th:src="${#authentication.principal.photo.length()} == 0 ? 'https://t4.ftcdn.net/jpg/04/10/43/77/360_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg' : ${#authentication.principal.photo}" alt="">
     <h1 th:text="${#authentication.principal.username}"></h1>
+    <h2>Email: [[${#authentication.principal.email}]]</h2>
+    <p>Teléfono: [[${#authentication.principal.phone}]]</p>
+    <a class="updateProfile" th:if="${#authentication.principal.type == 'cliente'}" th:href="@{/clientes/actualizar/} + ${#authentication.principal.identification}">Editar</a>
+    <a class="updateProfile" th:if="${#authentication.principal.type == 'empleado'}" th:href="@{/empleados/actualizar/} + ${#authentication.principal.identification}">Editar</a>
   </div>
 
 

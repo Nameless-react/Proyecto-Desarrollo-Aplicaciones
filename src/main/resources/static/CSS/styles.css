@@ -56,10 +56,6 @@
     cursor: pointer;
 }
 
-.client {
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-}
-
 .employee p, .employee > h3, .client p, .client > h3 {
     font-size: 1rem;
     margin: auto;
@@ -73,13 +69,16 @@
 .employee-basic-information-container , .client-basic-information-container{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1.5rem;
+    width: 100%;
 }
 .employee-basic-information-container img, .client-basic-information-container img {
-    max-width: 15%;
-    min-width: 50px;
+    width: 60px;
+    /* min-width: 50px; */
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .employee-basic-information-container a, .client-basic-information-container a {
@@ -145,6 +144,7 @@
     justify-content: flex-start;
     margin: 0 auto;
 }
+
 
 
 .list {
@@ -218,6 +218,20 @@
     outline: none;
     width: 70%;
     font-size: 1.1rem;
+}
+
+.container-password {
+    width: 70%;
+    background-color: #f1f0f0;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-password i {
+    margin-right: 2rem;
+    cursor: pointer;
 }
 
 .form h1 {
@@ -301,12 +315,28 @@
 }
 
 .userInfo img {
-    width: 50%;
+    width: 35%;
     border-radius: 50%;
     object-fit: cover;
     aspect-ratio: 1 / 1;
     box-shadow: 10px 0 25px 1px #0003;
 }
+
+.updateProfile {
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: #C15E37;
+    color:#fff;
+    padding: .5em 2em;
+}
+
+.updateProfile:hover {
+    color: #fff;
+    background: #dc5d44;
+}
+
+
 
 @media only screen and (max-width: 1000px) {
     .cards {

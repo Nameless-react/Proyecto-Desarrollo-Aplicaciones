@@ -15,3 +15,15 @@ function addCard(formulario) {
     url = url + '/' + valor;
     $("#resultsBlock").load(url);
 }
+
+const showEye = () => {
+    const closeEye = document.querySelector(".eye");
+    const password = document.querySelectorAll("#password")[1];
+    if (closeEye.classList.contains("fa-eye-slash")) {
+        closeEye.classList.replace("fa-eye-slash", "fa-eye");
+        password.setAttribute("type", "text");
+    } else {
+        closeEye.classList.replace("fa-eye", "fa-eye-slash");
+        password.setAttribute("type", "password");
+    }
+}

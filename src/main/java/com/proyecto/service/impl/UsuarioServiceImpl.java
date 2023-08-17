@@ -11,12 +11,14 @@ import com.proyecto.domain.Usuario;
 import com.proyecto.service.UsuarioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author joel
  */
+@Service
 public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
@@ -38,6 +40,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public void delete(Usuario usuario) {
         userDao.delete(usuario);
+        rolDao.deleteByIdUser(usuario.getIdUser());
+        
     }
 
    @Override
@@ -50,5 +54,5 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional(readOnly = true)
     public Usuario getUser(long id) {
         return userDao.findById(id).orElse(null);
-    }
+    }    
 }

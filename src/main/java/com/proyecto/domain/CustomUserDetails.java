@@ -16,13 +16,37 @@ import org.springframework.security.core.userdetails.User;
 public class CustomUserDetails extends User {
     
     private final String photo;
+    private final String email;
+    private final String phone;
+    private final Type type;
+    private final long identification;
     
-    public CustomUserDetails(String username, String password, Collection<GrantedAuthority> authorities, String photo) {
+    public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities, String photo, String email, String phone, Type type, long identification) {
         super(username, password, authorities);
         this.photo = photo;
+        this.email = email;
+        this.phone = phone;
+        this.type = type;
+        this.identification = identification;
+    }
+
+    public long getIdentification() {
+        return identification;
+    }
+    
+    public String getType() {
+        return type.equals(Type.cliente) ? "cliente" : "empleado";
     }
 
     public String getPhoto() {
         return photo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 }

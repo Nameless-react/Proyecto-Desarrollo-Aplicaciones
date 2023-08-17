@@ -11,5 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author joel
  */
 public interface RolDao extends JpaRepository<Rol, Long> {
-    
+    public void deleteByIdUser(long idUser);
 }

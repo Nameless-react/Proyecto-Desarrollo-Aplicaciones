@@ -11,6 +11,7 @@ import com.proyecto.domain.Cliente;
 import com.proyecto.domain.CustomUserDetails;
 import com.proyecto.domain.Empleado;
 import com.proyecto.domain.Rol;
+import com.proyecto.domain.Type;
 import com.proyecto.domain.Usuario;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,23 +41,22 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
     @Autowired
     private EmpleadoDao employeeDao;
     
-    @Autowired
-    private HttpSession session;
+//    @Autowired
+//    private HttpSession session;
     
     
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(username);
         Usuario user = userDao.findByUsername(username);
 
         if (user == null) throw new UsernameNotFoundException(username);
          Cliente client =  clientDao.findById(user.getIdUser()).orElse(null);
          Empleado employee = employeeDao.findById(user.getIdUser()).orElse(null);
-         if (client == null)  {
-             session.setAttribute("photo", employee.getPhoto());
-         } else {
-             session.setAttribute("photo", client.getPhoto());
-         }
+//         if (client == null)  {
+//             session.setAttribute("photo", employee.getPhoto());
+//         } else {
+//             session.setAttribute("photo", client.getPhoto());
+//         }
 
 //        
 //        session.removeAttribute("photo");
@@ -71,7 +70,7 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
         }
 
         
-        if (employee == null) return new CustomUserDetails(client.getName(), client.getPassword(), roles, client.getPhoto());
-        else return new CustomUserDetails(employee.getName(), employee.getPassword(), roles, employee.getPhoto());
+        if (employee == null) return new CustomUserDetails(client.getName(), client.getPassword(), roles, client.getPhoto(), client.getEmail(), client.getPhone(), Type.cliente, client.getIdentification());
+        else return new CustomUserDetails(employee.getName(), employee.getPassword(), roles, employee.getPhoto(), employee.getEmail(), employee.getPhone(), Type.empleado, employee.getIdentification());
     }
 }

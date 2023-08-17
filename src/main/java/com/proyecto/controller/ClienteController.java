@@ -12,6 +12,7 @@ import com.proyecto.service.impl.FireBaseStorageServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,12 +55,23 @@ public class ClienteController {
     
     @PostMapping("/guardar")
     public String save(Cliente cliente, @RequestParam("imagenFile") MultipartFile imageFile) {
-        clienteService.saveCliente(cliente);
-        if (!imageFile.isEmpty()) {
-            cliente.setPhoto(firebaseStorageService.loadImage(imageFile, "clientes", cliente.getIdentification()));
-        }
+        Usuario user = usuarioService.getUser(cliente.getIdentification());
         
-        usuarioService.save(new Usuario(cliente.getIdentification(), cliente.getUsername(), cliente.getEmail(), new ArrayList<>()), true);
+        if (user == null) user = new Usuario(cliente.getIdentification(), cliente.getUsername(), cliente.getEmail(), new ArrayList<>());
+        if (!imageFile.isEmpty()) cliente.setPhoto(firebaseStorageService.loadImage(imageFile, "clientes", cliente.getIdentification()));
+        
+        
+        if (user.getRoles().size() == 0) usuarioService.save(user, true);
+        usuarioService.save(user, false);
+        
+        Cliente tempClient = clienteService.getCliente(cliente.getIdentification());
+        if (tempClient != null) {
+            cliente.setPassword(tempClient.getPassword());
+        } else  cliente.setPassword(new BCryptPasswordEncoder().encode(cliente.getPassword()));
+        
+        
+        clienteService.saveCliente(cliente);
+        cliente.setUsuario(user);
         return "redirect:/clientes/listar";
     }
     
@@ -72,7 +84,15 @@ public class ClienteController {
 
     @GetMapping("/eliminar/{identification}")
     public String delete(Cliente cliente, Model model) {
+        Cliente client = clienteService.getCliente(cliente.getIdentification());
         clienteService.deleteCliente(cliente.getIdentification());
+        
+        Usuario user = usuarioService.getUser(cliente.getIdentification());
+        
+        usuarioService.delete(user);
+        clienteService.deleteCliente(cliente.getIdentification());
+        
+        if (cliente.getPhoto().length() != 0) firebaseStorageService.delete(client.getPhoto().split("clientes/")[1].split("\\?")[0], "clientes");
         return "redirect:/clientes/listar";
     }
     
