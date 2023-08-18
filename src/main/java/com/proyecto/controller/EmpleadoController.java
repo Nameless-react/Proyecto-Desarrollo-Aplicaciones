@@ -57,6 +57,7 @@ public class EmpleadoController {
     
     @PostMapping("/guardar")
     public String save(Empleado empleado, @RequestParam("imagenFile") MultipartFile imageFile) {
+        empleado.setPassword(empleado.getPassword().substring(1));
         Usuario user = usuarioService.getUser(empleado.getIdentification());
         if (user == null) user = new Usuario(empleado.getIdentification(), empleado.getUsername(), empleado.getEmail(), new ArrayList<>());
         

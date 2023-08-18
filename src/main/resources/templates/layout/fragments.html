@@ -5,11 +5,11 @@
 <head th:fragment="head">
   <title>Grupo DCI</title>
   <meta charset="UTF-8" />
+  <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
   <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
   <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
   <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet" />
-  <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
   <link rel="stylesheet" th:href="@{/CSS/styles.css}">
   <script defer th:src="@{/js/rutinas.js}"></script>
 </head>
@@ -36,10 +36,25 @@
             <a class="nav-link" aria-current="page" th:href="@{/projects}">Proyectos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" th:href="@{/about}">Sobre Nosostros</a>
+            <a class="nav-link" aria-current="page" th:href="@{/about}">Sobre Nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" th:href="@{ventas/listar}">Cátalogo</a>
+            <a class="nav-link" aria-current="page" th:href="@{/ventas/listar}">Cátalogo</a>
+          </li>
+          <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Usuarios</a>
+              <ul class="dropdown-menu dropdown-menu-light">
+                <li>
+                  <a class="dropdown-item" th:href="@{/clientes/listar}">Clientes</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/empleados/listar}">Empleados</a>
+              </ul>
+          </li>
+
+          </li>
+          <li sec:authorize="isAuthenticated()" class="nav-item">
+            <a class="nav-link" aria-current="page" th:href="@{/rendimiento/listar}">Desempeño</a>
           </li>
           <li sec:authorize="!isAuthenticated()" class="nav-item">
             <a class="nav-link" aria-current="page" th:href="@{/login}">Inicio Sesión</a>
@@ -55,8 +70,8 @@
               <span style="color:#000; font-size: 1rem; font-weight: bold;" sec:authentication="name">Username:</span>
             </a>
           </li>
-          <li class="nav-item text-white my-auto">
-            <form method="POST" th:action="@{/logout}">
+          <li class="nav-item text-white">
+            <form method="POST" style="margin-top: auto; margin-bottom: auto;" th:action="@{/logout}">
               <button
                 style="font-weight: bold; font-size: 1.2rem; background-color: transparent; outline: none; border: none; margin-left: .7rem;"><i
                   class="fas fa-sign-out-alt"></i></button>
@@ -123,11 +138,6 @@
 
 
   <section th:fragment="cards" class="cards">
-    <div class="card">
-      <i class="fa-solid fa-person-digging"></i>
-      <h2>Lorem, ipsum dolor.</h2>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
-    </div>
     <div class="card">
       <i class="fa-solid fa-person-digging"></i>
       <h2>Lorem, ipsum dolor.</h2>

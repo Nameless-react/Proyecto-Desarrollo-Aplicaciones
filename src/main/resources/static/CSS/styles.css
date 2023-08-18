@@ -157,7 +157,7 @@
     margin-bottom: 34.4rem;
 }
 
-.title {
+.title, .performance-title {
     font-size: 3rem;
     color: #000;
     margin-top: 10rem;
@@ -328,7 +328,8 @@
     font-weight: bold;
     background: #C15E37;
     color:#fff;
-    padding: .5em 2em;
+    padding: .5em 3em;
+    border-radius: 30px;
 }
 
 .updateProfile:hover {
@@ -342,9 +343,99 @@
     font-weight: bold;
     text-align: center;
     margin-top: 3rem;
-    margin-bottom: 16.8rem;
+    margin-bottom: 14.8rem;
 }
 
+
+.error-status {
+    font-size: 7rem;
+}
+
+.container-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 38.9rem;
+    margin-top: 16rem;
+    flex-direction: column;
+}
+
+.performances {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); 
+    width: 80%;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    margin-bottom: 40rem;
+}
+
+
+.performance {
+    background: #fff;
+    box-shadow: 3px 0 5px 0 #0003;
+    padding: 2em 2.5em;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;
+    outline: 1px solid #76767610;
+    transition: all .3s ease;
+    position: relative;
+}
+
+.performance a {
+    text-decoration: none;
+    color: #000;
+    cursor:pointer;
+}
+
+.calification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.calification i {
+    color: #0f0;
+    font-size: 3rem;
+}
+
+.calification p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0
+}
+
+.performance h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: 2rem;
+}
+
+.remove-performance {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: #C15E37;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    
+}
+
+.remove-performance i {
+    color: #fff;
+    padding: .5em .5em;
+}
+
+.performance:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px 2px #0003;
+}
 
 @media only screen and (max-width: 1000px) {
     .cards {
