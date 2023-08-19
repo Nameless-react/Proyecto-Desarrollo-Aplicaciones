@@ -11,34 +11,36 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ArchivosServiceImpl implements ArchivosService {
-        @Autowired
-    private ArchivosDao archivosDao;
-    
-    @Override
-    @Transactional(readOnly = true)
-    public Archivos getArchivo(long id) {
-        return archivosDao.findById(id).orElse(null);
+
+    private final ArchivosDao archivosDao;
+
+    @Autowired
+    public ArchivosServiceImpl(ArchivosDao archivosDao) {
+        this.archivosDao = archivosDao;
     }
 
     @Override
-    @Transactional(readOnly = true)
+    public Archivos getArchivo(long id) {
+        return archivosDao.findById(id);
+    }
+
+    @Override
     public List<Archivos> getArchivos() {
         return archivosDao.findAll();
     }
 
     @Override
-    @Transactional
     public void deleteArchivos(long id) {
         archivosDao.deleteById(id);
     }
 
     @Override
-    @Transactional
-    public void saveArchivos(Archivos archivo) {
-        archivosDao.save(archivo);
+    public void saveArchivos(Archivos archivos) {
+        archivosDao.save(archivos);
     }
-    
 }

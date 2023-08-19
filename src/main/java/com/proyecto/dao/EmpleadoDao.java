@@ -12,5 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Emanuel
  */
 public interface EmpleadoDao extends JpaRepository<Empleado, Long> {
+
+    Empleado findByName(String name);
     
+    Empleado findByEmail(String email);
 }
