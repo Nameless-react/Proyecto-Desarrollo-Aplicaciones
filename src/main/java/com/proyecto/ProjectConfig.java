@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 
 /**
  *
@@ -44,7 +43,7 @@ public class ProjectConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", 
+                .requestMatchers("/","/", 
                         "/index", 
                         "/errores/**",
                         "/Archivos/listar", 
@@ -62,7 +61,9 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "empleados/**", 
                         "archivos/**",
                         "Archivos/**",
-                        "/error")
+                        "/error",
+                        "/index", "/errores/**", "/construccion/**", "/rendimiento/**", "/roles/**","/about", "/js/**", "/webjars/**", "/CSS/**", "contact", "signup", "ventas/**", "perfil", "clientes/**", "empleados/**", "/error")
+                
                 .permitAll()
                 .requestMatchers(
                         "/about", "",

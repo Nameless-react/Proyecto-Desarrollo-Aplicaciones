@@ -4,12 +4,12 @@
  */
 package com.proyecto.controller;
 
-import static com.google.cloud.storage.Storage.BlobListOption.pageSize;
+
 import com.proyecto.domain.Construccion;
-import com.proyecto.domain.Venta;
 import com.proyecto.service.ConstruccionService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,56 +25,53 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Emanuel
  */
 @Controller
-@RequestMapping("/construcciones")
+@RequestMapping("/construccion")
 public class ConstruccionController {
     
    @Autowired
     private ConstruccionService construccionService;
-    
-    @Autowired
-    private FireBaseStorageServiceImpl firebaseStorageService;
+   
     
     @GetMapping("/listar")
-    public String list(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(name = "provincia", required = false) List<String> provincias) {
+    public String list(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(name = "initPrice", required = false) Optional<Long> initPrice, @RequestParam(name = "finishPrice", required = false) Optional<Long> finishPrice) {
          int pageSize = 3;
         List<Construccion> constructions = construccionService.getConstrucciones(true);
         model.addAttribute("constructions", constructions);
         
-        if (provincias == null || provincias.isEmpty()) {
-            // Si no se seleccionaron provincias, obtenemos todas las ventas paginadas sin filtrar
+        if (initPrice.isEmpty() || finishPrice.isEmpty()) {
             Page<Construccion> construccionPage = construccionService.getConstruccionPaginadas(PageRequest.of(page, pageSize));
             model.addAttribute("construccionPage", construccionPage);
         } else {
-            // Si se seleccionaron provincias, filtramos las ventas por esas provincias
-            Page<Construccion> construccionPage = construccionService.getConstruccionPaginadasByProvincias(provincias, PageRequest.of(page, pageSize));
+            Page<Construccion> construccionPage = construccionService.getConstruccionPaginadasBetweenPrice(initPrice.get(), finishPrice.get(), PageRequest.of(page, pageSize));
             model.addAttribute("construccionPage", construccionPage);
         }
-        return "/construcciones/listar";
+        
+        return "/construccion/listar";
         
     }
     
     @GetMapping("/nuevo")
     public String newElement(Construccion construction) {
-        return "/construccion/modifica";
+        return "/Construccion/modifica";
     }
     
     @PostMapping("/guardar")
     public String save(Construccion construccion) {
         construccionService.saveConstruccion(construccion);
-        return "redirect:/construccion/listar";
+        return "redirect:/Construccion/listar";
     }
     
     @GetMapping("/actualizar/{id}")
     public String update(Construccion construccion, Model model) {
         Construccion construction = construccionService.getConstruccion(construccion.getId());
         model.addAttribute("construction", construction);
-        return "/construcciones/actualizar";
+        return "/Construccion/actualizar";
     }
 
     @GetMapping("/eliminar/{id}")
     public String delete(Construccion construccion, Model model) {
         construccionService.deleteConstruccion(construccion.getId());
-        return "redirect:/construcciones/listar";
+        return "redirect:/Construccion/listar";
     }
     
 }
