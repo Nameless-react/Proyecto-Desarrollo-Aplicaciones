@@ -481,11 +481,27 @@
     gap: 2rem;
 }
 
-/* .header.roles {
-    /* box-shadow: none; */
-    /* grid-template-columns: 1fr 1fr 2fr 2fr; */
-/* } */ 
+.price-between {
+    width: 69%;
+    margin: 0 auto;
+    margin-top: 10rem;
+    margin-bottom: 5rem;
+}
 
+.price-between form {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    gap: 3rem;
+}
+
+.price-between form input {
+    border-radius: 20px;
+    border: none;
+    background-color: #f1f0f0;
+    padding: .5em 2em;
+    outline: none;
+}
 
 @media only screen and (max-width: 1000px) {
     .cards {
