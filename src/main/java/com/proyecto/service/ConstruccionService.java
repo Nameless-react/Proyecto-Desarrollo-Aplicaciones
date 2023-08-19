@@ -5,7 +5,6 @@
 package com.proyecto.service;
 
 import com.proyecto.domain.Construccion;
-import com.proyecto.domain.Venta;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +21,5 @@ public interface ConstruccionService {
     public void deleteConstruccion(long id);
     public void saveConstruccion(Construccion construccion);
     Page<Construccion> getConstruccionPaginadas(Pageable pageable);
-    
-    Page<Construccion> getConstruccionPaginadasByProvincias(List<String> provincias, Pageable pageable);
-
+    Page<Construccion> getConstruccionPaginadasBetweenPrice(long initPrice, long finishPrice, Pageable pageable);
 }

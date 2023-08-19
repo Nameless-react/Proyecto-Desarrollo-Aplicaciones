@@ -4,13 +4,13 @@
  */
 package com.proyecto.dao;
 
-import com.proyecto.domain.Rol;
+import com.proyecto.domain.Performance;
 import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  *
  * @author joel
  */
-public interface RolDao extends JpaRepository<Rol, Long> {
-    public void deleteByIdUserAndName(long idUser, String name);
-    public void deleteByIdUser(long idUser);
+public interface PerformanceDao extends JpaRepository<Performance, Long> {
+    
 }

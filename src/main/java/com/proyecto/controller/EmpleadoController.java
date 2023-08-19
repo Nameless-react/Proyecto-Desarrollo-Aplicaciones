@@ -8,6 +8,7 @@ import com.proyecto.domain.Cliente;
 import com.proyecto.domain.Empleado;
 import com.proyecto.domain.Usuario;
 import com.proyecto.service.EmpleadoService;
+import com.proyecto.service.RolService;
 import com.proyecto.service.UsuarioService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
 import java.util.ArrayList;
@@ -42,6 +43,9 @@ public class EmpleadoController {
     @Autowired
     private FireBaseStorageServiceImpl firebaseStorageService;
     
+    @Autowired
+   private RolService rolService;
+    
     @GetMapping("/listar")
     public String list(Model model) {
         List<Empleado> employees = empleadoService.getEmpleados(true);
@@ -57,6 +61,7 @@ public class EmpleadoController {
     
     @PostMapping("/guardar")
     public String save(Empleado empleado, @RequestParam("imagenFile") MultipartFile imageFile) {
+        empleado.setPassword(empleado.getPassword().substring(1));
         Usuario user = usuarioService.getUser(empleado.getIdentification());
         if (user == null) user = new Usuario(empleado.getIdentification(), empleado.getUsername(), empleado.getEmail(), new ArrayList<>());
         
@@ -91,6 +96,7 @@ public class EmpleadoController {
         
         empleadoService.deleteEmpleado(empleado.getIdentification());
         usuarioService.delete(user);
+        rolService.deleteRol(user.getIdUser());
         
         if (employee.getPhoto().length() != 0)  firebaseStorageService.delete(employee.getPhoto().split("empleados/")[1].split("\\?")[0], "empleados");
         

@@ -75,7 +75,6 @@
 }
 .employee-basic-information-container img, .client-basic-information-container img {
     width: 60px;
-    /* min-width: 50px; */
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     object-fit: cover;
@@ -88,24 +87,25 @@
 }
 
 
-.add-button, .delete-button {
+.add-button, .delete-button, .roles-add-button, .roles-delete-button {
     font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 10%;
+    border-radius: 10px;
 }
 
-.add-button {
+.add-button, .roles-add-button {
     background-color: #149ECA;
 }
-.delete-button {
+.delete-button, .roles-delete-button {
     background-color: #dc5d44;
     
 }
 
 .add-button a {
-    padding: .5em .8em;
+    padding: .5em 1.2em;
     color:#fff;
     font-size: 1.2rem;
     text-decoration: none;
@@ -120,19 +120,19 @@
     font-size: 1.2rem;
 }
 
-.delete-button i {
+.delete-button i, .roles-add-button i, .roles-delete-button i  {
     color: #fff;
     padding: .5em 1em;
     font-weight: bold;
     font-size: clamp(0.7rem, 0.4000rem + 0.4800vw, 1.15rem);
 }
 
-.delete-button a {
+.delete-button a, .roles-add-button button, .roles-delete-button button {
     color: #fff;
-    padding: .5em 1em;
+    padding: .5em 2em;
+    padding-right: 1em;
     font-size: .8rem;
     text-decoration: none;
-    background-color: #dc5d44;
     font-weight: bold;
     font-size: clamp(0.7rem, 0.4000rem + 0.4800vw, 1.15rem);
 }
@@ -145,7 +145,10 @@
     margin: 0 auto;
 }
 
-
+.roles-add-button button, .roles-delete-button button {
+    background: none;
+    border: none;
+}
 
 .list {
     display: flex;
@@ -157,7 +160,7 @@
     margin-bottom: 34.4rem;
 }
 
-.title {
+.title, .performance-title {
     font-size: 3rem;
     color: #000;
     margin-top: 10rem;
@@ -328,7 +331,8 @@
     font-weight: bold;
     background: #C15E37;
     color:#fff;
-    padding: .5em 2em;
+    padding: .5em 3em;
+    border-radius: 30px;
 }
 
 .updateProfile:hover {
@@ -342,9 +346,162 @@
     font-weight: bold;
     text-align: center;
     margin-top: 3rem;
-    margin-bottom: 16.8rem;
+    margin-bottom: 14.8rem;
 }
 
+
+.error-status {
+    font-size: 7rem;
+}
+
+.container-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 38.9rem;
+    margin-top: 16rem;
+    flex-direction: column;
+}
+
+.performances {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); 
+    width: 80%;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    margin-bottom: 40rem;
+}
+
+
+.performance {
+    background: #fff;
+    box-shadow: 3px 0 5px 0 #0003;
+    padding: 2em 2.5em;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;
+    outline: 1px solid #76767610;
+    transition: all .3s ease;
+    position: relative;
+}
+
+.performance a {
+    text-decoration: none;
+    color: #000;
+    cursor:pointer;
+}
+
+.calification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.calification i {
+    color: #0f0;
+    font-size: 3rem;
+}
+
+.calification p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0
+}
+
+.performance h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: 2rem;
+}
+
+.remove-performance {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: #C15E37;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    
+}
+
+.remove-performance i {
+    color: #fff;
+    padding: .5em .5em;
+}
+
+.performance:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px 2px #0003;
+}
+
+.roles-list {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20rem;
+    margin-bottom: 40.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.roles {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(160px, 1fr)) 2fr 2fr;
+    justify-items: center;
+    align-items: center;
+    gap: 6rem;
+    padding: 1.5em 4em;
+    box-shadow: 10px 0 25px 1px #0003;
+    border-radius: 20px;
+}
+
+.roles h3 {
+    justify-self: flex-start;
+    font-size: 1rem;
+}
+
+.header.roles h3 {
+    justify-self: center;
+    font-size: 1.5rem;
+}
+
+.delete-container, .add-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.price-between {
+    width: 69%;
+    margin: 0 auto;
+    margin-top: 10rem;
+    margin-bottom: 5rem;
+}
+
+.price-between form {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    gap: 3rem;
+}
+
+.price-between form input {
+    border-radius: 20px;
+    border: none;
+    background-color: #f1f0f0;
+    padding: .5em 2em;
+    outline: none;
+}
 
 @media only screen and (max-width: 1000px) {
     .cards {

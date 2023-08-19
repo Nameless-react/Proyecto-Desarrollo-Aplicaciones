@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+
+
+
+        <div class="roles-list" th:fragment="roles-list">
+                <div class="roles header">
+                    <h3>Identificación:</h3>
+                    <h3>Roles:</h3>
+                    <h3>Eliminar Rol:</h3>
+                    <h3>Agregar Rol:</h3>
+                </div>
+                <hr>
+                <div th:each="user : ${users}" class="roles" th:with="roles=${user.getRoles()}">
+                    <h2 th:if="${size} == 0">No existen clientes</h2>
+                    <h3>[[${user.getIdUser()}]]</h3>
+                    <p>[[${user.getRoles()}]]</p>
+                   <form class="delete-container" th:action="@{/roles/eliminar/} + ${user.getIdUser()}" method="GET">
+                    <input type="hidden" th:name="idUser" th:value="${user.getIdUser()}">
+                    <select th:name="name" id="rolesRemove">
+                        <option th:value="none">Seleccione un rol</option>
+                        <option th:each="rol : ${roles}" th:value="${rol.getName()}">[[${rol.getName()}]]</option>
+                       </select>
+                       <div class="roles-delete-button">
+                           <button th:href="@{hola/adkjf}">Eliminar</button>
+                           <i class="fa-solid fa-trash"></i>
+                       </div>
+                   </form>
+
+                   <form class="add-container" th:action="@{/roles/guardar}" method="POST">
+                    <input type="hidden" th:name="idUser" th:value="${user.getIdUser()}">
+                    <select th:name="name" id="roles">
+                        <option th:value="none">Seleccione un rol</option>
+                        <option th:value="ROLE_ADMIN">Admin</option>
+                        <option th:value="ROLE_USER">User</option>
+                        <option th:value="ROLE_EMPLOYEE">Employee</option>
+                     </select>
+                     <div class="roles-add-button">
+                         <button th:href="@{hola/adkjf}">Agregar</button>
+                         <i class="fa-solid fa-plus"></i>
+                     </div>
+                    </form>
+                    <!-- sec:authorize="hasRole('ROLE_ADMIN')" -->
+                </div>
+    
+            </div>
+
+
+
+    </body>
+</html>

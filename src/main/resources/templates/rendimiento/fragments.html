@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <div class="remove-performance" th:fragment="remove-performance">
+            <a th:href="@{/rendimiento/eliminar/} + ${performance.getIdentification()}"><i class="fa-solid fa-trash"></i></a>
+        </div>
+
+     <div class="performances" th:fragment="performanceList">
+        <div th:each="performance : ${performances}" class="performance">
+            <h2 th:if="${size} == 0">No existen Desempeños</h2>
+            <a th:href="@{/rendimiento/listar/} + ${performance.getIdentification()}">
+                <h3>Identificación empleado: [[${performance.getIdentification()}]]</h3>
+                <p>Identificación supervisor: [[${performance.getSupervisor().getIdentification()}]]</p>
+            </a>
+            <div class="calification">
+                <i class="fa-solid fa-star"></i>
+                <p>[[${performance.getScore()}]]</p>
+            </div>
+           <div th:replace="~{rendimiento/fragments :: remove-performance}"></div>
+           
+        </div>
+     </div>
+    </body>
+</html>

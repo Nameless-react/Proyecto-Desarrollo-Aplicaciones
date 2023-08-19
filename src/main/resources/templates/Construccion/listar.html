@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/fragments :: head}"></head>
     <body>
         <header th:replace="~{layout/fragments :: header}"></header>
@@ -10,8 +10,9 @@
         <br>
         <br>
         <br>
-        <div th:replace="~{contruccion/fragments :: construccion}"></div>
-        <div th:replace="~{construccion/fragments :: Actual}"></div>
+        <div th:replace="~{Construccion/fragments :: price-between}"></div>
+        <section th:replace="~{Construccion/fragments :: construccion}"></section>
+        <div th:replace="~{Construccion/fragments :: actual}"></div>
         <br>
         <br>
         <br>

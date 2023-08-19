@@ -36,7 +36,9 @@
                 <p>[[${client.getIdentification()}]]</p>
                 <a th:href="@{'mailto:' + ${client.getEmail()}}">[[${client.getEmail()}]]</a>
                 <p th:text="${client.isActive()} ? 'Si' : 'No'" />
-                <div  th:replace="~{clientes/fragments :: delete-button}"></div>
+                <div th:if="${#authentication.principal.identification} != ${client.getIdentification()}">
+                    <div  th:replace="~{clientes/fragments :: delete-button}"></div>
+                </div>
                 <!-- sec:authorize="hasRole('ROLE_AMDIN')" -->
             </div>
 
