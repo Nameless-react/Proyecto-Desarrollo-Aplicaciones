@@ -32,15 +32,17 @@
           <li class="nav-item active">
             <a class="nav-link" aria-current="page" th:href="@{/}">Inicio</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" aria-current="page" th:href="@{/projects}">Proyectos</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" aria-current="page" th:href="@{/about}">Sobre Nosotros</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" aria-current="page" th:href="@{/ventas/listar}">Cátalogo</a>
-          </li>
+          </li> -->
+
+        <!-- dropdown usuarios -->
           <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Usuarios</a>
               <ul class="dropdown-menu dropdown-menu-light">
@@ -49,6 +51,20 @@
                 </li>
                 <li>
                   <a class="dropdown-item" th:href="@{/empleados/listar}">Empleados</a>
+                <li sec:authorization="hasRole('ROLE_ADMIN')">
+                  <a class="dropdown-item" th:href="@{/roles/listar}">Roles</a>
+                </li>
+              </ul>
+          </li>
+          <!-- dropdown casas -->
+          <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Casas</a>
+              <ul class="dropdown-menu dropdown-menu-light">
+                <li>
+                  <a class="dropdown-item" th:href="@{/construccion/listar}">En Construcción</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/ventas/listar}">En Ventas</a>
               </ul>
           </li>
 

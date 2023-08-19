@@ -14,14 +14,17 @@ import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author joel
  */
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,4 +45,12 @@ public class Rol implements Serializable {
         this.name = name;
         this.idUser = idUser;
     }
+
+    @Override
+    public String toString() {
+        String role = this.name.split("_")[1];
+        return String.valueOf(role.charAt(0)).toUpperCase() + role.toLowerCase().substring(1);
+    }
+    
+    
 }

@@ -8,6 +8,7 @@ import com.proyecto.domain.Cliente;
 import com.proyecto.domain.Empleado;
 import com.proyecto.domain.Usuario;
 import com.proyecto.service.EmpleadoService;
+import com.proyecto.service.RolService;
 import com.proyecto.service.UsuarioService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
 import java.util.ArrayList;
@@ -41,6 +42,9 @@ public class EmpleadoController {
     
     @Autowired
     private FireBaseStorageServiceImpl firebaseStorageService;
+    
+    @Autowired
+   private RolService rolService;
     
     @GetMapping("/listar")
     public String list(Model model) {
@@ -92,6 +96,7 @@ public class EmpleadoController {
         
         empleadoService.deleteEmpleado(empleado.getIdentification());
         usuarioService.delete(user);
+        rolService.deleteRol(user.getIdUser());
         
         if (employee.getPhoto().length() != 0)  firebaseStorageService.delete(employee.getPhoto().split("empleados/")[1].split("\\?")[0], "empleados");
         

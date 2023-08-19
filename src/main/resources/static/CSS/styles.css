@@ -75,7 +75,6 @@
 }
 .employee-basic-information-container img, .client-basic-information-container img {
     width: 60px;
-    /* min-width: 50px; */
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     object-fit: cover;
@@ -88,24 +87,25 @@
 }
 
 
-.add-button, .delete-button {
+.add-button, .delete-button, .roles-add-button, .roles-delete-button {
     font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 10%;
+    border-radius: 10px;
 }
 
-.add-button {
+.add-button, .roles-add-button {
     background-color: #149ECA;
 }
-.delete-button {
+.delete-button, .roles-delete-button {
     background-color: #dc5d44;
     
 }
 
 .add-button a {
-    padding: .5em .8em;
+    padding: .5em 1.2em;
     color:#fff;
     font-size: 1.2rem;
     text-decoration: none;
@@ -120,19 +120,19 @@
     font-size: 1.2rem;
 }
 
-.delete-button i {
+.delete-button i, .roles-add-button i, .roles-delete-button i  {
     color: #fff;
     padding: .5em 1em;
     font-weight: bold;
     font-size: clamp(0.7rem, 0.4000rem + 0.4800vw, 1.15rem);
 }
 
-.delete-button a {
+.delete-button a, .roles-add-button button, .roles-delete-button button {
     color: #fff;
-    padding: .5em 1em;
+    padding: .5em 2em;
+    padding-right: 1em;
     font-size: .8rem;
     text-decoration: none;
-    background-color: #dc5d44;
     font-weight: bold;
     font-size: clamp(0.7rem, 0.4000rem + 0.4800vw, 1.15rem);
 }
@@ -145,7 +145,10 @@
     margin: 0 auto;
 }
 
-
+.roles-add-button button, .roles-delete-button button {
+    background: none;
+    border: none;
+}
 
 .list {
     display: flex;
@@ -436,6 +439,53 @@
     transform: translateY(-5px);
     box-shadow: 0px 10px 20px 2px #0003;
 }
+
+.roles-list {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20rem;
+    margin-bottom: 40.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.roles {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(160px, 1fr)) 2fr 2fr;
+    justify-items: center;
+    align-items: center;
+    gap: 6rem;
+    padding: 1.5em 4em;
+    box-shadow: 10px 0 25px 1px #0003;
+    border-radius: 20px;
+}
+
+.roles h3 {
+    justify-self: flex-start;
+    font-size: 1rem;
+}
+
+.header.roles h3 {
+    justify-self: center;
+    font-size: 1.5rem;
+}
+
+.delete-container, .add-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+/* .header.roles {
+    /* box-shadow: none; */
+    /* grid-template-columns: 1fr 1fr 2fr 2fr; */
+/* } */ 
+
 
 @media only screen and (max-width: 1000px) {
     .cards {
