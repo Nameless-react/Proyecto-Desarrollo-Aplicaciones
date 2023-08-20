@@ -4,12 +4,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+    <head th:replace="~{layout/fragments :: head}"></head>
     <body>
-        <div>TODO write content</div>
+        <header th:replace="~{layout/fragments :: header}"></header>
+        <a class="atras" th:href="@{/rendimiento/listar}"><i class="fa-solid fa-left-long"></i></a>
+        <div th:replace="~{rendimiento/fragments :: updatePerformance}"></div>
+
+        <footer th:replace="~{layout/fragments :: footer}"></footer>
     </body>
 </html>

@@ -6,9 +6,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-
-        <div class="remove-performance" th:fragment="remove-performance">
-            <a th:href="@{/rendimiento/eliminar/} + ${performance.getIdentification()}"><i class="fa-solid fa-trash"></i></a>
+        <!-- class="remove-performance" -->
+        <div th:fragment="remove-performance">
+            <div id="container">
+                <div id="menu-wrap">
+                  <input type="checkbox" class="toggler" />
+                  <div class="dots">
+                    <div></div>
+                  </div>
+                  <div class="menu">
+                    <div>
+                      <ul>
+                        <li><a style="color:#f00" th:href="@{/rendimiento/eliminar/} + ${performance.getIdentification()}" class="link">Borrar</a><i style="color:#f00" class="fa-solid fa-trash"></i></li>
+                        <li><a style="color: #00f" th:href="@{/rendimiento/actualizar/} + ${performance.getIdentification()}" class="link">Editar</a><i style="color: #00f" class="fa-solid fa-pen-to-square"></i></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- <a th:href="@{/rendimiento/eliminar/} + ${performance.getIdentification()}"><i class="fa-solid fa-trash"></i></a> -->
         </div>
 
      <div class="performances" th:fragment="performanceList">
@@ -26,5 +42,22 @@
            
         </div>
      </div>
+
+     <div th:fragment="updatePerformance" class="updatePerformance">
+
+
+        <form th:action="@{/rendimiento/actualizar}" method="POST" th:object="${performance}">
+            <h1 th:text="${performance.getIdentification()} != 0  ? 'Modificar Rendimiento' : 'Agregar Rendimiento'"></h1>
+            <input th:if="${performance.getIdentification()} == 0" type="number" min="10000000" required placeholder="Identificación" name="identification">
+            <input th:if="${performance.getIdentification()} != 0" type="number" min="10000000" required placeholder="Identificación" th:field="*{identification}">
+            <input type="number" min="10000000" required placeholder="Identificación del Supervisor" th:field="*{supervisor.identification}">
+            <textarea name="" placeholder="Observaciones" th:field="*{observations}"></textarea>
+            <textarea name="" placeholder="Logros alcanzados" th:field="*{achievedGoals}"></textarea>
+            <input type="number" max="100" required placeholder="Nota" th:field="*{score}">
+            <button type="submit" th:text="${performance.identification} != 0 ? 'Modificar' : 'Agregar'"></button>
+        </form>
+     </div>
+
+
     </body>
 </html>

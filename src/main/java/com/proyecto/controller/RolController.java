@@ -44,7 +44,7 @@ public class RolController {
     public String save(Rol rol) {
         Usuario user = usuarioService.getUser(rol.getIdUser());
         boolean hasRole = user.getRoles().stream().anyMatch((role) -> role.getName().equals(rol.getName()));
-        if (hasRole) return "redirect:/roles/listar";
+        if (hasRole || rol.getName().equals("none")) return "redirect:/roles/listar";
         
         rolService.saveRol(rol);
         return "redirect:/roles/listar";
@@ -56,7 +56,7 @@ public class RolController {
         
         Usuario user = usuarioService.getUser(rol.getIdUser());
         boolean hasRole = user.getRoles().stream().anyMatch((role) -> role.getName().equals(rol.getName()));
-        if (!hasRole) return "redirect:/roles/listar";
+        if (!hasRole || rol.getName().equals("none")) return "redirect:/roles/listar";
         rolService.deleteByIdUserAndName(rol.getIdUser(), name);
         
         return "redirect:/roles/listar";

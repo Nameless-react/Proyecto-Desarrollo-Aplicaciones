@@ -34,5 +34,5 @@ public class Performance {
     
     @OneToOne
     @JoinColumn(name = "supervisor_identification")
-    Empleado supervisor;
+    private Empleado supervisor;
 }
