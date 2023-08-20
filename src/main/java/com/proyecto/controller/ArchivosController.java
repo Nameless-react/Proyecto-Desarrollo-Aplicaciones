@@ -11,39 +11,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
 @RequestMapping("/archivos")
+@Controller
 public class ArchivosController {
 
-    private final ArchivosService archivosService;
+    @Autowired
+    private ArchivosService archivosService;
 
-    public ArchivosController(ArchivosService archivosService) {
-        this.archivosService = archivosService;
+    @RequestMapping("/eliminar/{id}")
+    public String page(Archivos archivos, Model model) {
+        archivosService.deleteArchivos(archivos.getId());
+        return "redirect:Archivos/listar/";
+
     }
-
-    @GetMapping("/listar")
-    public String listarArchivos(Model model) {
-        List<Archivos> archivos = archivosService.getArchivos();
-        model.addAttribute("archivos", archivos);
+    public String listar(Model model){
+      List<Archivos> archivos = archivosService.getArchivos();
+       model.addAttribute("archivos", archivos);
         return "/Archivos/listar";
+     
     }
-
-    @GetMapping("/agregar")
-    public String mostrarFormularioAgregar(Model model) {
-        Archivos archivo = new Archivos(); 
-        model.addAttribute("archivo", archivo);
-        return "/Archivos/agregar";
-    }
-
-    @PostMapping("/eliminar/{id}")
-    public String eliminarArchivo(@PathVariable("id") Long id) {
-        archivosService.deleteArchivos(id);
-        return "redirect:/archivos/listar";
-    }
-
 }

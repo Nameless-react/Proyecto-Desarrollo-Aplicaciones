@@ -12,8 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Emanuel
  */
 public interface ClienteDao extends JpaRepository<Cliente, Long> {
-
-    Cliente findByName(String name);
     
-    Cliente findByEmail(String email);
 }
