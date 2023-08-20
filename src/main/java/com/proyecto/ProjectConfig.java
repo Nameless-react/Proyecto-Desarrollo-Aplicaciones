@@ -43,15 +43,33 @@ public class ProjectConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/errores/**", "/construccion/**", "/rendimiento/**", "/roles/**","/about", "/js/**", "/webjars/**", "/CSS/**", "contact", "signup", "ventas/**", "perfil", "clientes/**", "empleados/**", "/error")
+                .requestMatchers("/","/", 
+                        "/index", 
+                        "/errores/**",
+                        "/Archivos/listar", 
+                        "/rendimiento/**", 
+                        "/about", 
+                        "/js/**", 
+                        "/webjars/**", 
+                        "/CSS/**", 
+                        "contact", 
+                        "signup", 
+                        "ventas/**",
+                        "reportes/**", 
+                        "perfil", 
+                        "clientes/**", 
+                        "empleados/**", 
+                        "archivos/**",
+                        "Archivos/**",
+                        "/error",
+                        "/index", "/errores/**", "/construccion/**", "/rendimiento/**", "/roles/**","/about", "/js/**", "/webjars/**", "/CSS/**", "contact", "signup", "ventas/**", "perfil", "clientes/**", "empleados/**", "/error")
+                
                 .permitAll()
-//                .requestMatchers(
-//                        "/about", "",
-//                        "contact"
-//                ).hasRole("ADMIN")
                 .requestMatchers(
-                        "/producto/listado",
-                        "/categoria/listado",
+                        "/about", "",
+                        "contact"
+                ).hasRole("ADMIN")
+                .requestMatchers(
                         "/usuario/listado"
                 ).hasAnyRole("ADMIN", "VENDEDOR")
                 .requestMatchers("/facturar/carrito")

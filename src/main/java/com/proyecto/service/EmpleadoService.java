@@ -14,8 +14,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface EmpleadoService {
+
     public Empleado getEmpleado(long id);
+    public Empleado getEmpleadoByName(String name);  
     public List<Empleado> getEmpleados(boolean active);
     public void deleteEmpleado(long id);
     public void saveEmpleado(Empleado empleado);
+    
 }
