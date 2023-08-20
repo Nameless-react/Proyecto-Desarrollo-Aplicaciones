@@ -10,6 +10,7 @@ import com.proyecto.service.PerformanceService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,21 +23,25 @@ public class PerformanceServiceImpl implements PerformanceService {
     private PerformanceDao performanceDao;
 
     @Override
+    @Transactional(readOnly = true)
     public Performance getPerformance(long id) {
        return performanceDao.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Performance> getPerformances() {
         return performanceDao.findAll();
     }
 
     @Override
+    @Transactional
     public void deletePerformance(long id) {
        performanceDao.deleteById(id);
     }
 
     @Override
+    @Transactional
     public void savePerformance(Performance performance) {
         performanceDao.save(performance);
     }

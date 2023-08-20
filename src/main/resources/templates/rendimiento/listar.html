@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head th:replace="~{layout/fragments :: head}"></head>
 
 <body>
     <header th:replace="~{layout/fragments :: header}"></header>
     <h1 class="performance-title">Rendimientos</h1>
+    <div th:replace="~{rendimiento/fragments :: performance-options}"></div>
     <div th:replace="~{rendimiento/fragments :: performanceList}"></div>
     <footer th:replace="~{layout/fragments :: footer}"></footer>
 </body>
