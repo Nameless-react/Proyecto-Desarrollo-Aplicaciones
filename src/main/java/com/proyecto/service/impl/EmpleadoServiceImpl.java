@@ -21,17 +21,11 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     @Autowired
     private EmpleadoDao empleadoDao;
-
+    
     @Override
     @Transactional(readOnly = true)
     public Empleado getEmpleado(long id) {
         return empleadoDao.findById(id).orElse(null);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Empleado getEmpleadoByName(String name) {
-        return empleadoDao.findByName(name);
     }
 
     @Override
@@ -51,4 +45,5 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     public void saveEmpleado(Empleado empleado) {
         empleadoDao.save(empleado);
     }
+    
 }

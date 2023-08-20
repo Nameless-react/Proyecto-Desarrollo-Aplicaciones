@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ArchivosService {
-    Archivos getArchivo(long id);
-    List<Archivos> getArchivos();
-    void deleteArchivos(long id);
-    void saveArchivos(Archivos archivos);
+    public Archivos getArchivo(long id);
+    public List<Archivos> getArchivos();
+    public void deleteArchivos(long id);
+    public void saveArchivos(Archivos archivos);
 }

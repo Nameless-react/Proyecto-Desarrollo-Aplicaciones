@@ -1,31 +1,26 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="~{layout/fragments :: head}"></head>
     <body>
         <header th:replace="~{layout/fragments :: header}"></header>
         <br>
-            <br>
-                <br>
-                    <br>
-                        <br>
-                            <br>
-                                <div class="container mt-2">
-                                    <div class="row">
-                                        <div class="col-md-2"> <!-- Cambiado a col-md-3 -->
-                                            <div th:replace="~{ventas/fragments :: Filtro}"></div>
-                                        </div>
-                                        <div class="col-md-9"> <!-- Cambiado a col-md-9 -->
-                                            <div th:replace="~{ventas/fragments :: Venta}"></div>
-                                        </div>
-                                    </div>
-                                </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div th:replace="~{ventas/fragments :: Venta}"></div>
+        <div th:replace="~{ventas/fragments :: Actual}"></div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <footer th:replace="~{layout/fragments :: footer}"></footer>
+    </body>
+</html>
 
-                                <div th:replace="~{ventas/fragments :: Agregar}"></div>
-                                <div th:replace="~{ventas/fragments :: Actual}"></div>
-                                <br>
-                                    <br>
-                                        <br>
-                                            <footer th:replace="~{layout/fragments :: footer}"></footer>
-                                            </body>
-                                            </html>
+
