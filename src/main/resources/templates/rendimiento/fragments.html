@@ -47,14 +47,30 @@
 
 
         <form th:action="@{/rendimiento/guardar}" method="POST" th:object="${performance}">
-            <h1 th:text="${performance.getIdentification()} != 0  ? 'Modificar Rendimiento' : 'Agregar Rendimiento'"></h1>
+            <h1 th:text="${performance.getIdentification()} != 0 and ${screen} != 'new' ? 'Modificar Rendimiento' : 'Agregar Rendimiento'"></h1>
             <input th:if="${performance.getIdentification()} == 0" type="number" min="10000000" required placeholder="Identificación" name="identification">
+            
             <input th:if="${performance.getIdentification()} != 0" type="number" min="10000000" required placeholder="Identificación" th:field="*{identification}">
+            <p class="errors" th:if="${#fields.errors('identification')}" th:errors="*{identification}" />
+            
+            
             <input type="number" min="10000000" required placeholder="Identificación del Supervisor" th:field="*{supervisor.identification}">
+            <p class="errors" th:if="${#fields.errors('supervisor')}" th:errors="*{supervisor}" />
+            
             <textarea name="" placeholder="Observaciones" th:field="*{observations}"></textarea>
+            <p class="errors" th:if="${#fields.errors('observations')}" th:errors="*{observations}" />
+            
             <textarea name="" placeholder="Logros alcanzados" th:field="*{achievedGoals}"></textarea>
+            <p class="errors" th:if="${#fields.errors('achievedGoals')}" th:errors="*{achievedGoals}" />
+            
             <input type="number" max="100" required placeholder="Nota" th:field="*{score}">
-            <button type="submit" th:text="${performance.identification} != 0 ? 'Modificar' : 'Agregar'"></button>
+            <p class="errors" th:if="${#fields.errors('score')}" th:errors="*{score}" />
+            <button type="submit" th:text="${performance.identification} != 0 and ${screen} != 'new' ? 'Modificar' : 'Agregar'"></button>
+            <!-- <div th:if="${#fields.hasAnyErrors()}">
+                <ul>
+                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                </ul>
+            </div> -->
         </form>
      </div>
      <div class="performance-options" th:fragment="performance-options">

@@ -45,7 +45,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item" th:href="@{/empleados/listar}">Empleados</a>
-                <li sec:authorization="hasRole('ROLE_ADMIN')">
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
                   <a class="dropdown-item" th:href="@{/roles/listar}">Roles</a>
                 </li>
               </ul>

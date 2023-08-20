@@ -4,13 +4,14 @@
  */
 package com.proyecto.controller;
 
-import com.proyecto.domain.Cliente;
+
 import com.proyecto.domain.Empleado;
 import com.proyecto.domain.Usuario;
 import com.proyecto.service.EmpleadoService;
 import com.proyecto.service.RolService;
 import com.proyecto.service.UsuarioService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +62,13 @@ public class EmpleadoController {
     }
     
     @PostMapping("/guardar")
-    public String save(Empleado empleado, @RequestParam("imagenFile") MultipartFile imageFile) {
+    public String save(@Valid Empleado empleado, BindingResult result, Model model, @RequestParam("imagenFile") MultipartFile imageFile) {
+        Empleado tempEmpleado = empleadoService.getEmpleado(empleado.getIdentification());
+        model.addAttribute("screen", tempEmpleado == null ? "new" : "edit");
+        System.out.println(result.hasErrors());
+        
+        if (result.hasErrors()) return "empleados/actualizar";
+        
         empleado.setPassword(empleado.getPassword().substring(1));
         Usuario user = usuarioService.getUser(empleado.getIdentification());
         if (user == null) user = new Usuario(empleado.getIdentification(), empleado.getUsername(), empleado.getEmail(), new ArrayList<>());
@@ -70,8 +78,9 @@ public class EmpleadoController {
         if (user.getRoles().size() == 0) usuarioService.save(user, true);
         usuarioService.save(user, false);
         
-        Empleado tempEmpleado = empleadoService.getEmpleado(empleado.getIdentification());
-         if (tempEmpleado != null) {
+        
+        if (tempEmpleado != null) {
+             
             empleado.setPassword(tempEmpleado.getPassword());
         } else  empleado.setPassword(new BCryptPasswordEncoder().encode(empleado.getPassword()));
         

@@ -4,16 +4,14 @@
  */
 package com.proyecto.controller;
 
-import com.proyecto.domain.Empleado;
 import com.proyecto.domain.Performance;
-import com.proyecto.domain.Usuario;
 import com.proyecto.service.PerformanceService;
-import java.util.ArrayList;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +42,14 @@ public class PerformanceController {
     }
     
     @PostMapping("/guardar")
-    public String save(Performance performance) {
+    public String save(@Valid Performance performance, BindingResult result, Model model) {
+        Performance performanceAlreadyExist = performanceService.getPerformance(performance.getIdentification());
+        
+        
+        model.addAttribute("screen", performanceAlreadyExist == null ? "new" : "edit");
+        if (result.hasErrors()) return "rendimiento/actualizar";
+        
+        
         performanceService.savePerformance(performance);
         return "redirect:/rendimiento/listar";
     }

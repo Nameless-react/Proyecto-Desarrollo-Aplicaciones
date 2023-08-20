@@ -469,7 +469,7 @@ input::-webkit-inner-spin-button {
 .roles {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, minmax(160px, 1fr)) 2fr 2fr;
+    grid-template-columns: 1fr 1fr 2fr 2fr;
     justify-items: center;
     align-items: center;
     gap: 6rem;
@@ -736,6 +736,11 @@ input::-webkit-inner-spin-button {
     margin-top: 5rem;
 }
 
+.errors {
+    color: #f00;
+    font-size: 1rem;
+    font-weight: bold;
+}
 
 
 @media only screen and (max-width: 1000px) {
