@@ -43,7 +43,7 @@ public class ProjectConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/errores/**", "/construccion/**", "/rendimiento/**","/about", "/js/**", "/webjars/**", "/CSS/**", "contact", "signup", "ventas/**", "perfil", "clientes/**", "/empleados/actualizar/**", "/error")
+                .requestMatchers("/", "/archivos/**","/reportes/**", "/index", "/errores/**", "/construccion/**", "/rendimiento/**","/about", "/js/**", "/webjars/**", "/CSS/**", "contact", "signup", "ventas/**", "perfil", "clientes/**", "/empleados/actualizar/**", "/error")
                 .permitAll()
                 .requestMatchers(
                         "/roles/**", "/empleados/eliminar/**", "/empleados/guardar/",
