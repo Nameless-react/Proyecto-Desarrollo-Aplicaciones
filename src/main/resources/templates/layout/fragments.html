@@ -73,7 +73,7 @@
             <a class="nav-link" aria-current="page" th:href="@{/signup}">Registrarse</a>
           </li>
         </ul>
-        <ul class="navbar-nav user" sec:authorize="isAuthenticated()" style="margin-left: 2rem;">
+        <ul class="navbar-nav user" sec:authorize="isAuthenticated()">
           <li class="nav-item my-auto" style="display: flex; align-items: center; justify-content: center;">
             <a th:href="@{/perfil}" style="text-decoration: none;">
               <img style="width: 50px; border-radius: 50%; height: 50px; object-fit: cover; margin-right: 1rem;" th:src="${#authentication.principal.photo.length()} == 0 ? 'https://t4.ftcdn.net/jpg/04/10/43/77/360_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg' : ${#authentication.principal.photo}" alt="">
@@ -82,8 +82,7 @@
           </li>
           <li class="nav-item text-white">
             <form method="POST" style="margin-top: auto; margin-bottom: auto;" th:action="@{/logout}">
-              <button
-                style="font-weight: bold; font-size: 1.2rem; background-color: transparent; outline: none; border: none; margin-left: .7rem;"><i
+              <button style="font-weight: bold; font-size: 1.2rem; background-color: transparent; outline: none; border: none; margin-left: .7rem;"><i
                   class="fas fa-sign-out-alt"></i></button>
             </form>
           </li>

@@ -46,7 +46,7 @@
      <div th:fragment="updatePerformance" class="updatePerformance">
 
 
-        <form th:action="@{/rendimiento/actualizar}" method="POST" th:object="${performance}">
+        <form th:action="@{/rendimiento/guardar}" method="POST" th:object="${performance}">
             <h1 th:text="${performance.getIdentification()} != 0  ? 'Modificar Rendimiento' : 'Agregar Rendimiento'"></h1>
             <input th:if="${performance.getIdentification()} == 0" type="number" min="10000000" required placeholder="Identificación" name="identification">
             <input th:if="${performance.getIdentification()} != 0" type="number" min="10000000" required placeholder="Identificación" th:field="*{identification}">
@@ -57,7 +57,12 @@
             <button type="submit" th:text="${performance.identification} != 0 ? 'Modificar' : 'Agregar'"></button>
         </form>
      </div>
-
+     <div class="performance-options" th:fragment="performance-options">
+         <div class="add-button">
+            <a th:href="@{/rendimiento/nuevo}">Agregar</a>
+            <i class="fa-solid fa-plus"></i>
+         </div>
+     </div>
 
     </body>
 </html>

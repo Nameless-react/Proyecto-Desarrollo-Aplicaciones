@@ -148,7 +148,7 @@ input::-webkit-inner-spin-button {
     font-size: clamp(0.7rem, 0.4000rem + 0.4800vw, 1.15rem);
 }
 
-.employee-options {
+.employee-options, .performance-options {
     width: 80%;
     display: flex;
     align-items: center;
@@ -311,6 +311,8 @@ input::-webkit-inner-spin-button {
     align-items: center;
     justify-content: center;
     padding: .5em 1em;
+    margin-left: 2rem;
+    flex-direction: row;
 }
 
 .userInfo {
@@ -383,6 +385,7 @@ input::-webkit-inner-spin-button {
     flex-wrap: wrap;
     margin: 0 auto;
     margin-bottom: 40rem;
+    margin-top: 5rem;
 }
 
 
@@ -743,5 +746,10 @@ input::-webkit-inner-spin-button {
     .form {
         width: 80%;
         min-width: 600px;
+    }
+
+    .user {
+        margin: 0;
+        width: 25%;
     }
 }
