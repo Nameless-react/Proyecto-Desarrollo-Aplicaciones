@@ -611,7 +611,7 @@ input::-webkit-inner-spin-button {
     list-style: none;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     gap: 1em;
   }
@@ -673,8 +673,8 @@ input::-webkit-inner-spin-button {
   #container #menu-wrap .toggler:checked ~ .menu {
     opacity: 1;
     visibility: visible;
-    width: 150px;
-    height: 100px;
+    width: 170px;
+    height: 140px;
     transition: 0.5s;
     border: 0.1px solid #9c9c9c22;
   }

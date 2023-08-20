@@ -19,26 +19,28 @@
                       <ul>
                         <li><a style="color:#f00" th:href="@{/rendimiento/eliminar/} + ${performance.getIdentification()}" class="link">Borrar</a><i style="color:#f00" class="fa-solid fa-trash"></i></li>
                         <li><a style="color: #00f" th:href="@{/rendimiento/actualizar/} + ${performance.getIdentification()}" class="link">Editar</a><i style="color: #00f" class="fa-solid fa-pen-to-square"></i></li>
+                        <li><a style="color: #B50706" th:href="@{/reportes/rendimiento?tipo=Pdf&identification=} + ${performance.getIdentification()}" class="link">Descargar</a><i style="color: #B50706" class="fa-solid fa-file-pdf"></i></li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
-            <!-- <a th:href="@{/rendimiento/eliminar/} + ${performance.getIdentification()}"><i class="fa-solid fa-trash"></i></a> -->
         </div>
 
      <div class="performances" th:fragment="performanceList">
         <div th:each="performance : ${performances}" class="performance">
             <h2 th:if="${size} == 0">No existen Desempeños</h2>
-            <a th:href="@{/rendimiento/listar/} + ${performance.getIdentification()}">
-                <h3>Identificación empleado: [[${performance.getIdentification()}]]</h3>
-                <p>Identificación supervisor: [[${performance.getSupervisor().getIdentification()}]]</p>
-            </a>
+            <div>
+              <h3>Identificación empleado: [[${performance.getIdentification()}]]</h3>
+              <p>Identificación supervisor: [[${performance.getSupervisor().getIdentification()}]]</p>
+            </div>
             <div class="calification">
                 <i class="fa-solid fa-star"></i>
                 <p>[[${performance.getScore()}]]</p>
             </div>
-           <div th:replace="~{rendimiento/fragments :: remove-performance}"></div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+              <div th:replace="~{rendimiento/fragments :: remove-performance}"></div>
+            </div>
            
         </div>
      </div>
@@ -66,11 +68,6 @@
             <input type="number" max="100" required placeholder="Nota" th:field="*{score}">
             <p class="errors" th:if="${#fields.errors('score')}" th:errors="*{score}" />
             <button type="submit" th:text="${performance.identification} != 0 and ${screen} != 'new' ? 'Modificar' : 'Agregar'"></button>
-            <!-- <div th:if="${#fields.hasAnyErrors()}">
-                <ul>
-                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
-                </ul>
-            </div> -->
         </form>
      </div>
      <div class="performance-options" th:fragment="performance-options">

@@ -83,4 +83,13 @@ public class ReporteController {
         var reporte = "stock";
         return reporteService.generaReporte(reporte, null, tipo);
     }
+    
+    @GetMapping("/rendimiento")
+    public ResponseEntity<Resource> reporteRendimiento(@RequestParam String identification) throws IOException {        
+        String reporte = "rendimiento";
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("identificacion", Long.parseLong(identification));
+        
+        return reporteService.generaReporte(reporte, parameters, "Pdf");
+    }
 }

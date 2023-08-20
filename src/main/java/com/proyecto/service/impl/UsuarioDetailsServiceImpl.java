@@ -41,9 +41,6 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
     @Autowired
     private EmpleadoDao employeeDao;
     
-//    @Autowired
-//    private HttpSession session;
-    
     
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
