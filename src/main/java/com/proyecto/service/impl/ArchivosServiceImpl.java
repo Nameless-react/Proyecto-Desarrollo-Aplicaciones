@@ -23,8 +23,8 @@ public class ArchivosServiceImpl implements ArchivosService {
     }
 
     @Override
-    public Archivos getArchivo(long id) {
-        return archivosDao.findById(id);
+    public Archivos getArchivo(Long id) {
+        return archivosDao.findById(id).orElse(null);
     }
 
     @Override
@@ -33,12 +33,12 @@ public class ArchivosServiceImpl implements ArchivosService {
     }
 
     @Override
-    public void deleteArchivos(long id) {
+    public void deleteArchivo(Long id) {
         archivosDao.deleteById(id);
     }
 
     @Override
-    public void saveArchivos(Archivos archivos) {
-        archivosDao.save(archivos);
+    public void saveArchivo(Archivos archivo) {
+        archivosDao.save(archivo);
     }
 }

@@ -4,6 +4,7 @@
  */
 package com.proyecto.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,9 +38,6 @@ public class Venta implements Serializable {
     private String province;
     private String photo;
 
-    
-    
-    
     public Venta(String description, long price, LocalDate date,String state, String province, String photo) {
         this.description = description;
         this.price = price;

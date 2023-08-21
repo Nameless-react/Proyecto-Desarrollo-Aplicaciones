@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/ventas")
@@ -48,9 +50,20 @@ public class VentaController {
 
         return "/ventas/listar";
     }
-    
+
+    @GetMapping("/agregar")
+    public String showAddForm(Model model) {
+        Venta venta = new Venta(); // Crea un nuevo objeto Venta para vincular el formulario
+        model.addAttribute("venta", venta);
+        return "/ventas/agregar";
+    }
+
     @PostMapping("/guardar")
-    public String save(Venta venta) {
+    public String save(@ModelAttribute("venta") Venta venta, @RequestParam("imagenFile") MultipartFile imagenFile) {
+        if (!imagenFile.isEmpty()) {
+            String imageUrl = firebaseStorageService.loadImage(imagenFile, "categoria", venta.getId());
+            venta.setPhoto(imageUrl);
+        }
         ventaService.saveVenta(venta);
         return "redirect:/ventas/listar";
     }
@@ -62,16 +75,21 @@ public class VentaController {
         return "/ventas/actualizar";
     }
 
-    @GetMapping("/eliminar{id}")
-    public String delete(Venta venta, Model model) {
-        ventaService.deleteVenta(venta);
+    @PostMapping("/eliminar/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        Venta venta = ventaService.getVenta(id);
+        if (venta != null) {
+            ventaService.deleteVenta(venta);
+        }
         return "redirect:/ventas/listar";
     }
-    
+
     @GetMapping("/perfil/{id}")
     public String perfil(@PathVariable("id") long id, Model model) {
         Venta venta = ventaService.getVenta(id);
         model.addAttribute("venta", venta);
         return "/ventas/perfil";
     }
+
+
 }
