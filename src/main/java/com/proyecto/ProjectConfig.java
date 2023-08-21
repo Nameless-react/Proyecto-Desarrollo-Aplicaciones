@@ -48,7 +48,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .requestMatchers(
                         "/roles/**", "/empleados/actualizar/**",
                         "/empleados/eliminar/**", "/clientes/eliminar/**",
-                        "/clientes/**", "/empleados/**",
+                        "/clientes/**", "/empleados/**", "/rendimiento/**",
                         "/rendimiento/eliminar/**", "/construccion/actualizar/**", "/construccion/eliminar/**",
                         "/ventas/actualizar/**", "/ventas/eliminar/**",
                         "/archivos/eliminar/**", "/archivos/agregar/"
