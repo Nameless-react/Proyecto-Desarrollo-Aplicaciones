@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.proyecto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +40,29 @@ public class ProjectConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/archivos/**","/reportes/**", "/index", "/errores/**", "/construccion/**", "/rendimiento/**","/about", "/js/**", "/webjars/**", "/CSS/**", "contact", "signup", "ventas/**", "perfil", "clientes/**", "/empleados/actualizar/**", "/error")
+                .requestMatchers("/", 
+                        "/archivos/**",
+                        "/reportes/**",
+                        "/ventas/**", 
+                        "/index", 
+                        "/errores/**", 
+                        "/construccion/**", 
+                        "/rendimiento/**",
+                        "/about", 
+                        "/js/**", 
+                        "/webjars/**", 
+                        "/CSS/**", 
+                        "contact", 
+                        "signup", 
+                        "ventas/**", 
+                        "perfil", 
+                        "clientes/**", 
+                        "/empleados/actualizar/**", 
+                        "/error",
+                        "/controller/",
+                        "/firebase/**",
+                        "/domain/**",
+                        "/proyecto/**")
                 .permitAll()
                 .requestMatchers(
                         "/roles/**", "/empleados/eliminar/**", "/empleados/guardar/",

@@ -42,36 +42,15 @@ public class ReporteController {
         return "/reportes/principal";
     }
 
-    @GetMapping("/usuarios")
-    public ResponseEntity<Resource> reporteClientes(@RequestParam String tipo) 
-            throws IOException {        
-        var reporte = "usuarios";
-        return reporteService.generaReporte(reporte, null, tipo);
-    }
-
-
-    @GetMapping("/ventas")
-    public ResponseEntity<Resource> reporteVentas(@RequestParam String tipo) 
+    @GetMapping("/inspeccion")
+    public ResponseEntity<Resource> reporteInspeccion(@RequestParam String tipo) 
             throws IOException {
-        var reporte="ventas";
+        var reporte="inspeccion";
         return reporteService.generaReporte(reporte, null, tipo);
-    }
-
-    @GetMapping("/ventasTotales")
-    public ResponseEntity<Resource> reporteVentasTotales(
-            @RequestParam String fechaInicio,
-            @RequestParam String fechaFin,
-            @RequestParam String tipo) throws IOException {
-        //Esto espara definir los paràmetros que se pasan al reporte cliente
-        Map<String, Object> parametros = new HashMap();
-        parametros.put("fechaInicio", fechaInicio);
-        parametros.put("fechaFin", fechaFin);
-        var reporte="ventasTotales";
-        return reporteService.generaReporte(reporte, parametros, tipo);
     }
 
     @GetMapping("/permisos")
-    public ResponseEntity<Resource> reportePermisoss(@RequestParam String tipo) 
+    public ResponseEntity<Resource> reportePermisos(@RequestParam String tipo) 
             throws IOException {
         var reporte="permisos";
         return reporteService.generaReporte(reporte, null, tipo);
@@ -81,6 +60,12 @@ public class ReporteController {
     public ResponseEntity<Resource> reporteStock(@RequestParam String tipo) 
             throws IOException {        
         var reporte = "stock";
+        return reporteService.generaReporte(reporte, null, tipo);
+    }
+    @GetMapping("/despido")
+    public ResponseEntity<Resource> reporteDespido(@RequestParam String tipo) 
+            throws IOException {        
+        var reporte = "despido";
         return reporteService.generaReporte(reporte, null, tipo);
     }
 }

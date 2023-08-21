@@ -36,22 +36,22 @@ public class FireBaseStorageServiceImpl implements FireBaseStorageService {
     
     
     @Override
-    public String loadImage(MultipartFile localFile, String folder, Long id) {
-        try {
-            String extension = localFile.getOriginalFilename();
-            String fileName = "img" + this.getNumber(id) + extension;
-            
-            
-            File file = this.convertToFile(localFile);
-            String URL = this.uploadFile(file, folder, fileName);
+public String loadImage(MultipartFile localFile, String folder, Long id) {
+    try {
+        String extension = localFile.getOriginalFilename();
+        String fileName = "img" + this.getNumber(id) + extension;
 
-            file.delete();
+        File file = this.convertToFile(localFile);
+        String URL = this.uploadFile(file, folder, fileName);
 
-            return URL;
-        } catch (IOException e) {
-            return null;
-        }
+        file.delete();
+
+        return URL;
+    } catch (IOException e) {
+        e.printStackTrace(); // Agrega este código para imprimir la excepción
+        return null;
     }
+}
     
     
     private String uploadFile(File file, String folder, String fileName) throws IOException {

@@ -3,7 +3,8 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head>
         <title>TODO supply a title lel</title>
         <meta charset="UTF-8"/>
@@ -32,70 +33,91 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </ul>   
         </section>
 
-        <section th:fragment="Venta" id="id" style="margin-left: 250px; margin-right: 250px;">
-    <form th:action="@{/ventas/listar}" method="get">
-        <div class="form-group">
-            <label>Seleccione las provincias:</label>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="Cartago" id="checkboxCartago">
-                <label class="form-check-label" for="checkboxCartago">Cartago</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="Alajuela" id="checkboxAlajuela">
-                <label class="form-check-label" for="checkboxAlajuela">Alajuela</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="San José" id="checkboxSanJose">
-                <label class="form-check-label" for="checkboxSanJose">San José</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="Limón" id="checkboxLimon">
-                <label class="form-check-label" for="checkboxLimon">Limón</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="Puntarenas" id="checkboxPuntarenas">
-                    <label class="form-check-label" for="checkboxPuntarenas">Puntarenas</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="Guanacaste" id="checkboxGuanacaste">
-                    <label class="form-check-label" for="checkboxGuanacaste">Guanacaste</label>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Filtrar</button>
-    </form>
-    <br>
-        <div class="sale">
-            <table class="table" style="background-color: lightseagreen">
-                <thead>
-                    <tr>
-                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Imagen</th>
-                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Descripcion</th>
-                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Precio</th>
-                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Fecha de publicacion</th>
-                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Estado</th>
-                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Provincia</th>
-                    </tr>
-                </thead>           
-                <tbody>
-                    <tr th:each="venta : ${salesPage.content}" style="background-color: lightgray">
-                        <td style="text-align: left;">
-                            <a th:href="@{/ventas/perfil/{id}(id=${venta.id})}">
-                                <img th:src="${venta.photo}" alt="Imagen de venta" style="max-width: 250px; max-height: 250px;">
-                            </a>
-                        </td>
-                        <td style="text-align: center;">
-                            <a th:href="@{/ventas/perfil/{id}(id=${venta.id})}" th:text="${venta.description}"></a>
-                        </td>
-                        <td style="text-align: center;" th:text="${venta.price}"></td>
-                        <td style="text-align: center;" th:text="${venta.date}"></td>
-                        <td style="text-align: center;" th:text="${venta.state}"></td>
-                        <td style="text-align: center;" th:text="${venta.province}"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>    
+        <section th:fragment="Filtro" id="id" style="margin-top:80px">
+            <form th:action="@{/ventas/listar}" method="get">
+                <div class="form-group">
+                    <label>Seleccione las provincias:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="provincia" value="CARTAGO" id="checkboxCartago">
+                            <label class="form-check-label" for="checkboxCartago">CARTAGO</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="provincia" value="ALAJUELA" id="checkboxAlajuela">
+                            <label class="form-check-label" for="checkboxAlajuela">ALAJUELA</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="provincia" value="SAN_JOSE" id="checkboxSanJose">
+                            <label class="form-check-label" for="checkboxSanJose">SAN JOSE</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="provincia" value="LIMON" id="checkboxLimon">
+                            <label class="form-check-label" for="checkboxLimon">LIMON</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="provincia" value="PUNTARENAS" id="checkboxPuntarenas">
+                            <label class="form-check-label" for="checkboxPuntarenas">PUNTARENAS</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="provincia" value="GUANACASTE" id="checkboxGuanacaste">
+                            <label class="form-check-label" for="checkboxGuanacaste">GUANACASTE</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </form>
         </section>
-        <section style="margin-bottom: 15.6rem" th:fragment="Actual">
+
+        <section th:fragment="Venta" id="id" style="margin-left: 0px; margin-right: 100px;">
+            
+            <br>
+                <div class="sale">
+                    <table class="table" style="background-color: lightseagreen; margin-left: 0px; margin-right: 100px;" >
+                        <thead>
+                            <tr>
+                                <th style="width: 150px; border-bottom: 2px solid gray; color: white" scope="col">Imagen</th>
+                                <th style="border-bottom: 2px solid gray; color: white" scope="col">Descripcion</th>
+                                <th style="border-bottom: 2px solid gray; color: white" scope="col">Precio</th>
+                                <th style="border-bottom: 2px solid gray; color: white" scope="col">Fecha de publicacion</th>
+                                <th style="border-bottom: 2px solid gray; color: white" scope="col">Estado</th>
+                                <th style="border-bottom: 2px solid gray; color: white" scope="col">Provincia</th>
+                                
+                            </tr>
+                        </thead>           
+                        <tbody>
+                            <tr th:each="venta : ${salesPage.content}" style="background-color: lightgray">
+                                <td style="text-align: left;">
+                                    <a th:href="@{/ventas/perfil/{id}(id=${venta.id})}">
+                                        <img th:src="${venta.photo}" alt="Imagen de venta" style="max-width: 250px; max-height: 250px;">
+                                    </a>
+                                </td>
+                                <td style="text-align: center;">
+                                    <a th:href="@{/ventas/perfil/{id}(id=${venta.id})}" th:text="${venta.description}"></a>
+                                </td>
+                                <td style="text-align: center;" th:text="${venta.price}"></td>
+                                <td style="text-align: center;" th:text="${venta.date}"></td>
+                                <td style="text-align: center;" th:text="${venta.state}"></td>
+                                <td style="text-align: center;" th:text="${venta.province}"></td>
+
+
+                                <td style="text-align: center;">
+                                    <a th:href="@{/ventas/actualizar/{id}(id=${venta.id})}" class="btn btn-warning">
+                                        Editar
+                                    </a>
+                                </td>
+
+                                <td style="text-align: center;">
+                                    <form th:action="@{/ventas/eliminar/{id}(id=${venta.id})}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta venta?')" >
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <button type="submit" class="btn btn-danger">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>    
+        </section>
+        <section th:fragment="Actual">
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:class="${salesPage.first ? 'disabled' : ''}">
@@ -110,42 +132,48 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </ul>
             </nav>
         </section>
+    </section>
+    <section th:fragment="Agregar">
+        <div class="mb-4 d-flex justify-content-center">
+            <a th:href="@{/ventas/agregar}" class="btn btn-primary">Agregar</a>
+        </div>
+    </section>
 
-        <section th:fragment="Perfil">
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <input type="hidden" name="id" th:field="*{id}"/>
-                    <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
-                    <section th:replace="~{venta/fragmentos :: botonesEditar}"/>
-                    <div id=details>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4>Perfil</h4>
+    <section th:fragment="Perfil">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <input type="hidden" name="id" th:field="*{id}"/>
+                <input type="hidden" name="photo" th:field="*{photo}"/>
+                <section th:replace="~{venta/fragmentos :: botonesEditar}"/>
+                <div id=details>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Perfil</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="description">Descripcion</label>
+                                            <input type="text" class="form-control" 
+                                                   name="description" th:field="*{description}"
+                                                   required="true">
                                         </div>
-                                        <div class="card-body">
-                                            <div class="mb-3">
-                                                <label for="description">Descripcion</label>
-                                                <input type="text" class="form-control" 
-                                                       name="description" th:field="*{description}"
-                                                       required="true">
+                                        <div class="mb-3">
+                                            <label for="activo">Precio</label>
+                                            <input class="form-check-input" 
+                                                   type="checkbox" 
+                                                   name="activo" 
+                                                   id="activo"
+                                                   th:field="*{activo}">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="activo">Precio</label>
-                                                <input class="form-check-input" 
-                                                       type="checkbox" 
-                                                       name="activo" 
-                                                       id="activo"
-                                                       th:field="*{activo}">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="imagen">[[#{categoria.rutaImagen}]]</label>
+                                                <label for="imagen">Ruta</label>
                                                 <input class="form-control" type="file" name="imagenFile"
                                                        onchange="readURL(this);" />
-                                                <img id="blah" th:src="@{${categoria.rutaImagen}}" alt="your image" height="200"/>
+                                                <img id="blah" th:src="@{${venta.photo}}" alt="your image" height="200"/>
                                             </div>
                                         </div>
                                     </div>
@@ -160,19 +188,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/categoria/listado}" class="btn btn-primary">
-                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                        <a th:href="@{/ventas/listar}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i>Regresar
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/categoria/eliminar/}+${categoria.idCategoria}"
+                        <a th:href="@{/ventas/eliminar/}+${venta.id}"
                            class="btn btn-danger">
-                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                            <i class="fas fa-trash"></i>Eliminar
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">
                         <button type="submit" class="btn btn-success">
-                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                            <i class="fas fa-check"></i>Guardar
                         </button>
                     </div>
                 </div>
@@ -182,3 +210,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
     </body>
 </html>
+
+
+
