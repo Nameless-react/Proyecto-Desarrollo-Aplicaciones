@@ -5,6 +5,7 @@
 package com.proyecto.service;
 
 import com.proyecto.domain.Cliente;
+import com.proyecto.domain.Empleado;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +19,5 @@ public interface ClienteService {
     public List<Cliente> getClientes();
     public void deleteCliente(long id);
     public void saveCliente(Cliente cliente);
+    public  Cliente  findByUsernameAndPassword(String username, String Password);
 }

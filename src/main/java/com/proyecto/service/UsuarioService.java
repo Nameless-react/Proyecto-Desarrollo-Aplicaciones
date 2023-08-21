@@ -17,6 +17,7 @@ public interface UsuarioService {
     public List<Usuario> getUsers();
     public Usuario getUser(long id);
     public void save(Usuario user, boolean newRol);
+    public Usuario finByUsernameAndEmail (String username, String email);
     
     public void delete(Usuario usuario);
 }
