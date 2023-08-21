@@ -32,6 +32,7 @@ public class Construccion implements Serializable {
     private long initialInvestment;
     private String location;
     private String description;
+    
     @ManyToOne
     @JoinColumn(name = "chief_identification")
     private Empleado chief;
