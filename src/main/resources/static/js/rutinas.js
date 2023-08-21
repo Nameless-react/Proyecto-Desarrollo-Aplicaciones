@@ -27,3 +27,27 @@ const showEye = () => {
         password.setAttribute("type", "password");
     }
 }
+
+// const checkColumns = () => {
+//     const deleteButtons = document.querySelectorAll(".delete-button");
+//     let deleteButtonExist = false;
+//     for (let i = 0; i < deleteButtons.length; i++) {
+//         if (deleteButtons[i] == null) deleteButtonExist = true;
+//     }
+//     console.log(!deleteButtonExist)
+//     if (!existElements(deleteButtons)) {
+//         const employees = document.querySelectorAll(".employee");
+//         const clients = document.querySelectorAll(".client");
+//         if (existElements(employees)) employees.forEach(element => element.style = "grid-template-columns: 2fr 1fr 1fr 1fr")
+//         else clients.forEach(element => element.style = "grid-template-columns: 2fr 1fr 1fr 1fr")
+//     }
+// }
+
+
+// const existElements = (elements) => {
+//     let deleteButtonsExist = false;
+//     for (let i = 0; i < elements.length; i++) {
+//         if (elements[i] != null) return true;
+//     }
+//     return deleteButtonsExist;
+// }

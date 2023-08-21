@@ -4,15 +4,18 @@
  */
 package com.proyecto.service;
 
-import com.proyecto.domain.Archivos;
-import com.proyecto.domain.Cliente;
+import com.proyecto.domain.Performance;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
+/**
+ *
+ * @author joel
+ */
 @Service
-public interface ArchivosService {
-    Archivos getArchivo(long id);
-    List<Archivos> getArchivos();
-    void deleteArchivos(long id);
-    void saveArchivos(Archivos archivos);
+public interface PerformanceService {
+    public Performance getPerformance(long id);
+    public List<Performance> getPerformances();
+    public void deletePerformance(long id);
+    public void savePerformance(Performance performance);
 }

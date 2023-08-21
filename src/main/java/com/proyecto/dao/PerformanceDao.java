@@ -4,14 +4,13 @@
  */
 package com.proyecto.dao;
 
-import com.proyecto.domain.Archivos;
-import com.proyecto.domain.Empleado;
+import com.proyecto.domain.Performance;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
- * @author enriq
+ * @author joel
  */
-public interface ArchivosDao extends JpaRepository<Archivos, Long> {
-    Archivos findById(long id);
+public interface PerformanceDao extends JpaRepository<Performance, Long> {
+    
 }

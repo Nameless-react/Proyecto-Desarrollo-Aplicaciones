@@ -1,11 +1,7 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head>
-        <title>TODO supply a title lel</title>
+        <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
         <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -31,87 +27,54 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </li>
             </ul>   
         </section>
-
-        <section th:fragment="Construccion" id="id" style="margin-left: 250px; margin-right: 250px;">
-    <form th:action="@{/construccion/listar}" method="get">
-        <div class="form-group">
-            <label>Seleccione las provincias:</label>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="CARTAGO" id="checkboxCartago">
-                <label class="form-check-label" for="checkboxCartago">CARTAGO</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="ALAJUELA" id="checkboxAlajuela">
-                <label class="form-check-label" for="checkboxAlajuela">ALAJUELA</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="SAN_JOSE" id="checkboxSanJose">
-                <label class="form-check-label" for="checkboxSanJose">SAN JOSE</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="LIMON" id="checkboxLimon">
-                <label class="form-check-label" for="checkboxLimon">LIMON</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="PUNTARENAS" id="checkboxPuntarenas">
-                    <label class="form-check-label" for="checkboxPuntarenas">PUNTARENAS</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="provincia" value="GUANACASTE" id="checkboxGuanacaste">
-                    <label class="form-check-label" for="checkboxGuanacaste">GUANACASTE</label>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Filtrar</button>
-    </form>
     <br>
-        <div class="sale">
+    <section th:fragment="construccion" id="id" style="margin-left: 250px; margin-right: 250px;">
+        <div class="construction">
             <table class="table" style="background-color: lightseagreen">
                 <thead>
                     <tr>
-                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Imagen</th>
-                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Descripcion</th>
-                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Precio</th>
-                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Fecha de publicacion</th>
-                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Estado</th>
-                        <th style="border-bottom: 2px solid gray; color: white" scope="col">Provincia</th>
+                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Descripcion</th>
+                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Inversión Inicial</th>
+                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Fecha de finalización</th>
+                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Ubicación</th>
+                        <th style="border-bottom: 2px solid gray; color: white; text-align: center;" scope="col">Cantidad de trabajadores</th>
                     </tr>
                 </thead>           
                 <tbody>
-                    <tr th:each="construccion : ${salesPage.content}" style="background-color: lightgray">
-                        <td style="text-align: left;">
-                            <a th:href="@{/construccion/perfil/{id}(id=${construccion.id})}">
-                                <img th:src="${construccion.photo}" alt="Imagen de construccion" style="max-width: 250px; max-height: 250px;">
-                            </a>
-                        </td>
-                        <td style="text-align: center;">
-                            <a th:href="@{/ventas/perfil/{id}(id=${venta.id})}" th:text="${venta.description}"></a>
-                        </td>
-                        <td style="text-align: center;" th:text="${construccion.price}"></td>
-                        <td style="text-align: center;" th:text="${construccion.date}"></td>
-                        <td style="text-align: center;" th:text="${construccion.state}"></td>
-                        <td style="text-align: center;" th:text="${construccion.province}"></td>
+                    <tr th:each="construction : ${construccionPage.content}" style="background-color: lightgray">
+                        <td style="text-align: center;" th:text="${construction.description}"></td>
+                        <td style="text-align: center;" th:text="${construction.initialInvestment}"></td>
+                        <td style="text-align: center;" th:text="${construction.expectedFinish}"></td>
+                        <td style="text-align: center;" th:text="${construction.location}"></td>
+                        <td style="text-align: center;" th:text="${construction.amountWorkers}"></td>
                     </tr>
                 </tbody>
             </table>
         </div>    
         </section>
-        <section th:fragment="Actual">
+        <section style=" margin-bottom: 13.7rem;" th:fragment="actual">
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item" th:class="${salesPage.first ? 'disabled' : ''}">
+                    <li class="page-item" th:class="${construccionPage.first ? 'disabled' : ''}">
                         <a class="page-link" th:href="@{${'/construccion/listar'}(page=0)}">Anterior</a>
                     </li>
-                    <li th:each="page : ${#numbers.sequence(0, salesPage.totalPages - 1)}" class="page-item" th:class="${salesPage.number == page ? 'active' : ''}">
+                    <li th:each="page : ${#numbers.sequence(0, construccionPage.totalPages - 1)}" class="page-item" th:class="${construccionPage.number == page ? 'active' : ''}">
                         <a class="page-link" th:href="@{${'/construccion/listar'}(page=${page})}" th:text="${page + 1}"></a>
                     </li>
-                    <li class="page-item" th:class="${salesPage.last ? 'disabled' : ''}">
-                        <a class="page-link" th:href="@{${'/construccion/listar'}(page=${salesPage.totalPages - 1})}">Siguiente</a>
+                    <li class="page-item" th:class="${construccionPage.last ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{${'/construccion/listar'}(page=${construccionPage.totalPages - 1})}">Siguiente</a>
                     </li>
                 </ul>
             </nav>
         </section>
 
-     
+        <div th:fragment="price-between" class="price-between">
+            <form th:action="@{/construccion/listar}" method="GET">
+                <input th:name="initPrice" type="number" placeholder="Precio inicial">
+                <input th:name="finishPrice" type="number" placeholder="Precio final">
+                <button class="btn btn-primary">Buscar</button>
+            </form>
+        </div>
 
 
 

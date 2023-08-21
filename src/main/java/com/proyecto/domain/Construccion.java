@@ -41,17 +41,13 @@ public class Construccion implements Serializable {
     private Cliente client;
     private LocalDate expectedFinish; 
     private int amountWorkers;
-    private Province province;
-    private State state;
 
-    public Construccion(long initialInvestment, String location, String description, Empleado chief, LocalDate expectedFinish, int amountWorkers, Province province, State state) {
+    public Construccion(long initialInvestment, String location, String description, Empleado chief, LocalDate expectedFinish, int amountWorkers) {
         this.initialInvestment = initialInvestment;
         this.location = location;
         this.description = description;
         this.chief = chief;
         this.expectedFinish = expectedFinish;
         this.amountWorkers = amountWorkers;
-        this.province = province;
-        this.state = state;
     }
 }

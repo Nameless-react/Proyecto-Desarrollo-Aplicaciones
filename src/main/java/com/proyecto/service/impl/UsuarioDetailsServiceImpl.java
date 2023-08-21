@@ -41,9 +41,6 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
     @Autowired
     private EmpleadoDao employeeDao;
     
-//    @Autowired
-//    private HttpSession session;
-    
     
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -52,17 +49,8 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
         if (user == null) throw new UsernameNotFoundException(username);
          Cliente client =  clientDao.findById(user.getIdUser()).orElse(null);
          Empleado employee = employeeDao.findById(user.getIdUser()).orElse(null);
-//         if (client == null)  {
-//             session.setAttribute("photo", employee.getPhoto());
-//         } else {
-//             session.setAttribute("photo", client.getPhoto());
-//         }
-
-//        
-//        session.removeAttribute("photo");
-//        if (usuario.getCliente() == null) session.setAttribute("photo", usuario.getEmpleado().getPhoto());
-//        else session.setAttribute("photo", usuario.getCliente().getPhoto());
-//        
+         
+         
         List<GrantedAuthority> roles = new ArrayList<>();
         
         for (Rol rol : user.getRoles()) {

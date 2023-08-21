@@ -7,6 +7,7 @@ package com.proyecto.controller;
 import com.proyecto.domain.Cliente;
 import com.proyecto.domain.Usuario;
 import com.proyecto.service.ClienteService;
+import com.proyecto.service.RolService;
 import com.proyecto.service.UsuarioService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
 import java.util.ArrayList;
@@ -35,6 +36,9 @@ public class ClienteController {
     
    @Autowired
     private UsuarioService usuarioService;
+   
+   @Autowired
+   private RolService rolService;
    
    
     @Autowired
@@ -91,6 +95,7 @@ public class ClienteController {
         
         usuarioService.delete(user);
         clienteService.deleteCliente(cliente.getIdentification());
+        rolService.deleteRol(user.getIdUser());
         
         if (cliente.getPhoto().length() != 0) firebaseStorageService.delete(client.getPhoto().split("clientes/")[1].split("\\?")[0], "clientes");
         return "redirect:/clientes/listar";

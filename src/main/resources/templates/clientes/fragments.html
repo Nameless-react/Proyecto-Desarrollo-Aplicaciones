@@ -36,8 +36,9 @@
                 <p>[[${client.getIdentification()}]]</p>
                 <a th:href="@{'mailto:' + ${client.getEmail()}}">[[${client.getEmail()}]]</a>
                 <p th:text="${client.isActive()} ? 'Si' : 'No'" />
-                <div  th:replace="~{clientes/fragments :: delete-button}"></div>
-                <!-- sec:authorize="hasRole('ROLE_AMDIN')" -->
+                <div th:if="${#authentication.principal.identification} != ${client.getIdentification()}">
+                    <div sec:authorize="hasRole('ROLE_AMDIN')" th:replace="~{clientes/fragments :: delete-button}"></div>
+                </div>
             </div>
 
         </div>
@@ -53,7 +54,6 @@
             <h1 th:text="${cliente.identification} != 0  ? 'Modificar Cliente' : 'Agregar Cliente'"></h1>
 
             <input th:if="${cliente.identification} == 0" type="number" min="10000000" required placeholder="Identificación" name="identification">
-            <input th:if="${cliente.identification} != 0" type="number" min="10000000" required placeholder="Identificación" th:field="*{identification}">
             
             <input type="text" placeholder="Username" th:field="*{username}">
             <input type="text" placeholder="Nombre" th:field="*{name}">        

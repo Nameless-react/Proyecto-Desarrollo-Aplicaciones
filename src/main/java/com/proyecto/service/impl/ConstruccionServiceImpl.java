@@ -51,12 +51,10 @@ public class ConstruccionServiceImpl implements ConstruccionService {
 
     @Override
     public Page<Construccion> getConstruccionPaginadas(Pageable pageable) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return construccionDao.findAll(pageable);
     }
-
     @Override
-    public Page<Construccion> getConstruccionPaginadasByProvincias(List<String> provincias, Pageable pageable) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Page<Construccion> getConstruccionPaginadasBetweenPrice(long initPrice, long finishPrice, Pageable pageable) {
+        return construccionDao.findAllByInitialInvestmentBetween(initPrice, finishPrice, pageable);
     }
-    
 }
