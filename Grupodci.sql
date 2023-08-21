@@ -8,6 +8,7 @@ drop table Cliente;
 drop table Empleado;
 drop table Venta;
 drop table Usuario;
+drop table archivos;
 
 
 CREATE TABLE Cliente (
@@ -53,6 +54,8 @@ CREATE TABLE Rol (
 	foreign key (id_user) references Usuario(id_user)
 )
 
+
+
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
@@ -83,6 +86,30 @@ CREATE TABLE Empleado (
   foreign key (id_user) references Usuario(id_user)
 );
 
+CREATE TABLE performance(
+	identification BIGINT NOT NULL PRIMARY KEY,
+    observations VARCHAR(1025),
+    score INT,
+    achieved_goals VARCHAR(1025),
+    supervisor_identification BIGINT,
+    foreign key (supervisor_identification) references Empleado(identification)
+);
+    
+CREATE TABLE archivos (
+    id BIGINT PRIMARY KEY,
+    file_path VARCHAR(255),
+    date DATE,
+    icono VARCHAR(255)
+);
+
+-- Inserción 1
+INSERT INTO archivos (id, file_path, date, icono)
+VALUES (1, '/ruta/del/archivo1.txt', '2023-08-18', '/ruta/del/icono1.png');
+
+-- Inserción 2
+INSERT INTO archivos (id, file_path, date, icono)
+VALUES (2, '/ruta/del/archivo2.txt', '2023-08-19', '/ruta/del/icono2.png');
+
 -- Inserts adicionales para la tabla "clientes"
 	INSERT INTO cliente (identification, name, first_sur_name, second_sur_name, phone, email, password, photo, id_user, active, username)
 	VALUES (1, 'María', 'López', 'García', '987654321', 'maria@example.com', '$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.', 'https://firebasestorage.googleapis.com/v0/b/proyecto-724ee.appspot.com/o/297699440_597905048370147_1274343335336204594_n.jpg?alt=media&token=d129282d-12ea-4311-9d17-5d5656c3e41f', 1, true, "maria");
@@ -98,6 +125,28 @@ VALUES (3, 'Laura', 'González', 'Hernández', '741258963', 'laura@example.com',
 -- Inserts adicionales para la tabla de "usuario"
 INSERT INTO usuario(id_user, email, username) VALUES (1, "maria@example.com", "maria");
 INSERT INTO usuario(id_user, email, username) VALUES (2, "carlos@example.com", "carlos");
+
+
+-- Inserts adicionales para la tabla de "performance"
+INSERT INTO performance (identification, observations, score, achieved_goals, supervisor_identification)
+VALUES (1, 'Exceeded expectations on the recent project.', 95, 'Completed project ahead of schedule and met all performance targets.', 2);
+
+-- Insert 2
+INSERT INTO performance (identification, observations, score, achieved_goals, supervisor_identification)
+VALUES (2, 'Consistently delivers high-quality work.', 88, 'Achieved monthly sales targets for the last quarter.', 2);
+
+-- Insert 3
+INSERT INTO performance (identification, observations, score, achieved_goals, supervisor_identification)
+VALUES (3, 'Actively seeks out opportunities for improvement.', 75, 'Contributed to process optimization initiative by identifying inefficiencies.', 2);
+
+-- Insert 4
+INSERT INTO performance (identification, observations, score, achieved_goals, supervisor_identification)
+VALUES (4, 'Strong team player and collaborator.', 92, 'Led a successful cross-functional project that improved customer satisfaction.', 2);
+
+-- Insert 5
+INSERT INTO performance (identification, observations, score, achieved_goals, supervisor_identification)
+VALUES (5, 'Demonstrates exceptional problem-solving skills.', 80, 'Resolved a critical technical issue that saved the company from potential losses.', 118930275);
+
 
 
 -- Inserts adicionales para la tabla "construccion"
