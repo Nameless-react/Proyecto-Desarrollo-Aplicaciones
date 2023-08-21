@@ -40,40 +40,25 @@ public class ProjectConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", 
-                        "/archivos/**",
-                        "/reportes/**",
-                        "/ventas/**", 
-                        "/index", 
-                        "/errores/**", 
-                        "/construccion/**", 
-                        "/rendimiento/**",
-                        "/about", 
-                        "/js/**", 
-                        "/webjars/**", 
-                        "/CSS/**", 
-                        "contact", 
-                        "signup", 
-                        "ventas/**", 
-                        "perfil", 
-                        "clientes/**", 
-                        "/empleados/actualizar/**", 
-                        "/error",
-                        "/controller/",
-                        "/firebase/**",
-                        "/domain/**",
-                        "/proyecto/**")
+                .requestMatchers("/", "/archivos/**", "/index", "/errores/**", "/about", "/js/**", "/webjars/**", "/CSS/**", "contact", "signup", "perfil", "/error", "/reportes/**")
                 .permitAll()
                 .requestMatchers(
-                        "/roles/**", "/empleados/eliminar/**", "/empleados/guardar/",
-                        "contact"
+                        "/roles/**", "/empleados/actualizar/**",
+                        "/empleados/eliminar/**", "/clientes/eliminar/**",
+                        "/clientes/**", "/empleados/**",
+                        "/rendimiento/eliminar/**", "/construccion/actualizar/**", "/construccion/eliminar/**",
+                        "/ventas/actualizar/**", "/ventas/eliminar/**",
+                        "/archivos/eliminar/**", "/archivos/agregar/"
                 ).hasRole("ADMIN")
                 .requestMatchers(
-                        "/producto/listado",
-                        "/categoria/listado",
-                        "/usuario/listado"
-                ).hasAnyRole("ADMIN", "VENDEDOR")
-                .requestMatchers("/facturar/carrito")
+                        "/empleados/listar",
+                        "/clientes/listar",
+                        "/rendimiento/listar",
+                        "/construccion/listar",
+                        "/ventas/listar",
+                        "/archivos/listar"
+                ).hasAnyRole("EMPLOYEE", "ADMIN")
+                .requestMatchers("/ventas/listar", "/clientes/actualizar")
                 .hasRole("USER")
                 )
                 .formLogin((form) -> form
