@@ -10,12 +10,14 @@ import com.proyecto.service.ClienteService;
 import com.proyecto.service.RolService;
 import com.proyecto.service.UsuarioService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,13 +55,19 @@ public class ClienteController {
     }
     
     @GetMapping("/nuevo")
-    public String newElement(Cliente client) {
+    public String newElement(Cliente client, Model model) {
+        model.addAttribute("screen", "new");
         return "/clientes/actualizar";
     }
     
     @PostMapping("/guardar")
-    public String save(Cliente cliente, @RequestParam("imagenFile") MultipartFile imageFile) {
+    public String save(@Valid Cliente cliente, BindingResult result, Model model, @RequestParam("imagenFile") MultipartFile imageFile) {
+        Cliente tempClient = clienteService.getCliente(cliente.getIdentification());
         Usuario user = usuarioService.getUser(cliente.getIdentification());
+        
+        model.addAttribute("screen", tempClient == null ? "new" : "edit");
+        
+        if (result.hasErrors()) return "/clientes/actualizar";
         
         if (user == null) user = new Usuario(cliente.getIdentification(), cliente.getUsername(), cliente.getEmail(), new ArrayList<>());
         if (!imageFile.isEmpty()) cliente.setPhoto(firebaseStorageService.loadImage(imageFile, "clientes", cliente.getIdentification()));
@@ -68,14 +76,13 @@ public class ClienteController {
         if (user.getRoles().size() == 0) usuarioService.save(user, true);
         usuarioService.save(user, false);
         
-        Cliente tempClient = clienteService.getCliente(cliente.getIdentification());
         if (tempClient != null) {
             cliente.setPassword(tempClient.getPassword());
         } else  cliente.setPassword(new BCryptPasswordEncoder().encode(cliente.getPassword()));
         
         
-        clienteService.saveCliente(cliente);
         cliente.setUsuario(user);
+        clienteService.saveCliente(cliente);
         return "redirect:/clientes/listar";
     }
     
@@ -83,6 +90,7 @@ public class ClienteController {
     public String update(Cliente cliente, Model model) {
         Cliente client = clienteService.getCliente(cliente.getIdentification());
         model.addAttribute("cliente", client);
+        model.addAttribute("screen", "edit");
         return "/clientes/actualizar";
     }
 

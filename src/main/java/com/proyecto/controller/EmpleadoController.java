@@ -57,7 +57,8 @@ public class EmpleadoController {
     }
     
     @GetMapping("/nuevo")
-    public String newElement(Empleado employee) {
+    public String newElement(Empleado employee, Model model) {
+        model.addAttribute("screen", "new");
         return "/empleados/actualizar";
     }
     
@@ -65,9 +66,8 @@ public class EmpleadoController {
     public String save(@Valid Empleado empleado, BindingResult result, Model model, @RequestParam("imagenFile") MultipartFile imageFile) {
         Empleado tempEmpleado = empleadoService.getEmpleado(empleado.getIdentification());
         model.addAttribute("screen", tempEmpleado == null ? "new" : "edit");
-        System.out.println(result.hasErrors());
         
-        if (result.hasErrors()) return "empleados/actualizar";
+        if (result.hasErrors()) return "/empleados/actualizar";
         
         empleado.setPassword(empleado.getPassword().substring(1));
         Usuario user = usuarioService.getUser(empleado.getIdentification());
@@ -94,6 +94,7 @@ public class EmpleadoController {
     public String update(Empleado empleado, Model model) {
         empleado = empleadoService.getEmpleado(empleado.getIdentification());
         model.addAttribute("empleado", empleado);
+        model.addAttribute("screen", "edit");
         return "/empleados/actualizar";
     }
 
