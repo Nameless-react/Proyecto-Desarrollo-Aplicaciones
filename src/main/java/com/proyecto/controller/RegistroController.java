@@ -5,6 +5,7 @@ package com.proyecto.controller;
  *
  * @author enriq
  */
+import com.proyecto.domain.Cliente;
 import com.proyecto.domain.Usuario;
 import com.proyecto.service.RegistroService;
 import jakarta.mail.MessagingException;
@@ -29,27 +30,24 @@ public class RegistroController {
 
     @GetMapping("/nuevo")
     public String nuevo(Model model, Usuario usuario) {
-        return "/registro/nuevo";
+        return "/signup";
     }
 
     @GetMapping("/recordar")
     public String recordar(Model model, Usuario usuario) {
-        return "/registro/recordar";
+        return "/Registro/recordar";
     }
 
-    @PostMapping("/crearUsuario")
-    public String crearUsuario(Model model, Usuario usuario) 
-            throws MessagingException {
-        model = registroService.crearUsuario(model, usuario);
-        return "/registro/salida";
+    @PostMapping("/crear")
+    public String crearUsuario(Cliente cliente, Model model) throws MessagingException {
+        model = registroService.crearUsuario(model, cliente);
+        return "/Registro/salida";
     }
 
-    @GetMapping("/activacion/{usuario}/{id}")
-    public String activar(
-            Model model, 
-            @PathVariable(value = "usuario") String usuario, 
-            @PathVariable(value = "id") String id) {
-        model = registroService.activar(model, usuario, id);
+    @GetMapping("/activacion/{code}/{username}")
+    public String activar(Model model, @PathVariable(value = "code") String code, @PathVariable(value = "username") String username) {
+        System.out.println(code);
+        model = registroService.activar(model, username, code);
         if (model.containsAttribute("usuario")) {
             return "/registro/activa";
         } else {
@@ -58,17 +56,21 @@ public class RegistroController {
     }
 
     @PostMapping("/activar")
-    public String activar(
-            Usuario usuario, 
-            @RequestParam("imagenFile") MultipartFile imagenFile) {
-        registroService.activar(usuario, imagenFile);
+    public String activar(Cliente cliente, @RequestParam("imagenFile") MultipartFile imagenFile) {
+        
+    
+        if(imagenFile.isEmpty()) {
+            registroService.activar(cliente, imagenFile);
+            return "redirec:/";
+        }
+        
+        registroService.activar(cliente, imagenFile);
         return "redirect:/";
     }
 
     @PostMapping("/recordarUsuario")
-    public String recordarUsuario(Model model, Usuario usuario) 
-            throws MessagingException {
-        model = registroService.recordarUsuario(model, usuario);
+    public String recordarUsuario(Model model, Cliente cliente) throws MessagingException {
+        model = registroService.recordarUsuario(model, cliente);
         return "/registro/salida";
     }
 }

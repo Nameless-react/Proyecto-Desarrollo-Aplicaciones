@@ -57,7 +57,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }    
 
     @Override
-    public Usuario finByUsernameAndEmail(String username, String email) {
-        return userDao.finByUsernameAndEmail(username, email);
+    public Usuario findByUsernameAndEmail(String username, String email) {
+        return userDao.findByUsernameAndEmail(username, email);
     }
 }

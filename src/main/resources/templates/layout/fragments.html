@@ -73,7 +73,7 @@
                             <a class="nav-link" aria-current="page" th:href="@{/login}">Inicio Sesión</a>
                         </li>
                         <li sec:authorize="!isAuthenticated()" class="nav-item">
-                            <a class="nav-link" aria-current="page" th:href="@{/signup}">Registrarse</a>
+                            <a class="nav-link" aria-current="page" th:href="@{/registro/nuevo}">Registrarse</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav user" sec:authorize="isAuthenticated()">
@@ -177,7 +177,7 @@
                 <h2>Síganos</h2>
                 <p>Contactenos por medio de Facebook, Instagram o por WhatsApp. Estaremos felices de atenderle.</p>
                 <a class="card-button" href="https://www.facebook.com/grupodcicr?mibextid=ZbWKwL" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; transition: background-color 0.3s;">Contactenos</a>
-
+            </div>
             <div class="card">
                 <i class="fa-solid fa-person-digging"></i>
                 <h2>¿Busca Casa?</h2>

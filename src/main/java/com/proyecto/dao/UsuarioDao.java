@@ -13,5 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface UsuarioDao extends JpaRepository<Usuario, Long> {
     public Usuario findByUsername(String username);
-    public Usuario finByUsernameAndEmail (String username, String email);
+    public Usuario findByUsernameAndEmail (String username, String email);
 }

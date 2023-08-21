@@ -48,10 +48,17 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Cliente findByUsernameAndPassword(String username, String Password) {
         
        return clienteDao.findByUsernameAndPassword(username, Password);
       
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Cliente findByUsernameAndEmail(String username, String email) {
+       return clienteDao.findByUsernameAndEmail(username, email);
     }
     
 }

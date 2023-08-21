@@ -5,20 +5,15 @@ package com.proyecto.service.impl;
  * @author enriq
  */
 import com.proyecto.domain.Usuario;
-import com.proyecto.dao.ClienteDao;
-import com.proyecto.dao.EmpleadoDao;
 import com.proyecto.domain.Cliente;
-import com.proyecto.domain.Empleado;
 import com.proyecto.service.ClienteService;
 import com.proyecto.service.CorreoService;
 import com.proyecto.service.EmpleadoService;
 import com.proyecto.service.RegistroService;
 import com.proyecto.service.UsuarioService;
 import jakarta.mail.MessagingException;
-import java.util.Locale;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -32,8 +27,6 @@ public class RegistroServiceImpl implements RegistroService {
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
-    private MessageSource messageSource;  //creado en semana 4...
-    @Autowired
     private FireBaseStorageServiceImpl firebaseStorageService;
     @Autowired
     private EmpleadoService empleadoService;
@@ -41,177 +34,105 @@ public class RegistroServiceImpl implements RegistroService {
     private ClienteService clienteService;
 
     @Override
-    public Model activar(Model model, String username, String clave) {
-        Cliente cliente = clienteService.findByUsernameAndPassword(username, clave);
-        Empleado empleado = empleadoService.findByUsernameAndPassword(username, clave);
+    public Model activar(Model model, String username, String password) {
+        Cliente cliente = clienteService.findByUsernameAndPassword(username, password);
 
         if (cliente != null) {
             model.addAttribute("usuario", cliente);
 
-        } else if (empleado != null) {
-            model.addAttribute("usuario", empleado);
         } else {
-            model.addAttribute(
-                    "titulo",
-                    "usuario no se puede activar");
+            model.addAttribute("titulo","Activar usuario");
+            model.addAttribute("mensaje","Error activando usuario");
 
-            model.addAttribute(
-                    "mensaje",
-                    "el usuario no se puedo activar debido a un error");
-
-            return model;
         }
+        return model;
+    }
 
-//    @Override
-//    public void activar(Usuario usuario, MultipartFile imagenFile) {
-//        var codigo = new BCryptPasswordEncoder();
-//        usuario.setPassword(codigo.encode(usuario.getPassword()));
-//
-//        if (!imagenFile.isEmpty()) {
-//            usuarioService.save(usuario, false);
-//            usuario.setRutaImagen(
-//                    firebaseStorageService.cargaImagen(
-//                            imagenFile, 
-//                            "usuarios", 
-//                            usuario.getIdUsuario()));
-//        }
-//        usuarioService.save(usuario, true);
-//    }
-        @Override
-        public Model crearUsuario
-        (Model model, Usuario usuario) 
-            throws MessagingException {
-            String mensaje;
-            if (usuarioService.finByUsernameAndEmail(usuario.getUsername(), usuario.getEmail()) == null) {
-                String clave = demeClave();
-                usuario.setPassword(clave);
-                usuario.setActivo(false);
-                usuarioService.save(usuario, true);
-                enviaCorreoActivar(usuario, clave);
-                mensaje = String.format(
-                        messageSource.getMessage(
-                                "registro.mensaje.activacion.ok",
-                                null,
-                                Locale.getDefault()),
-                        usuario.getCorreo());
-            } else {
-                mensaje = String.format(
-                        messageSource.getMessage(
-                                "registro.mensaje.usuario.o.correo",
-                                null,
-                                Locale.getDefault()),
-                        usuario.getUsername(), usuario.getCorreo());
-            }
-            model.addAttribute(
-                    "titulo",
-                    messageSource.getMessage(
-                            "registro.activar",
-                            null,
-                            Locale.getDefault()));
-            model.addAttribute(
-                    "mensaje",
-                    mensaje);
-            return model;
-        }
 
-        @Override
-        public Model recordarUsuario
-        (Model model, Usuario usuario) 
-            throws MessagingException {
-            String mensaje;
-            Usuario usuario2 = usuarioService.getUsuarioPorUsernameOCorreo(
-                    usuario.getUsername(),
-                    usuario.getCorreo());
-            if (usuario2 != null) {
-                String clave = demeClave();
-                usuario2.setPassword(clave);
-                usuario2.setActivo(false);
-                usuarioService.save(usuario2, false);
-                enviaCorreoRecordar(usuario2, clave);
-                mensaje = String.format(
-                        messageSource.getMessage(
-                                "registro.mensaje.recordar.ok",
-                                null,
-                                Locale.getDefault()),
-                        usuario.getCorreo());
-            } else {
-                mensaje = String.format(
-                        messageSource.getMessage(
-                                "registro.mensaje.usuario.o.correo",
-                                null,
-                                Locale.getDefault()),
-                        usuario.getUsername(), usuario.getCorreo());
-            }
-            model.addAttribute(
-                    "titulo",
-                    messageSource.getMessage(
-                            "registro.activar",
-                            null,
-                            Locale.getDefault()));
-            model.addAttribute(
-                    "mensaje",
-                    mensaje);
-            return model;
-        }
-
-    
-
-    private String demeClave() {
+    private String generatePassword() {
         String tira = "ABCDEFGHIJKLMNOPQRSTUXYZabcdefghijklmnopqrstuvwxyz0123456789_*+-";
-        String clave = "";
+        String password = "";
         for (int i = 0; i < 40; i++) {
-            clave += tira.charAt((int) (Math.random() * tira.length()));
+            password += tira.charAt((int) (Math.random() * tira.length()));
         }
-        return clave;
+        return password;
+    }
+  
+
+    private void enviaCorreoActivar(Cliente cliente, String password) throws MessagingException {
+        String message = String.format("<h1>Buenas</h1><br><strong>%s</strong><hr><p>Para activar su cuenta siga haga click en el siguiente enlace <a href='http://localhost:8080/registro/activacion/%s/%s'>Activar</a></p><br><hr><h2>Equipo de soporte del Grupo DCI</h2>", cliente.getUsername(), password, cliente.getUsername());
+        
+        String afair = "Correo de Activación de cuenta";
+        correoService.enviarCorreoHtml(cliente.getEmail(), afair, message);
     }
 
-    //Ojo cómo le lee una informacion del application.properties
-    @Value("${servidor.http}")
-    private String servidor;
-
-    private void enviaCorreoActivar(Usuario usuario, String clave) throws MessagingException {
-        String mensaje = messageSource.getMessage(
-                "registro.correo.activar",
-                null, Locale.getDefault());
-        mensaje = String.format(
-                mensaje, usuario.getNombre(),
-                usuario.getApellidos(), servidor,
-                usuario.getUsername(), clave);
-        String asunto = messageSource.getMessage(
-                "registro.mensaje.activacion",
-                null, Locale.getDefault());
-        correoService.enviarCorreoHtml(usuario.getCorreo(), asunto, mensaje);
-    }
-
-    private void enviaCorreoRecordar(Usuario usuario, String clave) throws MessagingException {
-        String mensaje = messageSource.getMessage(""
-                + "registro.correo.recordar",
-                null,
-                Locale.getDefault());
-        mensaje = String.format(
-                mensaje, usuario.getNombre(),
-                usuario.getApellidos(), servidor,
-                usuario.getUsername(), clave);
-        String asunto = messageSource.getMessage(
-                "registro.mensaje.recordar",
-                null, Locale.getDefault());
-        correoService.enviarCorreoHtml(
-                usuario.getCorreo(),
-                asunto, mensaje);
+    private void enviaCorreoRecordar(Cliente cliente, String password) throws MessagingException {
+        String message = String.format("<h1>Buenas</h1><br><strong>%s</strong><hr><p>Para cambiar su contraseña haga click en el siguiente enlace <a href='http://localhost:8080/registro/activacion/%s/%s'>Activar</a></p><br><hr><h2>Equipo de soporte del Grupo DCI</h2>", cliente.getUsername(), password, cliente.getUsername());
+        
+        String afair = "Recuperar contraseña";
+        this.correoService.enviarCorreoHtml(
+                cliente.getEmail(),
+                afair, message);
     }
 
     @Override
-    public Model crearUsuario(Model model, Usuario usuario) throws MessagingException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Model crearUsuario(Model model, Cliente cliente) throws MessagingException {
+       String message;
+       if (clienteService.findByUsernameAndEmail(cliente.getUsername(), cliente.getEmail()) == null) {
+            cliente.setPassword(cliente.getPassword().substring(1));    
+            Usuario user = usuarioService.getUser(cliente.getIdentification());
+        
+            
+            if (user == null) user = new Usuario(cliente.getIdentification(), cliente.getUsername(), cliente.getEmail(), new ArrayList<>());
+            usuarioService.save(user, true);
+            String password = this.generatePassword();
+
+            cliente.setPassword(password);
+            cliente.setActive(false);
+            cliente.setUsuario(user);
+            clienteService.saveCliente(cliente);
+            
+            
+            this.enviaCorreoActivar(cliente, password);
+            message = String.format("Por favor revise su cuenta de correo %s para activar su usuario en el sistema del Grupo DCI", user.getEmail());
+            } else {
+                message = String.format("Ya existe un usuario con el username %s o el correo %s si no recuerda su contraseña de 'recordar contraseña'", cliente.getUsername(), cliente.getEmail());
+            }
+            model.addAttribute("titulo","Activación de usuario");
+            model.addAttribute("mensaje",message);
+            return model;
     }
 
     @Override
-    public void activar(Usuario usuario, MultipartFile imagenFile) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Model recordarUsuario(Model model, Cliente cliente) throws MessagingException {
+        String message;
+        Cliente client = clienteService.findByUsernameAndEmail(cliente.getUsername(), cliente.getEmail());
+        Usuario user = usuarioService.findByUsernameAndEmail(cliente.getUsername(), cliente.getEmail());
+        String password = generatePassword();
+        
+        
+        
+        if (cliente != null) {
+            client.setPassword(password);
+            client.setActive(false);
+            clienteService.saveCliente(cliente);
+            this.enviaCorreoRecordar(cliente, password);
+            message = String.format("Por favor revise su cuenta de correo %s para recuperar su usuario en el sistema del Grupo DCI", user.getUsername(), user.getEmail());
+        } else {
+            message = String.format("Ya existe un usuario con el username %s o el correo %s si no recuerda su contraseña presione 'recordar contraseña'", user.getUsername(), user.getEmail());
+        }
+        model.addAttribute("titulo", "Activar");
+        model.addAttribute("mensaje", message);
+        return model;
     }
 
     @Override
-    public Model recordarUsuario(Model model, Usuario usuario) throws MessagingException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void activar(Cliente cliente, MultipartFile imagenFile) {
+        var codigo = new BCryptPasswordEncoder();
+            cliente.setPassword(codigo.encode(cliente.getPassword()));
+            cliente.setActive(true);
+
+            if (!imagenFile.isEmpty()) cliente.setPhoto(firebaseStorageService.loadImage(imagenFile, "clientes", cliente.getIdentification()));
+            clienteService.saveCliente(cliente);
     }
 }
