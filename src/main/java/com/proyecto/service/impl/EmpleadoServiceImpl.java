@@ -45,5 +45,10 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     public void saveEmpleado(Empleado empleado) {
         empleadoDao.save(empleado);
     }
+
+    @Override
+    public Empleado findByUsernameAndPassword(String username, String Password) {
+       return empleadoDao.findByUsernameAndPassword(username, Password);
+    }
     
 }

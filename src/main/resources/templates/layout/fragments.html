@@ -96,7 +96,9 @@
 
 
         <div th:fragment="chat" class="chat">
-            <i class="fa-solid fa-comments"></i>
+            <a href="https://api.whatsapp.com/send?phone=NUMERO_DE_TELEFONO&text=Hola,%20estoy%20interesado%20en%20su%20servicio%20de%20chat" target="_blank">
+                <i class="fa-solid fa-comments"></i>
+            </a>
         </div>
 
         <div th:fragment="carousel" id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -147,24 +149,41 @@
             </button>
         </div>
 
+        <section th:fragment="info" class="cards">
+            
+            <div style="background-color:#0E6655 ; color: white; display: flex; align-items: center; padding: 20px;">
+                <div style="flex: 1; display: flex; align-items: center;">
+                    <div style="width: 1000px; padding-right: 80px; text-align: center;">
+                        <img src="https://www.pngmart.com/files/22/Constructor-PNG-Transparent.png" alt="Imagen" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div>
+                        <h2 style="font-size: 60px;">Garantizado!</h2>
+                        <p style="font-size: 40px;">Le brindamos 1 año de garantía en cualquier avería referente a las construcciones su seguridad es primero</p>
+                    </div>
+                </div>
+            </div>
 
+        </section>
 
         <section th:fragment="cards" class="cards">
             <div class="card">
                 <i class="fa-solid fa-person-digging"></i>
-                <h2>Lorem, ipsum dolor.</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
+                <h2>Quienes somos</h2>
+                <p>DCI surge bajo la propuesta de brindar hogares y asesoría para pueda cumplir su sueño de tener casa propia</p>
+                <a class="card-button" th:href="@{/about}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; transition: background-color 0.3s;">Quienes somos</a>
             </div>
             <div class="card">
                 <i class="fa-solid fa-person-digging"></i>
-                <h2>Lorem, ipsum dolor.</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas, magni?</p>
-            </div>
+                <h2>Síganos</h2>
+                <p>Contactenos por medio de Facebook, Instagram o por WhatsApp. Estaremos felices de atenderle.</p>
+                <a class="card-button" href="https://www.facebook.com/grupodcicr?mibextid=ZbWKwL" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; transition: background-color 0.3s;">Contactenos</a>
 
             <div class="card">
                 <i class="fa-solid fa-person-digging"></i>
                 <h2>¿Busca Casa?</h2>
                 <p>Mire nuestro catálogo y con gusto le brindaremos detalles de la vivienda que desee.</p>
+                <a class="card-button" th:href="@{/ventas/listar}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; transition: background-color 0.3s;">Catálogo</a>
+
             </div>
         </section>
 

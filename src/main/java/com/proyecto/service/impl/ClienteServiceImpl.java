@@ -46,5 +46,12 @@ public class ClienteServiceImpl implements ClienteService {
     public void saveCliente(Cliente cliente) {
         clienteDao.save(cliente);
     }
+
+    @Override
+    public Cliente findByUsernameAndPassword(String username, String Password) {
+        
+       return clienteDao.findByUsernameAndPassword(username, Password);
+      
+    }
     
 }
