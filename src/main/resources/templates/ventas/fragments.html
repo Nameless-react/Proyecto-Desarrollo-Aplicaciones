@@ -99,7 +99,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
 
                                 <td style="text-align: center;">
-                                    <a th:href="@{/ventas/actualizar/{id}(id=${venta.id})}" class="btn btn-warning">
+                                    <a th:href="@{/ventas/actualizar/{id}(id=${venta.id})}" class="btn btn-warning" sec:authorize="hasRole('ROLE_ADMIN')">
                                         Editar
                                     </a>
                                 </td>
@@ -107,7 +107,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <td style="text-align: center;">
                                     <form th:action="@{/ventas/eliminar/{id}(id=${venta.id})}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta venta?')" >
                                         <input type="hidden" name="_method" value="DELETE" />
-                                        <button type="submit" class="btn btn-danger">
+                                        <button type="submit" class="btn btn-danger" sec:authorize="hasRole('ROLE_ADMIN')">
                                             Eliminar
                                         </button>
                                     </form>
@@ -135,7 +135,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </section>
     <section th:fragment="Agregar">
         <div class="mb-4 d-flex justify-content-center">
-            <a th:href="@{/ventas/agregar}" class="btn btn-primary">Agregar</a>
+            <a th:href="@{/ventas/agregar}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary">Agregar</a>
         </div>
     </section>
 

@@ -22,4 +22,5 @@ public interface ConstruccionService {
     public void saveConstruccion(Construccion construccion);
     Page<Construccion> getConstruccionPaginadas(Pageable pageable);
     Page<Construccion> getConstruccionPaginadasBetweenPrice(long initPrice, long finishPrice, Pageable pageable);
+    
 }

@@ -27,7 +27,7 @@ public class Archivos implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
+    private String filePath;
     private LocalDate date;
     private String icono;
 

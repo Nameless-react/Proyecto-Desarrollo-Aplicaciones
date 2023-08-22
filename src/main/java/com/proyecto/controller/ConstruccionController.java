@@ -6,6 +6,8 @@ package com.proyecto.controller;
 
 
 import com.proyecto.domain.Construccion;
+import com.proyecto.domain.Empleado;
+import com.proyecto.domain.Venta;
 import com.proyecto.service.ConstruccionService;
 import com.proyecto.service.impl.FireBaseStorageServiceImpl;
 import java.util.List;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,33 +48,42 @@ public class ConstruccionController {
             Page<Construccion> construccionPage = construccionService.getConstruccionPaginadasBetweenPrice(initPrice.get(), finishPrice.get(), PageRequest.of(page, pageSize));
             model.addAttribute("construccionPage", construccionPage);
         }
-        
+
         return "/construccion/listar";
-        
+
     }
-    
-    @GetMapping("/nuevo")
-    public String newElement(Construccion construction) {
-        return "/Construccion/modifica";
+
+    @GetMapping("/agregar")
+    public String showAddForm(Model model) {
+        Construccion construccion = new Construccion();
+        model.addAttribute("construction", construccion);
+        return "/construccion/agregar";
     }
     
     @PostMapping("/guardar")
     public String save(Construccion construccion) {
         construccionService.saveConstruccion(construccion);
-        return "redirect:/Construccion/listar";
+        return "redirect:/construccion/listar";
     }
     
+    
     @GetMapping("/actualizar/{id}")
-    public String update(Construccion construccion, Model model) {
-        Construccion construction = construccionService.getConstruccion(construccion.getId());
-        model.addAttribute("construction", construction);
-        return "/Construccion/actualizar";
+    public String update(@PathVariable Long id, Model model) {
+        Construccion construccion = construccionService.getConstruccion(id); 
+
+        if (construccion != null) {
+            model.addAttribute("construccion", construccion);
+
+            return "/construccion/actualizar";
+        } else {
+            return "redirect:/construccion/listar";
+        }
     }
 
     @GetMapping("/eliminar/{id}")
     public String delete(Construccion construccion, Model model) {
         construccionService.deleteConstruccion(construccion.getId());
-        return "redirect:/Construccion/listar";
+        return "redirect:/construccion/listar";
     }
-    
+
 }

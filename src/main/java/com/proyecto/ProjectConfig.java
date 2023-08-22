@@ -1,4 +1,3 @@
-
 package com.proyecto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +57,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/construccion/listar",
                         "/ventas/listar",
                         "/archivos/listar"
+                        
                 ).hasAnyRole("EMPLOYEE", "ADMIN")
                 .requestMatchers("/ventas/listar", "/clientes/actualizar")
                 .hasRole("USER")
