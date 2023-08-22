@@ -18,39 +18,43 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2 class="text-center fw-bold mb-5">Registro de Cliente</h2>
-                <form action="/clientes/guardar" method="post">
+                <form th:action="@{/registro/crear}" th:object="${cliente}" method="post" enctype="multipart/form-data">   
                     <div class="form-group">
                         <label class="fw-bold" for="identification">Identificación:</label>
-                        <input type="number" min="10000000" id="identification" name="identification" class="form-control" required>
+                        <input type="number" min="10000000" id="identification" th:name="identification" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label class="fw-bold mb-3 mt-3" for="name">Nombre:</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
+                        <input type="text" id="name" th:name="name" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label class="fw-bold mb-3 mt-3" for="firstSurName">Primer Apellido:</label>
-                        <input type="text" id="firstSurName" name="firstSurName" class="form-control" required>
+                        <input type="text" id="firstSurName" th:name="firstSurName" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label class="fw-bold mb-3 mt-3" for="secondSurName">Segundo Apellido:</label>
-                        <input type="text" id="secondSurName" name="secondSurName" class="form-control">
+                        <input type="text" id="secondSurName" th:name="secondSurName" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold mb-3 mt-3" for="username">Username:</label>
+                        <input type="text" id="username" th:name="username" class="form-control">
                     </div>
                     <div class="form-group">
                         <label class="fw-bold mb-3 mt-3" for="phone">Teléfono:</label>
-                        <input type="text" id="phone" name="phone" class="form-control" required>
+                        <input type="text" id="phone" th:name="phone" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label class="fw-bold mb-3 mt-3" for="email">Email:</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
+                        <input type="email" id="email" th:name="email" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label class="fw-bold mb-3 mt-3" for="password">Contraseña:</label>
-                        <input type="password" id="password" name="password" class="form-control" required>
+                        <input type="password" id="password" th:name="password" class="form-control" required>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="fw-bold mb-3 mt-3" for="photo">Foto:</label>
-                        <input type="file" id="photo" name="photo" class="form-control" accept="image/*" required>
-                    </div>
+                        <input type="file" id="photo" th:name="photo" class="form-control">
+                    </div> -->
                     <br>
                     <br>
                     <div class="text-center">

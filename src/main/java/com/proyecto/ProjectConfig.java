@@ -1,4 +1,3 @@
-
 package com.proyecto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 /**
  *
@@ -40,42 +40,26 @@ public class ProjectConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", 
-                        "/archivos/**",
-                        "/reportes/**",
-                        "/ventas/**", 
-                        "/index", 
-                        "/errores/**", 
-                        "/Construccion/**", 
-                        "/construccion/**",
-                        "/construccion/agregar",
-                        "/rendimiento/**",
-                        "/about", 
-                        "/js/**", 
-                        "/webjars/**", 
-                        "/CSS/**", 
-                        "contact", 
-                        "signup", 
-                        "ventas/**", 
-                        "perfil", 
-                        "clientes/**", 
-                        "/empleados/actualizar/**", 
-                        "/error",
-                        "/controller/**",
-                        "/firebase/**",
-                        "/domain/**",
-                        "/proyecto/**")
+                .requestMatchers("/", "/archivos/**", "/index", "/errores/**", "/about", "/js/**", "/webjars/**", "/CSS/**", "/registro/**", "/Registro/**", "/perfil", "/error", "/reportes/**")
                 .permitAll()
                 .requestMatchers(
-                        "/roles/**", "/empleados/eliminar/**", "/empleados/guardar/",
-                        "contact"
+                        "/roles/**", "/empleados/actualizar/**",
+                        "/empleados/eliminar/**", "/clientes/eliminar/**",
+                        "/clientes/**", "/empleados/**", "/rendimiento/**",
+                        "/rendimiento/eliminar/**", "/construccion/actualizar/**", "/construccion/eliminar/**",
+                        "/ventas/actualizar/**", "/ventas/eliminar/**",
+                        "/archivos/eliminar/**", "/archivos/agregar/"
                 ).hasRole("ADMIN")
                 .requestMatchers(
-                        "/producto/listado",
-                        "/categoria/listado",
-                        "/usuario/listado"
-                ).hasAnyRole("ADMIN", "VENDEDOR")
-                .requestMatchers("/facturar/carrito")
+                        "/empleados/listar",
+                        "/clientes/listar",
+                        "/rendimiento/listar",
+                        "/construccion/listar",
+                        "/ventas/listar",
+                        "/archivos/listar"
+                        
+                ).hasAnyRole("EMPLOYEE", "ADMIN")
+                .requestMatchers("/ventas/listar", "/clientes/actualizar")
                 .hasRole("USER")
                 )
                 .formLogin((form) -> form

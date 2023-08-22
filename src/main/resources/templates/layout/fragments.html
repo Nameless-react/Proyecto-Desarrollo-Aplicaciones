@@ -36,7 +36,7 @@
                             <a class="nav-link" aria-current="page" th:href="@{/about}">Sobre Nosotros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" th:href="@{/archivos/listar}">Archivos</a>
+                            <a class="nav-link" aria-current="page" sec:authorize="isAuthenticated()" th:href="@{/archivos/listar}">Archivos</a>
                         </li>
 
                         <!-- dropdown usuarios -->
@@ -54,11 +54,11 @@
                             </ul>
                         </li>
                         <!-- dropdown casas -->
-                        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <li class="nav-item dropdown" >
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Casas</a>
                             <ul class="dropdown-menu dropdown-menu-light">
                                 <li>
-                                    <a class="dropdown-item" th:href="@{/construccion/listar}">En Construcción</a>
+                                    <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/construccion/listar}">En Construcción</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" th:href="@{/ventas/listar}">En Ventas</a>
@@ -73,7 +73,7 @@
                             <a class="nav-link" aria-current="page" th:href="@{/login}">Inicio Sesión</a>
                         </li>
                         <li sec:authorize="!isAuthenticated()" class="nav-item">
-                            <a class="nav-link" aria-current="page" th:href="@{/signup}">Registrarse</a>
+                            <a class="nav-link" aria-current="page" th:href="@{/registro/nuevo}">Registrarse</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav user" sec:authorize="isAuthenticated()">
@@ -178,12 +178,12 @@
                 <p>Contactenos por medio de Facebook, Instagram o por WhatsApp. Estaremos felices de atenderle.</p>
                 <a class="card-button" href="https://www.facebook.com/grupodcicr?mibextid=ZbWKwL" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; transition: background-color 0.3s;">Contactenos</a>
             </div>
-
             <div class="card">
                 <i class="fa-solid fa-person-digging"></i>
                 <h2>¿Busca Casa?</h2>
                 <p>Mire nuestro catálogo y con gusto le brindaremos detalles de la vivienda que desee.</p>
                 <a class="card-button" th:href="@{/ventas/listar}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-align: center; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; transition: background-color 0.3s;">Catálogo</a>
+
             </div>
         </section>
 

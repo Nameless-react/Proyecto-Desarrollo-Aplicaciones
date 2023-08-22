@@ -46,5 +46,19 @@ public class ClienteServiceImpl implements ClienteService {
     public void saveCliente(Cliente cliente) {
         clienteDao.save(cliente);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Cliente findByUsernameAndPassword(String username, String Password) {
+        
+       return clienteDao.findByUsernameAndPassword(username, Password);
+      
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Cliente findByUsernameAndEmail(String username, String email) {
+       return clienteDao.findByUsernameAndEmail(username, email);
+    }
     
 }

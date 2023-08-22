@@ -50,15 +50,19 @@
 
         <form th:fragment="form" th:action="@{/empleados/guardar}" th:object="${empleado}" method="POST" class="was-validated form" enctype="multipart/form-data">
             <input type="hidden" name="photo" th:field="*{photo}"/>   
-            <input type="hidden" required placeholder="Contraseña" th:field="*{password}">
-            <input  type="hidden" placeholder="Username" th:field="*{username}">        
-            <h1 th:text="${empleado.identification} != 0 and ${screen} != 'new' ? 'Modificar Empleado' : 'Agregar Empleado'"></h1>
+            <input th:if="${screen} == 'edit'" type="hidden" required placeholder="Contraseña" th:field="*{password}">
+            <input th:if="${screen} == 'edit'" type="hidden" min="10000000" required placeholder="Identificación" th:field="*{identification}">
+            <input  type="hidden" placeholder="Username" th:field="*{username}">    
+
+            <h1 th:text="${screen} == 'edit' and ${screen} != null ? 'Modificar Empleado' : 'Agregar Empleado'"></h1>
             
-
-
-            <input th:if="${empleado.identification} == 0" type="number" min="10000000" required placeholder="Identificación" name="identification">
+         
+            <input th:if=" ${screen} != 'edit'" type="number" min="10000000" required placeholder="Identificación" th:field="*{identification}">
             <p class="errors" th:if="${#fields.errors('identification')}" th:errors="*{identification}" />
-            
+         
+            <input type="text" th:if="${screen} != 'edit'" placeholder="Username" th:field="*{username}">
+            <p class="errors" th:if="${#fields.errors('username')}" th:errors="*{username}" />
+
             <input type="text" placeholder="Nombre" th:field="*{name}">        
             <p class="errors" th:if="${#fields.errors('name')}" th:errors="*{name}" />
 
@@ -78,7 +82,7 @@
             <p class="errors" th:if="${#fields.errors('phone')}" th:errors="*{phone}" />
             
             
-            <div th:if="${empleado.identification} == 0" class="container-password">
+            <div th:if="${screen} != 'edit'" class="container-password">
                 <input type="password" required placeholder="Contraseña" th:field="*{password}">
                 <i class="eye fa-sharp fa-solid fa-eye-slash" onclick="showEye()"></i>
             </div>
@@ -92,7 +96,7 @@
             </div>
             <input type="file" onchange="readURL(this)" name="imagenFile">
             <img id="blah" th:src="*{photo}" height="200">
-            <button type="submit" th:text="${empleado.identification} != 0 and ${screen} != 'new' ? 'Modificar' : 'Agregar'"></button>
+            <button type="submit" th:text="${screen} == 'edit' ? 'Modificar' : 'Agregar'"></button>
         </form>
     </body>
 </html>

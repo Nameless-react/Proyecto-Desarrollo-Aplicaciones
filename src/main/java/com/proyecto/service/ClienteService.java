@@ -18,4 +18,6 @@ public interface ClienteService {
     public List<Cliente> getClientes();
     public void deleteCliente(long id);
     public void saveCliente(Cliente cliente);
+    public  Cliente  findByUsernameAndPassword(String username, String Password);
+    public Cliente findByUsernameAndEmail(String username, String email);
 }

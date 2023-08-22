@@ -4,6 +4,7 @@
  */
 package com.proyecto.service;
 
+
 import com.proyecto.domain.Empleado;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -18,4 +19,7 @@ public interface EmpleadoService {
     public List<Empleado> getEmpleados(boolean active);
     public void deleteEmpleado(long id);
     public void saveEmpleado(Empleado empleado);
+    public  Empleado  findByUsernameAndPassword(String username, String Password);
+     public Empleado findByUsernameAndEmail(String username, String email);
+    
 }

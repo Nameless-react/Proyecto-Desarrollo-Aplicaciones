@@ -18,7 +18,7 @@ function addCard(formulario) {
 
 const showEye = () => {
     const closeEye = document.querySelector(".eye");
-    const password = document.querySelectorAll("#password")[1];
+    const password = document.querySelectorAll("#password")[0];
     if (closeEye.classList.contains("fa-eye-slash")) {
         closeEye.classList.replace("fa-eye-slash", "fa-eye");
         password.setAttribute("type", "text");

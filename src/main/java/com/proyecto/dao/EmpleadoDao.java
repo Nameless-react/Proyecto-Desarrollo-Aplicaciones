@@ -4,6 +4,7 @@
  */
 package com.proyecto.dao;
 
+
 import com.proyecto.domain.Empleado;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,5 +13,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Emanuel
  */
 public interface EmpleadoDao extends JpaRepository<Empleado, Long> {
-    
+    public  Empleado  findByUsernameAndPassword(String username, String Password);
+    public Empleado findByUsernameAndEmail(String username, String email);
 }

@@ -55,4 +55,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario getUser(long id) {
         return userDao.findById(id).orElse(null);
     }    
+
+    @Override
+    public Usuario findByUsernameAndEmail(String username, String email) {
+        return userDao.findByUsernameAndEmail(username, email);
+    }
 }
