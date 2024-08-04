@@ -36,7 +36,7 @@
                             <a class="nav-link" aria-current="page" th:href="@{/about}">Sobre Nosotros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" th:href="@{/archivos/listar}">Archivos</a>
+                            <a class="nav-link" aria-current="page" sec:authorize="isAuthenticated()" th:href="@{/archivos/listar}">Archivos</a>
                         </li>
 
                         <!-- dropdown usuarios -->
@@ -54,11 +54,11 @@
                             </ul>
                         </li>
                         <!-- dropdown casas -->
-                        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <li class="nav-item dropdown" >
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Casas</a>
                             <ul class="dropdown-menu dropdown-menu-light">
                                 <li>
-                                    <a class="dropdown-item" th:href="@{/construccion/listar}">En Construcción</a>
+                                    <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/construccion/listar}">En Construcción</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" th:href="@{/ventas/listar}">En Ventas</a>

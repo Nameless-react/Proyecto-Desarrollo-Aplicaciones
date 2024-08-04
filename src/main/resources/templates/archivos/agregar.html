@@ -1,42 +1,35 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:th="http://www.thymeleaf.org" 
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-    <head th:replace="~{layout/fragments :: head}"></head>
-    <body>
-        <header th:replace="~{layout/fragments :: header}"></header>
-        <br>
-            <br>
-                <br>
-                    <br>
-                        <br>
-                            <section th:replace="~{Archivos/fragmentos :: listar} "></section>
-                            <br>
-
-                                <form th:action="@{/archivos/agregar}" method="post" enctype="multipart/form-data">
-                                    <br>
-                                        <label for="name">Nombre del Archivo:</label>
-                                        <input type="text" id="name" name="name" required>
-                                            <br>
-                                                <label for="date">Fecha:</label>
-                                                <input type="date" id="date" name="date" required>
-                                                    <br>
-                                                        <label for="icono">Icono:</label>
-                                                        <select id="icono" name="icono" required>
-                                                            <option value="https://images.freeimages.com/fic/images/icons/2795/office_2013_hd/2000/word.png">Word</option>
-                                                            <option value="https://images.freeimages.com/fic/images/icons/2795/office_2013_hd/2000/excel.png">Excel</option>
-                                                            <option value="https://images.freeimages.com/fic/images/icons/2795/office_2013_hd/2000/powerpoint.png">PowerPoint</option>
-                                                        </select>
-                                                        <br>
-                                                            <div class="form-group">
-                                                                <button type="submit" class="btn btn-primary">Guardar</button>
-                                                                <a th:href="@{/archivos/listar}" class="btn btn-secondary">Cancelar</a>
-                                                            </div>
-                                                            </form>
-
-                                                            <br>
-                                                                <br>
-                                                                    <br>
-                                                                        <footer th:replace="~{layout/fragments :: footer}"></footer>
-                                                                        </body>
-                                                                        </html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{layout/fragments :: head}"></head>
+<body>
+    <header th:replace="~{layout/fragments :: header}"></header>
+    <div class="container">
+        <section th:replace="~{Archivos/fragmentos :: listar}"></section>
+        <div class="upload-form">
+            <form th:action="@{/archivos/agregar}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="filePath">Nombre del Archivo:</label>
+                    <input type="text" id="filePath" name="filePath" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Fecha:</label>
+                    <input type="date" id="date" name="date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="icono">Icono:</label>
+                    <select id="icono" name="icono" class="form-control" required>
+                        <option value="https://images.freeimages.com/fic/images/icons/2795/office_2013_hd/2000/word.png">Word</option>
+                        <option value="https://images.freeimages.com/fic/images/icons/2795/office_2013_hd/2000/excel.png">Excel</option>
+                        <option value="https://images.freeimages.com/fic/images/icons/2795/office_2013_hd/2000/powerpoint.png">PowerPoint</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a th:href="@{/archivos/listar}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="~{layout/fragments :: footer}"></footer>
+</body>
+</html>
